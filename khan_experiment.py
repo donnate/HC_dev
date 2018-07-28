@@ -32,6 +32,7 @@ if __name__ == '__main__':
     parser.add_argument("-l0","--lambd0",help="lambda 0 ",default=1e-3, type=float)
     parser.add_argument("-tol","--tol",help="tolerance for stopping criterion",default=5*1e-3, type=float)
     parser.add_argument("-nn","--n_neighbors",help="nb nearest_neighbors",default=10, type=int)
+    parser.add_argument("-max_iter_fista","--max_iter_fista",help="max_iter_fista",default=150, type=int)
     args = parser.parse_args()
 
     logger = logging.getLogger('myapp')
@@ -46,6 +47,7 @@ if __name__ == '__main__':
     N_NEIGHBORS = args.n_neighbors
     LAMBDA0 = args.lambd0
     TOL = args.tol
+    MAXITERFISTA = args.max_iter_fista
 
     data = pd.DataFrame.from_csv("data/khan_train.csv")
     D = np.exp(-cdist(data, data)**2/(2*SIGMA))
@@ -103,11 +105,11 @@ if __name__ == '__main__':
                                                                                pi_prev,
                                                                                lambd,
                                                                                alpha=ALPHA, 
-                                                                               maxiterFISTA=300,
+                                                                               maxiterFISTA=MAXITERFISTA,
                                                                                eta=eta_t,
                                                                                tol=TOL, 
                                                                                verbose=True,
-                                                                               tol_projection=5*1e-5,
+                                                                               tol_projection=1e-2*TOL,
                                                                                logger=logger)
             pi_prev = Z
             if it > 2:
