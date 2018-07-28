@@ -13,9 +13,9 @@ MAXITER_UX = 100
 LAMBDA_MAX = 5.0
 N_LAMBDA = 20
 
-def compute_reg_path(kernel, alpha, mode="ADMM", direction='down', tol= TOL,
+def compute_reg_path(kernel, alpha, mode="ADMM", direction='up', tol= TOL,
                      lambda_max= LAMBDA_MAX, n_lambda=N_LAMBDA,
-                     verbose= False, **kwargs):
+                     verbose= False, logger=None, **kwargs):
     ''' Computes the regularization path for K
     
         INPUT:
@@ -43,12 +43,14 @@ def compute_reg_path(kernel, alpha, mode="ADMM", direction='down', tol= TOL,
                                                              alpha=alpha,
                                                              maxit_ADMM=MAXIT_ADMM,
                                                              tol=TOL,
-                                                             maxiter_ux=MAXITER_UX)
+                                                             maxiter_ux=MAXITER_UX,
+                                                             logger=logger)
         else:
               x_k, time_alg[it_lambda], evol_rank[lambd], _ = hcc_FISTA(kernel, x_init, lambd,
                                                                         alpha=alpha, 
                                                                         maxiterFISTA=MAXIT_FISTA,
-                                                                        tol = TOL)
+                                                                        tol = TOL,
+                                                                        logger=logger)
         pi[lambd] = x_k
         x_init = x_k
         # Check divergence compare to previous

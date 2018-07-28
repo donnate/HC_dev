@@ -174,7 +174,7 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
 
 def hcc_FISTA(K, pi_warm_start, lambd0, alpha =0.95,
               maxiterFISTA = 2000, tol=5*1e-3, debug_mode=False,
-              lambda_spot = 0, verbose =False):
+              lambda_spot = 0, verbose =False, logger=None):
     if debug_mode: verbose =True
     Y, pi, pi_prev = [pi_warm_start] * 3
     evol_efficient_rank=[]
@@ -186,37 +186,59 @@ def hcc_FISTA(K, pi_warm_start, lambd0, alpha =0.95,
     delta_pi=[]
     it = 0 
     converged = False
-    if verbose: print("Beginning l=%f"%(lambd0))
+    if verbose:
+        if logger is not None: logger.info("Beginning l=%f"%(lambd0))
+        else: print("Beginning l=%f"%(lambd0))
     B = pi_prev
+    inc = 0
+    inc_rank = 0
     while not converged:
-        if lambda_spot == 0:
-            g_t = 2.0 / L * (K.todense().dot(B) - K.todense())
-        else:
-            g_t = 2.0 / (lambd* L) * (K.todense().dot(B) - K.todense())
-        B=  project_DS2(B - g_t)
- 
+        #STOP
+        g_t = 2.0 / L * (K.todense().dot(B) - K.todense())
+        B=  project_DS2(B - g_t, eps = 1e-4)#+np.abs(B - g_t))
+      
+        
         Z, time_taken, delta_x, delta_p, delta_q, dual = hcc_FISTA_denoise(K , B, pi_prev, 
                                                                            lambd, alpha=alpha, 
                                                                            maxiterFISTA=100,
-                                                                           eta=1.0, tol= tol,
-                                                                           verbose=False,
-                                                                           tol_projection=1e-2)
-        pi_prev = Z
-
-        conv_p[it] = delta_p
-        conv_q[it] = delta_q
-        conv_x[it] = delta_x
+                                                                           eta=1.0,
+                                                                           tol= tol , verbose=False,
+                                                                            tol_projection= 1e-4)
+        eta_t *= 1.0
+        if it>1:
+            if ((efficient_rank(Z) - evol_efficient_rank[lambd0][-2])/evol_efficient_rank[lambd0][-2] >0 and
+                np.linalg.norm( pi_prev_old-Z, 'fro')/np.linalg.norm( pi_prev_old, 'fro')>0.5):
+                pi_prev = pi_prev_old
+            else:
+                pi_prev = Z
+        else:
+            pi_prev = Z
+        
+        #if efficient_rank(pi_prev)<45: STOP
+        conv_p[lambd0][it] = delta_p
+        conv_q[lambd0][it] = delta_q
+        conv_x[lambd0][it] = delta_x
         t_kp1 = 0.5 * (1 + np.sqrt(1 + 4 * t_k**2))
-        delta_pi.append(np.linalg.norm( pi_prev_old - pi_prev, 'fro') /\
-                        np.linalg.norm(pi_prev_old, 'fro'))
-        converged = (delta_pi[-1] < tol and it > 2)\
+        delta_pi.append(np.linalg.norm( pi_prev_old-pi_prev, 'fro')/np.linalg.norm( pi_prev_old, 'fro'))
+        if delta_pi[-1]< tol:
+            inc+=1
+        else:
+            inc=0
+        #print delta_pi[-1]
+        converged = (inc>4)\
                          or (it > maxiterFISTA)
         evol_efficient_rank[lambd0] += [efficient_rank(pi_prev)]
-        B = pi_prev + (t_k - 1) / t_kp1 * (pi_prev - pi_prev_old)
+        
+        B = pi_prev + (t_k)/t_kp1*(Z - pi_prev)+ (t_k-1)/t_kp1 * (pi_prev - pi_prev_old)
         pi_prev_old = pi_prev
         t_k = t_kp1
         it+=1
-        if verbose: print(it, delta_pi, evol_efficient_rank[lambd0], pi_prev[:10,:10])
-    
+        if verbose:
+            if logger is not None: logger.info("it:%i, convergence:%f, rk: %f)"%(it, delta_pi[-1],evol_efficient_rank[lambd0][-1]))
+            else: print(it, delta_pi[-1],evol_efficient_rank[lambd0][-1])
+        #if it ==1 : STOP
+
+    print('-----------------------------------')
+    if logger is not None: logger.info("'-----------------------------------")
     toc = time.time()
     return pi_prev, toc-tic, evol_efficient_rank, delta_pi

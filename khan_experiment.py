@@ -75,10 +75,8 @@ if __name__ == '__main__':
     L = 2*sc.sparse.linalg.norm(K, 'fro')
     lambd0 = LAMBDA0
     lambd = 2*lambd0/ L
-    maxiterFISTA = 120
     #L = 2*np.max(np.square(K.todense()).sum(1))
     res = {}
-    tol= 5*1e-3
     t_k = 1
     conv_p, conv_q, conv_x = {}, {} , {}
 

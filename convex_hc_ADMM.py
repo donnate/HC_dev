@@ -6,7 +6,7 @@ import time
 
 
 def hcc_ADMM(K, pi_prev, lambd, alpha=0.5, maxit_ADMM=100, rho=1.0,
-             mode='kernelized', tol=1e-2, maxiter_ux=100, verbose=False):
+             mode='kernelized', tol=1e-2, maxiter_ux=100, verbose=False, logger = None):
     ''' Hierarchical clustering algorithm based on ADMM
         Input: similarity matrix K assumed to be from a Mercer kernel
         (or at least PSD)
@@ -107,7 +107,12 @@ def hcc_ADMM(K, pi_prev, lambd, alpha=0.5, maxit_ADMM=100, rho=1.0,
         converged = (it > maxit_ADMM) or\
                     (primal_res[-1] < eps1 and dual_res[-1] < eps2)
         if verbose: 
-            print "Primal res= %f, Dual_res= %f, at iteration %i"%(primal_res[-1],
+        	if logger is not None:
+        	    logger.info( "Primal res= %f, Dual_res= %f, at iteration %i"%(primal_res[-1],
+                                                                   dual_res[-1],
+                                                                   it))
+        	else:
+        	    print "Primal res= %f, Dual_res= %f, at iteration %i"%(primal_res[-1],
                                                                    dual_res[-1],
                                                                    it)
 
