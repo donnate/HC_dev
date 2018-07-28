@@ -138,7 +138,7 @@ if __name__ == '__main__':
                 + (t_k - 1) / t_kp1 * (pi_prev - pi_prev_old)
             pi_prev_old = pi_prev
             t_k = t_kp1
-            it + =1
+            it +=1
             logger.info('outer loop %i: conv: %f, rank: %f'%(it, delta_pi[-1], evol_efficient_rank[lambd0][-1]))
             logger.info('--------------------------')
 
