@@ -139,7 +139,7 @@ if __name__ == '__main__':
             pi_prev_old = pi_prev
             t_k = t_kp1
             it+=1
-            logger.info('outer loop %i: conv: %f, rank: %'%(it, delta_pi[-1], evol_efficient_rank[lambd0][-1]))
+            logger.info('outer loop %i: conv: %f, rank: %f'%(it, delta_pi[-1], evol_efficient_rank[lambd0][-1]))
             logger.info('--------------------------')
 
         logger.info('--------------------------')
