@@ -30,6 +30,7 @@ if __name__ == '__main__':
     parser.add_argument("-a","--alpha",help="alpha",default=0.95, type=float)
     parser.add_argument("-s","--sigma",help="bandwith for kernel",default=200.0, type=float)
     parser.add_argument("-l0","--lambd0",help="lambda 0 ",default=1e-3, type=float)
+    parser.add_argument("-tol","--tol",help="tolerance for stopping criterion",default=5*1e-3, type=float)
     parser.add_argument("-nn","--n_neighbors",help="nb nearest_neighbors",default=10, type=int)
     args = parser.parse_args()
 
@@ -43,7 +44,8 @@ if __name__ == '__main__':
     ALPHA = args.alpha
     SIGMA = args.sigma
     N_NEIGHBORS = args.n_neighbors
-    LAMBDA0= args.lambd0
+    LAMBDA0 = args.lambd0
+    TOL = args.tol
 
     data = pd.DataFrame.from_csv("data/khan_train.csv")
     D = np.exp(-cdist(data, data)**2/(2*SIGMA))
@@ -91,27 +93,22 @@ if __name__ == '__main__':
         evol_efficient_rank[lambd0] = []
         m_tm1, nu_tm1 = np.zeros(B.shape),np.zeros(B.shape)
         eta_t = 1.0
-        eta2 =0.0
-        beta_1, beta_2 = 0.9, 0.999
-        momentum =np.zeros(B.shape)
         inc  = 0
         inc_rank = 0
         while not converged:
             #STOP
-            g_t = 2.0 / (L) * (K.todense().dot(B) - K.todense()) + eta2* momentum
-            momentum = g_t
-            #m_t = (beta_1 * m_tm1 + (1-beta_1) * g_t)/(1-beta_1)
-            #nu_t = (beta_2 * nu_tm1 + (1-beta_2) * np.square(g_t))/(1-beta_2)
-        
-            #B = project_DS2(B - 1.0 * eta /(np.sqrt(nu_t)+1e-8)*m_t, max_it =100000)
+            g_t = 2.0 / (L) * (K.todense().dot(B) - K.todense())
             B=  project_DS2(B - g_t)#+np.abs(B - g_t))
-            Z, time_taken, delta_x, delta_p, delta_q, dual = hcc_FISTA_denoise(K , B, pi_prev, 
-                                                                               lambd, alpha=0.0, 
+            Z, time_taken, delta_x, delta_p, delta_q, dual = hcc_FISTA_denoise(K, B,
+                                                                               pi_prev,
+                                                                               lambd,
+                                                                               alpha=ALPHA, 
                                                                                maxiterFISTA=300,
                                                                                eta=eta_t,
-                                                                               tol= tol , verbose=True,
-                                                                               tol_projection= 5*1e-5,
-                                                                               logger = logger)
+                                                                               tol=TOL, 
+                                                                               verbose=True,
+                                                                               tol_projection=5*1e-5,
+                                                                               logger=logger)
             pi_prev = Z
             if it > 2:
                 if (np.linalg.norm( pi_prev_old-Z, 'fro')/np.linalg.norm( pi_prev_old, 'fro')>0.5
@@ -124,21 +121,22 @@ if __name__ == '__main__':
             t_kp1 = 0.5 * (1 + np.sqrt(1 + 4 * t_k**2))
             delta_pi.append(np.linalg.norm( pi_prev_old-pi_prev, 'fro')/np.linalg.norm( pi_prev_old, 'fro'))
             #print delta_pi[-1]
-            if delta_pi[-1]< tol:
-                inc+=1
+            if delta_pi[-1] < tol:
+                inc += 1
             else:
-                inc=0
-            if it >0:
+                inc = 0
+            if it > 0:
                 if np.abs(efficient_rank(Z)-evol_efficient_rank[lambd0][-1])<0.5:
-                    inc_rank +=1
+                    inc_rank += 1
                 else:
-                    inc_rank=0
-            converged = (inc >=5) or (inc_rank >20 and it >50) or (it > maxiterFISTA)
+                    inc_rank = 0
+            converged = (inc >= 5) or (inc_rank > 20 and it > 50) or (it > maxiterFISTA)
             evol_efficient_rank[lambd0] += [efficient_rank(pi_prev)]
-            B = pi_prev + (t_k)/t_kp1*(Z - pi_prev)+ (t_k-1)/t_kp1 * (pi_prev - pi_prev_old)
+            B = pi_prev + (t_k) / t_kp1 * (Z - pi_prev)\
+                + (t_k - 1) / t_kp1 * (pi_prev - pi_prev_old)
             pi_prev_old = pi_prev
             t_k = t_kp1
-            it+=1
+            it + =1
             logger.info('outer loop %i: conv: %f, rank: %f'%(it, delta_pi[-1], evol_efficient_rank[lambd0][-1]))
             logger.info('--------------------------')
 
