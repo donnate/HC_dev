@@ -4,7 +4,6 @@ from argparse import ArgumentParser
 import copy
 import logging
 import numpy as np
-import matplotlib.pyplot as plt
 import os
 import pandas as pd
 import pickle
