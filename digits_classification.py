@@ -52,7 +52,7 @@ if __name__ == '__main__':
     SAVEFILE = args.savefile
 
     from sklearn.datasets import load_digits
-	data = load_digits()
+	digits = load_digits()
 	n_samples = len(digits.images)
 	data = digits.images.reshape((n_samples, -1))
     D = np.exp(-cdist(data, data)**2/(2*SIGMA))
