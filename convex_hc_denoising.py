@@ -2,13 +2,17 @@
 Code for the dual FISTA algorithm for hierarchical
 convex clustering
 """
+import copy
 import numpy as np
 import scipy as sc
+import time
+
 from projections import *
 from utils import *
 
-def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1,
-              tol=1e-2, verbose=True, tol_projection=1e-4, max_iter_projection=100000):
+def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1, tol=1e-2,
+                      verbose=True, tol_projection=1e-4, max_iter_projection=100000,
+                      logger = None):
     ''' Hierarchical clustering algorithm based on FISTA (dual)
     Input: similarity matrix K assumed to be from a Mercer kernel (or at least PSD)
     Output: the regularized soft membership assignment matrix
@@ -99,8 +103,10 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
     eps_reg =1e-5
     while not converged:
         belly = (alpha * p[:, mask]+ (1-alpha) * q[:, mask]).dot((delta_k[:, mask]).T)
-        if verbose:    print("belly ", belly.max())
-      
+        if verbose:    
+        	if logger is not None: logger.info("belly %f"%belly.max())
+        	else : print("belly ", belly.max())
+
         inside = B - eta * lambd * belly.A
         x_k = project_DS2(np.array(inside),  max_it=max_iter_projection, eps = tol_projection)
         
@@ -130,8 +136,15 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
         delta_q.append(sc.sparse.linalg.norm(q - q_old, 'fro'))
         converged = (delta_x[-1] < tol and it>1)\
                      or (it > maxiterFISTA)
-        if verbose: print("norm",sc.sparse.linalg.norm(p-p_old,'fro'),sc.sparse.linalg.norm(q-q_old,'fro'),eps)
-        if verbose: print("norm X", np.linalg.norm(x_k-x_km1, 'fro'))
+        if verbose: 
+        	if logger is not None:  logger.info("norms : %f and %f"%(sc.sparse.linalg.norm(p-p_old,'fro'),
+        	                              sc.sparse.linalg.norm(q-q_old,'fro')))
+        	else: print("norm",sc.sparse.linalg.norm(p-p_old,'fro'),
+        	                              sc.sparse.linalg.norm(q-q_old,'fro'))
+        if verbose: 
+        	if logger is not None: logger.info("norm X : %f, efficient rank: %f"%(np.linalg.norm(x_k-x_km1, 'fro'),
+        										efficient_rank(x_k)))
+        	else: print("norm X", np.linalg.norm(x_k-x_km1, 'fro'))
 
         dual.append(sc.sparse.linalg.norm(alpha * p[:, mask].dot((delta_k[:, mask]).T)\
                     + (1 - alpha) * q[:, mask].dot((delta_k[:, mask]).T), 'fro'))
@@ -143,7 +156,9 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
         x_km1 = x_k
         p_old, q_old = copy.deepcopy(p), copy.deepcopy(q)
         it += 1
-        if verbose: print(it,'efficient rank x_k', efficient_rank(x_k), 'delta', delta_x)
+        if verbose:
+             if logger is not None: logger.info(' %i: efficient rank x_k: %f, delta_x: %f'%(it,efficient_rank(x_k),delta_x[-1]))
+             else: print(it,'efficient rank x_k', efficient_rank(x_k), 'delta', delta_x)
 
     toc0 = time.time()
     if verbose: print(time.time() - tic0)

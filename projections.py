@@ -104,7 +104,7 @@ def iteration_proj_DS(Y):
     return Y2
 
 
-def project_DS2(G_tilde, max_it=500, eps=0.01):
+def project_DS2(G_tilde, max_it=100, eps=0.01):
     ''' Projection onto the set of doubly stochastic matrices
         INPUT:
         -----------------------------------------------------------
@@ -125,13 +125,15 @@ def project_DS2(G_tilde, max_it=500, eps=0.01):
     it_G = 0
     while not G_converged:
         Y = iteration_proj_DS(Y)
-        G_did_not_converge = (np.mean(np.abs(Y.sum(0) - 1)) < eps \
+        G_converged = (np.mean(np.abs(Y.sum(0) - 1)) < eps \
                              and np.mean(np.abs(Y.sum(1) - 1)) < eps)\
-                             or (it_G < max_it)
+                             or (it_G > max_it)
         Y_old = Y
         it_G += 1
+        #print(it_G)
+    #print("Projection attained in %i iterations."%it_G)
+    #print(Y.sum(0), Y.sum(1))
     return Y
-
 
 def project_simplex(v, z=1.0):
     ''' Projection of a vector v unto the scaled simplex
