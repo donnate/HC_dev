@@ -3,7 +3,6 @@ from __future__ import print_function
 from argparse import ArgumentParser
 import copy
 import logging
-import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
 import os
