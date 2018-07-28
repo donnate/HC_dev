@@ -10,7 +10,6 @@ import pickle
 import random
 from scipy.spatial.distance import cdist
 import scipy as sc
-import seaborn as sb
 import sklearn as sk
 import sys
 import time
