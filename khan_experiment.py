@@ -26,7 +26,8 @@ random.seed(2018)
 
 if __name__ == '__main__':
     parser = ArgumentParser("Run evaluation on KHAN dataset.")
-    parser.add_argument("-logger","--loggerfile",help="logger file name",default='synthetic_experiment_output/log_synthetic.log')
+    parser.add_argument("-logger","--loggerfile",help="logger file name",default='log_synthetic.log')
+    parser.add_argument("-savefile","--savefile",help="save file name",default='test_khan.pkl')
     parser.add_argument("-a","--alpha",help="alpha",default=0.95, type=float)
     parser.add_argument("-s","--sigma",help="bandwith for kernel",default=200.0, type=float)
     parser.add_argument("-l0","--lambd0",help="lambda 0 ",default=1e-3, type=float)
@@ -48,6 +49,7 @@ if __name__ == '__main__':
     LAMBDA0 = args.lambd0
     TOL = args.tol
     MAXITERFISTA = args.max_iter_fista
+    SAVEFILE = args.savefile
 
     data = pd.DataFrame.from_csv("data/khan_train.csv")
     D = np.exp(-cdist(data, data)**2/(2*SIGMA))
@@ -147,5 +149,5 @@ if __name__ == '__main__':
         logger.info('--------------------------')
         toc = time.time()
         res[lambd0]={'pi':pi_prev, 'convergence': delta_pi, 'time':toc-tic}
-        pickle.dump(res, open('KHAN_l1.pkl', 'wb'))
+        pickle.dump(res, open(SAVEFILE, 'wb'))
         lambd0 *= 2
