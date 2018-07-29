@@ -179,7 +179,7 @@ def hcc_FISTA(K, pi_warm_start, lambd0, alpha =0.95,
               maxiterFISTA = 2000, tol=5*1e-3, debug_mode=False,
               lambda_spot = 0, verbose =False, logger=None):
     if debug_mode: verbose =True
-    Y, pi, pi_prev = [pi_warm_start] * 3
+    Y, pi_prev, pi_prev_old = [pi_warm_start] * 3
     evol_efficient_rank=[]
     conv_p, conv_q, conv_x = {}, {}, {}
     L = 2 * sc.sparse.linalg.norm(K, 'fro')
@@ -198,7 +198,7 @@ def hcc_FISTA(K, pi_warm_start, lambd0, alpha =0.95,
     while not converged:
         #STOP
         g_t = 2.0 / L * (K.todense().dot(B) - K.todense())
-        B=  project_DS2(B - g_t, eps = 1e-4)#+np.abs(B - g_t))
+        B =  project_DS2(B - g_t, eps = 1e-4)#+np.abs(B - g_t))
       
         
         Z, time_taken, delta_x, delta_p, delta_q, dual = hcc_FISTA_denoise(K , B, pi_prev, 
@@ -208,7 +208,7 @@ def hcc_FISTA(K, pi_warm_start, lambd0, alpha =0.95,
                                                                            tol= tol , verbose=False,
                                                                             tol_projection= 1e-4)
         if it>1:
-            if ((efficient_rank(Z) - evol_efficient_rank[lambd0][-2])/evol_efficient_rank[lambd0][-2] >0 and
+            if ((efficient_rank(Z) - evol_efficient_rank[-1])/evol_efficient_rank[-1] >0 and
                 np.linalg.norm( pi_prev_old-Z, 'fro')/np.linalg.norm( pi_prev_old, 'fro')>0.5):
                 pi_prev = pi_prev_old
             else:
@@ -216,6 +216,7 @@ def hcc_FISTA(K, pi_warm_start, lambd0, alpha =0.95,
         else:
             pi_prev = Z
         
+        #if efficient_rank(pi_prev)<45: STOP
         conv_p[it] = delta_p
         conv_q[it] = delta_q
         conv_x[it] = delta_x
@@ -225,18 +226,22 @@ def hcc_FISTA(K, pi_warm_start, lambd0, alpha =0.95,
             inc+=1
         else:
             inc=0
+        if np.abs( efficient_rank(pi_prev_old)-efficient_rank(pi_prev))<2.0:
+            inc_rank += 1
+        else:
+            inc_rank = 0
+           
         #print delta_pi[-1]
-        converged = (inc>4)\
-                         or (it > maxiterFISTA)
-        evol_efficient_rank[lambd0] += [efficient_rank(pi_prev)]
+        converged = (inc>4)  or (inc_rank > 10 and it >15) or (it > maxiterFISTA)
+        evol_efficient_rank += [efficient_rank(pi_prev)]
         
         B = pi_prev + (t_k)/t_kp1*(Z - pi_prev)+ (t_k-1)/t_kp1 * (pi_prev - pi_prev_old)
         pi_prev_old = pi_prev
         t_k = t_kp1
         it+=1
         if verbose:
-            if logger is not None: logger.info("it:%i, convergence:%f, rk: %f)"%(it, delta_pi[-1],evol_efficient_rank[lambd0][-1]))
-            else: print(it, delta_pi[-1],evol_efficient_rank[lambd0][-1])
+            if logger is not None: logger.info("it:%i, convergence:%f, rk: %f)"%(it, delta_pi[-1],evol_efficient_rank[-1]))
+            else: print(it, delta_pi[-1],evol_efficient_rank[-1])
         #if it ==1 : STOP
 
     print('-----------------------------------')

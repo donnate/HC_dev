@@ -26,14 +26,15 @@ random.seed(2018)
 
 if __name__ == '__main__':
     parser = ArgumentParser("Run evaluation on KHAN dataset.")
-    parser.add_argument("-logger","--loggerfile",help="logger file name",default='log_synthetic.log')
-    parser.add_argument("-savefile","--savefile",help="save file name",default='test_khan.pkl')
-    parser.add_argument("-a","--alpha",help="alpha",default=0.95, type=float)
-    parser.add_argument("-s","--sigma",help="bandwith for kernel",default=200.0, type=float)
-    parser.add_argument("-l0","--lambd0",help="lambda 0 ",default=1e-3, type=float)
-    parser.add_argument("-tol","--tol",help="tolerance for stopping criterion",default=5*1e-3, type=float)
-    parser.add_argument("-nn","--n_neighbors",help="nb nearest_neighbors",default=10, type=int)
-    parser.add_argument("-max_iter_fista","--max_iter_fista",help="max_iter_fista",default=150, type=int)
+    parser.add_argument("-logger","--loggerfile", help="logger file name", default='log_synthetic.log')
+    parser.add_argument("-savefile","--savefile", help="save file name", default='test_khan.pkl')
+    parser.add_argument("-a","--alpha", help="alpha", default=0.95, type=float)
+    parser.add_argument("-s","--sigma", help="bandwith for kernel", default=200.0, type=float)
+    parser.add_argument("-l0","--lambd0", help="lambda 0 ", default=1e-3, type=float)
+    parser.add_argument("-tol","--tol", help="tolerance for stopping criterion", default=5*1e-3, type=float)
+    parser.add_argument("-nn","--n_neighbors", help="nb nearest_neighbors", default=10, type=int)
+    parser.add_argument("-t","--is_train", help="use the training set(1) or test set (0)?", default=1, type=int)
+    parser.add_argument("-max_iter_fista", "--max_iter_fista", help="max_iter_fista", default=150, type=int)
     args = parser.parse_args()
 
     logger = logging.getLogger('myapp')
@@ -50,8 +51,13 @@ if __name__ == '__main__':
     TOL = args.tol
     MAXITERFISTA = args.max_iter_fista
     SAVEFILE = args.savefile
-
-    data = pd.DataFrame.from_csv("data/khan_train.csv")
+    USE_TRAINING_SET = args.is_train
+    
+    if USE_TRAINING_SET == 1:
+        data = pd.DataFrame.from_csv("data/khan_train.csv")
+    else:
+        data = pd.DataFrame.from_csv("data/khan_test.csv")
+    MAXITERFISTA2 =50
     D = np.exp(-cdist(data, data)**2/(2*SIGMA))
     nn = np.zeros(D.shape)
     for i in range(D.shape[0]):
@@ -123,16 +129,16 @@ if __name__ == '__main__':
             t_kp1 = 0.5 * (1 + np.sqrt(1 + 4 * t_k**2))
             delta_pi.append(np.linalg.norm( pi_prev_old-pi_prev, 'fro')/np.linalg.norm( pi_prev_old, 'fro'))
             #print delta_pi[-1]
-            if delta_pi[-1] < tol:
+            if delta_pi[-1] < TOL:
                 inc += 1
             else:
                 inc = 0
             if it > 0:
-                if np.abs(efficient_rank(Z)-evol_efficient_rank[lambd0][-1])<0.5:
+                if np.abs(efficient_rank(Z)-evol_efficient_rank[lambd0][-1])<2:
                     inc_rank += 1
                 else:
                     inc_rank = 0
-            converged = (inc >= 5) or (inc_rank > 20 and it > 50) or (it > maxiterFISTA)
+            converged = (inc >= 5) or (inc_rank > 10 and it > 14) or (it > MAXITERFISTA2)
             evol_efficient_rank[lambd0] += [efficient_rank(pi_prev)]
             B = pi_prev + (t_k) / t_kp1 * (Z - pi_prev)\
                 + (t_k - 1) / t_kp1 * (pi_prev - pi_prev_old)

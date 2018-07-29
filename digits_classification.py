@@ -81,7 +81,6 @@ if __name__ == '__main__':
     maxiterFISTA = 120
     #L = 2*np.max(np.square(K.todense()).sum(1))
     res = {}
-    tol= 5*1e-3
     t_k = 1
     conv_p, conv_q, conv_x = {}, {} , {}
 
@@ -128,7 +127,7 @@ if __name__ == '__main__':
             t_kp1 = 0.5 * (1 + np.sqrt(1 + 4 * t_k**2))
             delta_pi.append(np.linalg.norm( pi_prev_old-pi_prev, 'fro')/np.linalg.norm( pi_prev_old, 'fro'))
             #print delta_pi[-1]
-            if delta_pi[-1] < tol:
+            if delta_pi[-1] < TOL:
                 inc += 1
             else:
                 inc = 0
@@ -154,3 +153,5 @@ if __name__ == '__main__':
         res[lambd0]={'pi':pi_prev, 'convergence': delta_pi, 'time':toc-tic}
         pickle.dump(res, open(SAVEFILE, 'wb'))
         lambd0 *= 2
+    logger.info('**********************************')
+    logger.info('DONE')

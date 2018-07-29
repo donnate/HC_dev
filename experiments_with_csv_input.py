@@ -64,7 +64,7 @@ if __name__ == '__main__':
     logger.info("*********************************************************************")
     from hierarchical_path import *
     pi_prev = np.eye(n_nodes)
-    pi_ADMM, time_ADMM = compute_reg_path(K, ALPHA, mode= ALGO, verbose=True,
+    pi_ADMM, time_ADMM, evol_rank = compute_reg_path(K, ALPHA, mode= ALGO, verbose=True,
                                           logger = logger, savefile=SAVEFILE)
     logger.info("*********************************************************************")
     logger.info("*********************************************************************")
