@@ -57,12 +57,12 @@ def hcc_ADMM(K, pi_prev, lambd, alpha=0.5, maxit_ADMM=100, rho=1.0,
 
     def update_Z(X, Z, U, K, rho, delta, alpha, lambd):
         # Let's assume that we are dealing with sparse matrices
-        norm_Z = np.linalg.norm(X.dot(delta) + U)
+        norm_Z = sc.sparse.linalg.norm(X.dot(delta) + U)
         L = 1.0 + (1.0 - alpha) * lambd / (rho)
         mask = delta.nonzero
         Z_temp = 1.0 / L * (X.dot(delta) + U)
         #th = alpha * lambd / (rho + (1.0 - alpha) * lambd)
-        th = np.min([alpha * lambd / ((rho + (1.0 - alpha) * lambd)*norm_X),2])
+        th = np.min([alpha * lambd / ((rho + (1.0 - alpha) * lambd)*norm_Z),2])
         thres = np.vectorize(lambda x: x -th * np.sign(x) if np.abs(x) >  th else 0)
         Z_temp.data = thres(Z_temp.data)
         return Z_temp
@@ -107,14 +107,15 @@ def hcc_ADMM(K, pi_prev, lambd, alpha=0.5, maxit_ADMM=100, rho=1.0,
         converged = (it > maxit_ADMM) or\
                     (primal_res[-1] < eps1 and dual_res[-1] < eps2)
         if verbose: 
-        	if logger is not None:
-        	    logger.info( "Primal res= %f, Dual_res= %f, at iteration %i"%(primal_res[-1],
+            if logger is not None:
+                logger.info( "Primal res= %f, Dual_res= %f, at iteration %i"%(primal_res[-1],
                                                                    dual_res[-1],
                                                                    it))
-        	else:
-        	    print "Primal res= %f, Dual_res= %f, at iteration %i"%(primal_res[-1],
+            else:
+                print("Primal res= %f, Dual_res= %f, at iteration %i"%(primal_res[-1],
                                                                    dual_res[-1],
                                                                    it)
+                     )
 
     toc = time.time()
     return X, toc-tic, Z, U, primal_res, dual_res

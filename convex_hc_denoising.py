@@ -104,8 +104,8 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
     while not converged:
         belly = (alpha * p[:, mask]+ (1-alpha) * q[:, mask]).dot((delta_k[:, mask]).T)
         if verbose:    
-        	if logger is not None: logger.info("belly %f"%belly.max())
-        	else : print("belly ", belly.max())
+            if logger is not None: logger.info("belly %f"%belly.max())
+            else : print("belly ", belly.max())
 
         inside = B - eta * lambd * belly.A
         x_k = project_DS2(np.array(inside),  max_it=max_iter_projection, eps = tol_projection)
@@ -126,7 +126,7 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
         q = q.tolil()
         q[:, mask] = sc.sparse.lil_matrix(t)
         q = q.tocsc()
-        if verbose: print q.max(), q.min(), p.max(), p.min()
+        if verbose: print(q.max(), q.min(), p.max(), p.min())
 
         #### Check convergence
         delta_x.append(np.linalg.norm( x_k - x_km1, 'fro')/np.linalg.norm(x_km1,'fro'))
@@ -137,14 +137,14 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
         converged = (delta_x[-1] < tol and it>1)\
                      or (it > maxiterFISTA)
         if verbose: 
-        	if logger is not None:  logger.info("norms : %f and %f"%(sc.sparse.linalg.norm(p-p_old,'fro'),
-        	                              sc.sparse.linalg.norm(q-q_old,'fro')))
-        	else: print("norm",sc.sparse.linalg.norm(p-p_old,'fro'),
-        	                              sc.sparse.linalg.norm(q-q_old,'fro'))
+            if logger is not None:  logger.info("norms : %f and %f"%(sc.sparse.linalg.norm(p-p_old,'fro'),
+                                          sc.sparse.linalg.norm(q-q_old,'fro')))
+            else: print("norm",sc.sparse.linalg.norm(p-p_old,'fro'),
+                                          sc.sparse.linalg.norm(q-q_old,'fro'))
         if verbose: 
-        	if logger is not None: logger.info("norm X : %f, efficient rank: %f"%(np.linalg.norm(x_k-x_km1, 'fro'),
-        										efficient_rank(x_k)))
-        	else: print("norm X", np.linalg.norm(x_k-x_km1, 'fro'))
+            if logger is not None: logger.info("norm X : %f, efficient rank: %f"%(np.linalg.norm(x_k-x_km1, 'fro'),
+                                                                                  efficient_rank(x_k)))
+            else: print("norm X", np.linalg.norm(x_k-x_km1, 'fro'))
 
         dual.append(sc.sparse.linalg.norm(alpha * p[:, mask].dot((delta_k[:, mask]).T)\
                     + (1 - alpha) * q[:, mask].dot((delta_k[:, mask]).T), 'fro'))
@@ -157,8 +157,11 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
         p_old, q_old = copy.deepcopy(p), copy.deepcopy(q)
         it += 1
         if verbose:
-             if logger is not None: logger.info(' %i: efficient rank x_k: %f, delta_x: %f'%(it,efficient_rank(x_k),delta_x[-1]))
-             else: print(it,'efficient rank x_k', efficient_rank(x_k), 'delta', delta_x)
+             if logger is not None: 
+                    logger.info(' %i: efficient rank x_k: %f, delta_x: %f'%(it,efficient_rank(x_k),delta_x[-1])
+                               )
+             else: 
+                print(it,'efficient rank x_k', efficient_rank(x_k), 'delta', delta_x)
 
     toc0 = time.time()
     if verbose: print(time.time() - tic0)
@@ -204,7 +207,6 @@ def hcc_FISTA(K, pi_warm_start, lambd0, alpha =0.95,
                                                                            eta=1.0,
                                                                            tol= tol , verbose=False,
                                                                             tol_projection= 1e-4)
-        eta_t *= 1.0
         if it>1:
             if ((efficient_rank(Z) - evol_efficient_rank[lambd0][-2])/evol_efficient_rank[lambd0][-2] >0 and
                 np.linalg.norm( pi_prev_old-Z, 'fro')/np.linalg.norm( pi_prev_old, 'fro')>0.5):
@@ -214,10 +216,9 @@ def hcc_FISTA(K, pi_warm_start, lambd0, alpha =0.95,
         else:
             pi_prev = Z
         
-        #if efficient_rank(pi_prev)<45: STOP
-        conv_p[lambd0][it] = delta_p
-        conv_q[lambd0][it] = delta_q
-        conv_x[lambd0][it] = delta_x
+        conv_p[it] = delta_p
+        conv_q[it] = delta_q
+        conv_x[it] = delta_x
         t_kp1 = 0.5 * (1 + np.sqrt(1 + 4 * t_k**2))
         delta_pi.append(np.linalg.norm( pi_prev_old-pi_prev, 'fro')/np.linalg.norm( pi_prev_old, 'fro'))
         if delta_pi[-1]< tol:

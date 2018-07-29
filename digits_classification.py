@@ -27,7 +27,7 @@ random.seed(2018)
 if __name__ == '__main__':
     parser = ArgumentParser("Run evaluation on MNIST dataset.")
     parser.add_argument("-logger","--loggerfile",help="logger file name",default='log_synthetic.log')
-    parser.add_argument("-savefile","--savefile",help="save file name",default='test_khan.pkl')
+    parser.add_argument("-savefile","--savefile",help="save file name",default='data/res_digits.pkl')
     parser.add_argument("-a","--alpha",help="alpha",default=0.95, type=float)
     parser.add_argument("-s","--sigma",help="bandwith for kernel",default=200.0, type=float)
     parser.add_argument("-l0","--lambd0",help="lambda 0 ",default=1e-3, type=float)

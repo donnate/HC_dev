@@ -147,7 +147,7 @@ def project_simplex(v, z=1.0):
         y_tilde   :     projection of y unto the simplex
     '''
     if z<=0:
-        print 'error: z must be positive'
+        print('error: z must be positive')
         return None
     mu = np.sort(v)[::-1]
     temp = [mu[j - 1] - 1.0 / j * (np.sum(mu[: j]) - z)
