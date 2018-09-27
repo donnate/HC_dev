@@ -144,7 +144,8 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
         if verbose: 
             if logger is not None: logger.info("norm X : %f, efficient rank: %f"%(np.linalg.norm(x_k-x_km1, 'fro'),
                                                                                   efficient_rank(x_k)))
-            else: print("norm X", np.linalg.norm(x_k-x_km1, 'fro'))
+            else: print("norm X : %f, efficient rank: %f"%(np.linalg.norm(x_k-x_km1, 'fro'),
+                                                                                  efficient_rank(x_k)))
 
         dual.append(sc.sparse.linalg.norm(alpha * p[:, mask].dot((delta_k[:, mask]).T)\
                     + (1 - alpha) * q[:, mask].dot((delta_k[:, mask]).T), 'fro'))
