@@ -30,7 +30,7 @@ def project_unit_ball(m, is_sparse=True):
         return np.apply_along_axis(proj_vector,0,m)
 
 
-def project_unit_cube(m, is_sparse=True):
+def project_unit_cube(x, is_sparse=True):
     ''' Projection onto the l1 cube
         INPUT:
         -----------------------------------------------------------
@@ -40,16 +40,17 @@ def project_unit_cube(m, is_sparse=True):
         -----------------------------------------------------------
         Pi_m        :      projection of m unto the unit cube
     '''
-    thr = np.vectorize(lambda x: np.sign(x) * np.min([abs(x),1]))
+    thr = lambda x: x/np.abs(x).max() if np.abs(x).max() >1e-10 else x 
     if is_sparse:
-        mm = copy.deepcopy(m)
+        mm = copy.deepcopy(x)
         if mm.nnz > 0:
-            mm.data = thr(mm.data)
+            mm.A = np.apply_along_axis(thr,0, x.A)
         return mm
         
     else:
-        thr =np.vectorize(lambda x: x if abs(x) < 1 else (1.0 if x>1 else -1.0))
-        return thr(np.array(m))
+        #thr =np.vectorize(lambda x: x if abs(x) < 1 else (1.0 if x>1 else -1.0))
+        return np.apply_along_axis(thr,0, x)
+
 
 
 def iteration_proj_DSS(Y):

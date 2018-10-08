@@ -3,12 +3,15 @@ Code for the dual FISTA algorithm for hierarchical
 convex clustering
 """
 import copy
+import math
 import numpy as np
 import scipy as sc
 import time
 
 from projections import *
 from utils import *
+
+
 
 def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1, tol=1e-2,
                       verbose=True, tol_projection=1e-4, max_iter_projection=100000,
@@ -45,6 +48,7 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
     # Initialization
     x_k, x_km1, y_k = pi_prev, pi_prev, pi_prev
     n_nodes, _ = pi_prev.shape
+    print(K, type(K))
     if type(K) == np.matrixlib.defmatrix.matrix:
         mask = np.array(K).flatten().reshape([-1,]).nonzero()[0]
     else:
@@ -53,44 +57,49 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
         for i in range(K.nnz):
             mask += [indices[0][i]*n_nodes+indices[1][i]]
         mask = np.array(mask)
-    lmax = np.max(np.square(K).sum(0)) 
+     
+    
+    #lmax = K_tilde.max() * sc.sparse.linalg.norm(K_tilde,'fro')
+    
+    
 
+    I = sc.sparse.eye(n_nodes)
     delta_k=sc.sparse.lil_matrix((n_nodes, n_nodes**2))
     for ii in range(n_nodes):
         ind =K[ii, :].nonzero()[1]
         #print ind
-        indices = np.arange(0,n_nodes**2,n_nodes)
-        delta_k[ii, ii * n_nodes +ind ] = K[ii, ind]
-        for e in ind:
-            delta_k[e, ii * n_nodes +e ] = -K[ii, e]
+        delta_k[ii, ii * n_nodes + ind] = K[ii, ind]
+        delta_k[ii, ii + ind * n_nodes] = -K[ii, ind]
         delta_k[ii, ii + ii * n_nodes] = 0.0
-    delta_k = delta_k.tocsc()
+    delta_k = delta_k.tocsr()
 
-    gamma = 8 * max([alpha**2,(1-alpha)**2])*lmax * lambd**2
+    #gamma = 8 * max([alpha**2,(1-alpha)**2])*lmax * lambd**2
     ##gamma = 16 * max([alpha**2,(1-alpha)**2])*l_max * lambd**2
-    if verbose: print("gamma =%f"%gamma)
+    lmax = (K**2).sum() 
+    #if verbose: print("gamma =%f"%gamma)
+    lmax = sc.sparse.linalg.norm(delta_k,'fro')**2
+    gamma = 4 * max([alpha**2,(1-alpha)**2])*lmax * lambd**2
     if verbose: print("lmax",lmax)
     I = sc.sparse.eye(n_nodes)
-    p = sc.sparse.csc_matrix((n_nodes, n_nodes**2))
-    q = sc.sparse.csc_matrix((n_nodes, n_nodes**2))
-
-    # Initialize the dual variables
-    t = project_unit_ball(x_k.dot((delta_k[:, mask]).A), is_sparse=False)
-
-    p = p.tolil()
-
-    p[:, mask]= sc.sparse.lil_matrix(t)
-    p = p.tocsc()
-    q = sc.sparse.csc_matrix((n_nodes, n_nodes**2))
-    t = project_unit_cube( x_k.dot((delta_k[:, mask]).A), is_sparse=False)
-
-    q = q.tolil()
-    q[:, mask] = sc.sparse.lil_matrix(t)
-    q = q.tocsc()
-
-    p_old = copy.deepcopy(p)
-    q_old = copy.deepcopy(q)
-
+    update = (delta_k[:, mask].T.dot(x_k.T)).T
+    p=sc.sparse.lil_matrix((n_nodes, n_nodes**2))
+    q=sc.sparse.lil_matrix((n_nodes, n_nodes**2))
+    p[:, mask]= sc.sparse.lil_matrix(project_unit_ball(update,
+                          is_sparse=False))
+    p = p.tocsr()
+    q[:,mask]= sc.sparse.lil_matrix(project_unit_cube(update,
+                          is_sparse=False))
+    q = q.tocsr()
+    index_rev = [jj*n_nodes + ii  for ii in range(n_nodes) for jj in range(n_nodes)]
+    #index_rev_mask = [(jj%n_nodes) * n_nodes + jj / n_nodes  for jj in mask]
+    rk = {mask[i]: i for i in range(len(mask))}
+    index_rev_mask = [rk[(jj%n_nodes)*n_nodes + jj/n_nodes]  for jj in mask]
+    p = 0.5*(p - p[:,index_rev])
+    q = 0.5*(q - q[:,index_rev])
+    print("init p", p.max())
+    t_k, it = 1, 1
+    converged = False
+    
     t_k, it = 1, 1
     converged = False
 
@@ -101,62 +110,73 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
     dual = []
     it = 0
     eps_reg =1e-5
+    
+    p_old = copy.deepcopy(p)
+    q_old = copy.deepcopy(q)
+    r = copy.deepcopy(p)
+    s = copy.deepcopy(q)
     while not converged:
-        belly = (alpha * p[:, mask]+ (1-alpha) * q[:, mask]).dot((delta_k[:, mask]).T)
+        belly = (alpha * r + (1-alpha) * s).dot(delta_k.T)
         if verbose:    
             if logger is not None: logger.info("belly %f"%belly.max())
             else : print("belly ", belly.max())
 
-        inside = B - eta * lambd * belly.A
-        x_k = project_DS2(np.array(inside),  max_it=max_iter_projection, eps = tol_projection)
-        
-        t = project_unit_ball(p[:, mask].A\
-                              + 1.0 * alpha / gamma * x_k.dot((delta_k[:, mask]).A),
+        proj = project_DS2(B-lambd * belly.todense(),  max_it=max_iter_projection, eps = tol_projection)
+        x_k = proj
+        #x_k = project_DS_symmetric(np.array(inside),  max_it=max_iter_projection, eps = tol_projection)
+        L_x = sc.sparse.csr_matrix((delta_k[:, mask].T.dot(proj.T)).T)
+        update_p = p[:, mask] + 2.0 * alpha *lambd / gamma * L_x
+        #update_p = p[:, mask] + 2.0 * alpha *lambd / gamma * sc.sparse.csc_matrix((delta_k.T.dot(proj.T)).T)[:, mask]
+        #update_p = 0.5 * (update_p - update_p[:, index_rev_mask])
+        t = project_unit_ball(update_p.todense(),
                               is_sparse=False)
-
         p = p.tolil()
-
         p[:, mask]= sc.sparse.lil_matrix(t)
-        p = p.tocsc()
-
-        t = project_unit_cube(q[:, mask].A\
-                              + 1.0 * (1-alpha) / gamma * x_k.dot((delta_k[:, mask]).A),
+        p = p.tocsr()
+        
+        #update_q = q[:, mask] + 2.0 * (1-alpha) / gamma * sc.sparse.csc_matrix((delta_k.T.dot(proj.T)).T)[:, mask]
+        update_q = q[:, mask] + 2.0 * (1-alpha) / gamma * L_x
+        #update_q = 0.5 * (update_q - update_q[:, index_rev_mask])
+        t = project_unit_cube(update_q.todense(),
                               is_sparse=False)
 
         q = q.tolil()
         q[:, mask] = sc.sparse.lil_matrix(t)
-        q = q.tocsc()
+        q = q.tocsr()
         if verbose: print(q.max(), q.min(), p.max(), p.min())
 
         #### Check convergence
         delta_x.append(np.linalg.norm( x_k - x_km1, 'fro')/np.linalg.norm(x_km1,'fro'))
-        delta_p.append(sc.
-                       
-                       sparse.linalg.norm(p - p_old, 'fro'))
+        delta_p.append(sc.sparse.linalg.norm(p - p_old, 'fro'))
         delta_q.append(sc.sparse.linalg.norm(q - q_old, 'fro'))
-        converged = (delta_x[-1] < tol and it>1)\
+        #converged = (delta_x[-1] < tol and it>1)\
+        #             or (it > maxiterFISTA)
+        converged = (math.sqrt((alpha**2 * sc.sparse.linalg.norm(p-p_old,'fro')**2 
+                                + (1 - alpha)**2 * sc.sparse.linalg.norm(q-q_old,'fro')**2))
+                     / np.max([0, math.sqrt((alpha**2 * sc.sparse.linalg.norm(p_old,'fro')**2 
+                                 + (1 - alpha)**2 * sc.sparse.linalg.norm(q_old,'fro')**2))]) 
+                     < tol)\
+                     or (delta_x[-1] < tol and it>=3)\
                      or (it > maxiterFISTA)
         if verbose: 
             if logger is not None:  logger.info("norms : %f and %f"%(sc.sparse.linalg.norm(p-p_old,'fro'),
                                           sc.sparse.linalg.norm(q-q_old,'fro')))
-            else: print("norm",sc.sparse.linalg.norm(p-p_old,'fro'),
-                                          sc.sparse.linalg.norm(q-q_old,'fro'))
-        if verbose: 
-            if logger is not None: logger.info("norm X : %f, efficient rank: %f"%(np.linalg.norm(x_k-x_km1, 'fro'),
-                                                                                  efficient_rank(x_k)))
-            else: print("norm X : %f, efficient rank: %f"%(np.linalg.norm(x_k-x_km1, 'fro'),
-                                                                                  efficient_rank(x_k)))
+            else: print("norm", math.sqrt((alpha**2 * sc.sparse.linalg.norm(p-p_old,'fro')**2 
+                                + (1 - alpha)**2 * sc.sparse.linalg.norm(q-q_old,'fro')**2))
+                     / np.max([0, math.sqrt((alpha**2 * sc.sparse.linalg.norm(p_old,'fro')**2 
+                                 + (1 - alpha)**2 * sc.sparse.linalg.norm(q_old,'fro')**2))]))
 
-        dual.append(sc.sparse.linalg.norm(alpha * p[:, mask].dot((delta_k[:, mask]).T)\
-                    + (1 - alpha) * q[:, mask].dot((delta_k[:, mask]).T), 'fro'))
+        #dual.append(sc.sparse.linalg.norm(alpha * p[:, mask].dot((delta_k[:, mask]).T)\
+        #            + (1 - alpha) * q[:, mask].dot((delta_k[:, mask]).T), 'fro'))
         t_kp1 = 0.5 * (1 + np.sqrt(1 + 4 * t_k**2))
 
-        p = p + (t_k - 1) / t_kp1 * (p - p_old)
-        q = q + (t_k - 1) / t_kp1 * (q - q_old)
+        r = p + (t_k - 1) / t_kp1 * (p - p_old)
+        s = q + (t_k - 1) / t_kp1 * (q - q_old)
         t_k = t_kp1
         x_km1 = x_k
         p_old, q_old = copy.deepcopy(p), copy.deepcopy(q)
         it += 1
+
         if verbose:
              if logger is not None: 
                     logger.info(' %i: efficient rank x_k: %f, delta_x: %f'%(it,efficient_rank(x_k),delta_x[-1])
@@ -165,15 +185,22 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
                 print(it,'efficient rank x_k', efficient_rank(x_k), 'delta', delta_x)
 
     toc0 = time.time()
-    if verbose: print(time.time() - tic0)
-    belly = alpha * p[:, mask].dot((delta_k[:, mask]).T)\
-                    + (1-alpha) * q[:, mask].dot((delta_k[:, mask]).T)
+    if verbose: print("time:",time.time() - tic0)
+    belly = (alpha * p+ (1-alpha) * q).dot(delta_k.T)
+    x_k = project_DS2(B-lambd * belly.todense(),  max_it=max_iter_projection, eps = tol_projection)
+    val = np.trace(x_k.T.dot(K.todense().dot(x_k)) 
+                   - 2*(K.todense() -lambd *(delta_k.dot(alpha* p.T + (1.0 - alpha) * q.T)).todense().dot(x_k)))
 
-    
-    inside = B - eta * lambd * belly.A
-    x_k = project_DS2(np.array(inside),  max_it=max_iter_projection, eps = tol_projection)
+    return x_k, toc0-tic0, delta_x, delta_p, delta_q, dual, val
 
-    return x_k, toc0-tic0, delta_x, delta_p, delta_q, dual
+
+
+
+
+
+
+
+
 
 
 def hcc_FISTA(K, pi_warm_start, lambd0, alpha =0.95,
@@ -197,30 +224,28 @@ def hcc_FISTA(K, pi_warm_start, lambd0, alpha =0.95,
     inc = 0
     inc_rank = 0
     while not converged:
-        #STOP
-        g_t = 2.0 / L * (K.todense().dot(B) - K.todense())
-        B =  project_DS2(B - g_t, eps = 1e-4)#+np.abs(B - g_t))
-      
-        
-        Z, time_taken, delta_x, delta_p, delta_q, dual = hcc_FISTA_denoise(K , B, pi_prev, 
-                                                                           lambd, alpha=alpha, 
-                                                                           maxiterFISTA=100,
-                                                                           eta=1.0,
-                                                                           tol= tol , verbose=False,
-                                                                            tol_projection= 1e-4)
-        if it>1:
-            if ((efficient_rank(Z) - evol_efficient_rank[-1])/evol_efficient_rank[-1] >0 and
-                np.linalg.norm( pi_prev_old-Z, 'fro')/np.linalg.norm( pi_prev_old, 'fro')>0.5):
-                pi_prev = pi_prev_old
-            else:
-                pi_prev = Z
-        else:
-            pi_prev = Z
-        
-        #if efficient_rank(pi_prev)<45: STOP
-        conv_p[it] = delta_p
-        conv_q[it] = delta_q
-        conv_x[it] = delta_x
+        g_t =  (K.todense().dot(B) - K.todense())
+        #B=  project_DS2(B - g_t)#+np.abs(B - g_t))
+        Z, time_taken, delta_x, delta_p, delta_q, dual, val = hcc_FISTA_denoise(K,
+                                                                           pi_prev - 2.0/L * g_t,
+                                                                           pi_prev,
+                                                                           2.0/L*lambd0,
+                                                                           alpha=ALPHA, 
+                                                                           maxiterFISTA=MAXITERFISTA,
+                                                                           eta=eta_t,
+                                                                           tol=TOL, 
+                                                                           verbose=True,
+                                                                           tol_projection=1e-2*TOL,
+                                                                           logger=logger)
+        pi_prev = Z
+        #if it > 2:
+        #    if (np.linalg.norm( pi_prev_old-Z, 'fro')/np.linalg.norm( pi_prev_old, 'fro')>0.5
+        #       and efficient_rank(Z)>evol_efficient_rank[lambd0][-1]):
+        #        pi_prev =pi_prev_old
+
+        conv_p[lambd0][it] = delta_p
+        conv_q[lambd0][it] = delta_q
+        conv_x[lambd0][it] = delta_x
         t_kp1 = 0.5 * (1 + np.sqrt(1 + 4 * t_k**2))
         delta_pi.append(np.linalg.norm( pi_prev_old-pi_prev, 'fro')/np.linalg.norm( pi_prev_old, 'fro'))
         if delta_pi[-1]< tol:
@@ -249,3 +274,8 @@ def hcc_FISTA(K, pi_warm_start, lambd0, alpha =0.95,
     if logger is not None: logger.info("'-----------------------------------")
     toc = time.time()
     return pi_prev, toc-tic, evol_efficient_rank, delta_pi
+
+
+
+
+
