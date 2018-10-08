@@ -40,16 +40,16 @@ def project_unit_cube(x, is_sparse=True):
         -----------------------------------------------------------
         Pi_m        :      projection of m unto the unit cube
     '''
-    thr = lambda x: x/np.abs(x).max() if np.abs(x).max() >1e-10 else x 
+    thr = np.vectorize(lambda x: x/np.abs(x) if np.abs(x).max() >1e-10 else 0 )
     if is_sparse:
         mm = copy.deepcopy(x)
         if mm.nnz > 0:
-            mm.A = np.apply_along_axis(thr,0, x.A)
+            mm.A =  thr(x.A)
         return mm
         
     else:
         #thr =np.vectorize(lambda x: x if abs(x) < 1 else (1.0 if x>1 else -1.0))
-        return np.apply_along_axis(thr,0, x)
+        return thr(x)
 
 
 
