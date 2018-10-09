@@ -11,7 +11,7 @@ import time
 from projections import *
 from utils import *
 
-
+TOL_PROJ = 1e-4
 
 def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1, tol=1e-2,
                       verbose=True, tol_projection=1e-4, max_iter_projection=100000,
@@ -73,10 +73,7 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
         delta_k[ii, ii + ii * n_nodes] = 0.0
     delta_k = delta_k.tocsr()
 
-    #gamma = 8 * max([alpha**2,(1-alpha)**2])*lmax * lambd**2
-    ##gamma = 16 * max([alpha**2,(1-alpha)**2])*l_max * lambd**2
-    lmax = (K**2).sum() 
-    #if verbose: print("gamma =%f"%gamma)
+
     lmax = sc.sparse.linalg.norm(delta_k,'fro')**2
     gamma = 4 * max([alpha**2,(1-alpha)**2])*lmax * lambd**2
     if verbose: print("lmax",lmax)
@@ -159,8 +156,10 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
                      or (delta_x[-1] < tol and it>=3)\
                      or (it > maxiterFISTA)
         if verbose: 
-            if logger is not None:  logger.info("norms : %f and %f"%(sc.sparse.linalg.norm(p-p_old,'fro'),
-                                          sc.sparse.linalg.norm(q-q_old,'fro')))
+            if logger is not None:  logger.info("norm : %f"%(math.sqrt((alpha**2 * sc.sparse.linalg.norm(p-p_old,'fro')**2 
+                                + (1 - alpha)**2 * sc.sparse.linalg.norm(q-q_old,'fro')**2))
+                     / np.max([0, math.sqrt((alpha**2 * sc.sparse.linalg.norm(p_old,'fro')**2 
+                                 + (1 - alpha)**2 * sc.sparse.linalg.norm(q_old,'fro')**2))])))
             else: print("norm", math.sqrt((alpha**2 * sc.sparse.linalg.norm(p-p_old,'fro')**2 
                                 + (1 - alpha)**2 * sc.sparse.linalg.norm(q-q_old,'fro')**2))
                      / np.max([0, math.sqrt((alpha**2 * sc.sparse.linalg.norm(p_old,'fro')**2 
@@ -185,7 +184,10 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
                 print(it,'efficient rank x_k', efficient_rank(x_k), 'delta', delta_x)
 
     toc0 = time.time()
-    if verbose: print("time:",time.time() - tic0)
+    if verbose: 
+        print("time:",time.time() - tic0)
+        if logger is not None:
+            logger.info("---------------------------------------------------")
     belly = (alpha * p+ (1-alpha) * q).dot(delta_k.T)
     x_k = project_DS2(B-lambd * belly.todense(),  max_it=max_iter_projection, eps = tol_projection)
     val = np.trace(x_k.T.dot(K.todense().dot(x_k)) 
@@ -204,12 +206,11 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
 
 
 def hcc_FISTA(K, pi_warm_start, lambd0, alpha =0.95,
-              maxiterFISTA = 2000, tol=5*1e-3, debug_mode=False,
+              maxiterFISTA = 2000, tol=5*1e-3, debug_mode=True,
               lambda_spot = 0, verbose =False, logger=None):
     if debug_mode: verbose =True
     Y, pi_prev, pi_prev_old = [pi_warm_start] * 3
     evol_efficient_rank=[]
-    conv_p, conv_q, conv_x = {}, {}, {}
     L = 2 * sc.sparse.linalg.norm(K, 'fro')
     lambd = 2 * lambd0 / L
     t_k = 1
@@ -223,29 +224,26 @@ def hcc_FISTA(K, pi_warm_start, lambd0, alpha =0.95,
     B = pi_prev
     inc = 0
     inc_rank = 0
+    old_val = 1e18
     while not converged:
         g_t =  (K.todense().dot(B) - K.todense())
         #B=  project_DS2(B - g_t)#+np.abs(B - g_t))
-        Z, time_taken, delta_x, delta_p, delta_q, dual, val = hcc_FISTA_denoise(K,
-                                                                           pi_prev - 2.0/L * g_t,
-                                                                           pi_prev,
-                                                                           2.0/L*lambd0,
-                                                                           alpha=ALPHA, 
-                                                                           maxiterFISTA=MAXITERFISTA,
-                                                                           eta=eta_t,
-                                                                           tol=TOL, 
-                                                                           verbose=True,
-                                                                           tol_projection=1e-2*TOL,
-                                                                           logger=logger)
+        Z, time_taken, delta_x, _, _, dual, val = hcc_FISTA_denoise(K,
+                                                                   pi_prev - 2.0/L * g_t,
+                                                                   pi_prev,
+                                                                   2.0/L*lambd0,
+                                                                   alpha=alpha, 
+                                                                   maxiterFISTA=maxiterFISTA,
+                                                                   eta=1.0,
+                                                                   tol=tol, 
+                                                                   verbose=True,
+                                                                   tol_projection=TOL_PROJ,
+                                                                   logger=logger)
         pi_prev = Z
-        #if it > 2:
-        #    if (np.linalg.norm( pi_prev_old-Z, 'fro')/np.linalg.norm( pi_prev_old, 'fro')>0.5
-        #       and efficient_rank(Z)>evol_efficient_rank[lambd0][-1]):
-        #        pi_prev =pi_prev_old
-
-        conv_p[lambd0][it] = delta_p
-        conv_q[lambd0][it] = delta_q
-        conv_x[lambd0][it] = delta_x
+        if old_val < val:
+            pi_prev = pi_prev_old
+        else:
+            old_val = val
         t_kp1 = 0.5 * (1 + np.sqrt(1 + 4 * t_k**2))
         delta_pi.append(np.linalg.norm( pi_prev_old-pi_prev, 'fro')/np.linalg.norm( pi_prev_old, 'fro'))
         if delta_pi[-1]< tol:
@@ -258,7 +256,7 @@ def hcc_FISTA(K, pi_warm_start, lambd0, alpha =0.95,
             inc_rank = 0
            
         #print delta_pi[-1]
-        converged = (inc>4)  or (inc_rank > 10 and it >15) or (it > maxiterFISTA)
+        converged = (inc>2) or (it > maxiterFISTA)
         evol_efficient_rank += [efficient_rank(pi_prev)]
         
         B = pi_prev + (t_k)/t_kp1*(Z - pi_prev)+ (t_k-1)/t_kp1 * (pi_prev - pi_prev_old)
@@ -271,8 +269,12 @@ def hcc_FISTA(K, pi_warm_start, lambd0, alpha =0.95,
         #if it ==1 : STOP
 
     print('-----------------------------------')
-    if logger is not None: logger.info("'-----------------------------------")
+    if logger is not None: 
+        logger.info("**********************************")
+        logger.info("**********************************")
+        logger.info("**********************************")
     toc = time.time()
+    
     return pi_prev, toc-tic, evol_efficient_rank, delta_pi
 
 

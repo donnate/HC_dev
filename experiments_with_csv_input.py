@@ -32,7 +32,7 @@ if __name__ == '__main__':
     parser.add_argument("-a","--alpha",help="alpha",default=0.95, type=float)
     parser.add_argument("-s","--sigma",help="bandwith for kernel",default=200.0, type=float)
     parser.add_argument("-l0","--lambd0",help="lambda 0 ",default=1e-3, type=float)
-    parser.add_argument("-tol","--tol",help="tolerance for stopping criterion",default=5*1e-3, type=float)
+    parser.add_argument("-tol","--tol",help="tolerance for stopping criterion",default=1e-2, type=float)
     parser.add_argument("-nn","--n_neighbors",help="nb nearest_neighbors",default=10, type=int)
     parser.add_argument("-max_iter_fista","--max_iter_fista",help="max_iter_fista",default=150, type=int)
     parser.add_argument("-algo", "--algorithm", default="FISTA")
@@ -56,7 +56,7 @@ if __name__ == '__main__':
     SAVEFILE = 'data/res_' +INPUTFILE+ args.savefile + '.pkl'
     ALGO = args.algorithm
 
-    data = pd.DataFrame.from_csv("data/"+ INPUTFILE +".csv")
+    data = pd.DataFrame.from_csv("data/data/"+ INPUTFILE +".csv")
     K = sc.sparse.csc_matrix(data.values)
     n_nodes = K.shape[0]
     logger.info("*********************************************************************")
@@ -64,7 +64,7 @@ if __name__ == '__main__':
     logger.info("*********************************************************************")
     from hierarchical_path import *
     pi_prev = np.eye(n_nodes)
-    pi_ADMM, time_ADMM, evol_rank = compute_reg_path(K, ALPHA, mode= ALGO, verbose=True,
+    pi_ADMM, time_ADMM, evol_rank = compute_reg_path(K, ALPHA, pi_warm_start=pi_prev, mode= ALGO, verbose=True,
                                           logger = logger, savefile=SAVEFILE)
     logger.info("*********************************************************************")
     logger.info("*********************************************************************")
