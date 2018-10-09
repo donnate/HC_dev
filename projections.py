@@ -60,7 +60,7 @@ def iteration_proj_DSS(Y):
     pos = np.vectorize(lambda x: max(x,0))
     Y2 = Y + 1.0 / n * ( np.eye(n)- Y + 1.0 / n * np.ones((n,n)).dot(Y)).dot(np.ones((n,n)))\
             - 1.0 / n * np.ones((n,n)).dot(Y)
-    Y2 = pos(Y2) 
+    Y2[np.where(Y2<0)] =  0
     return Y2
 
 
