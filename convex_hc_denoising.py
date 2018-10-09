@@ -62,7 +62,6 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
     #lmax = K_tilde.max() * sc.sparse.linalg.norm(K_tilde,'fro')
     
     
-
     I = sc.sparse.eye(n_nodes)
     delta_k=sc.sparse.lil_matrix((n_nodes, n_nodes**2))
     for ii in range(n_nodes):
@@ -71,29 +70,39 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
         delta_k[ii, ii * n_nodes + ind] = K[ii, ind]
         delta_k[ii, ii + ind * n_nodes] = -K[ii, ind]
         delta_k[ii, ii + ii * n_nodes] = 0.0
-    delta_k = delta_k.tocsr()
+    delta_k = delta_k[:, mask]
+    delta_k = delta_k.todense()
 
-
-    lmax = sc.sparse.linalg.norm(delta_k,'fro')**2
+    #gamma = 8 * max([alpha**2,(1-alpha)**2])*lmax * lambd**2
+    ##gamma = 16 * max([alpha**2,(1-alpha)**2])*l_max * lambd**2
+    lmax = (K**2).sum() 
+    #if verbose: print("gamma =%f"%gamma)
+    lmax = np.linalg.norm(delta_k,'fro')**2
     gamma = 4 * max([alpha**2,(1-alpha)**2])*lmax * lambd**2
-    if verbose: print("lmax",lmax)
+    if verbose: print("lmax",lmax, "gamma", gamma)
     I = sc.sparse.eye(n_nodes)
-    update = (delta_k[:, mask].T.dot(x_k.T)).T
-    p=sc.sparse.lil_matrix((n_nodes, n_nodes**2))
-    q=sc.sparse.lil_matrix((n_nodes, n_nodes**2))
-    p[:, mask]= sc.sparse.lil_matrix(project_unit_ball(update,
-                          is_sparse=False))
-    p = p.tocsr()
-    q[:,mask]= sc.sparse.lil_matrix(project_unit_cube(update,
-                          is_sparse=False))
-    q = q.tocsr()
+    update = (delta_k.T.dot(x_k.T)).T
+    print("update.max(())", update.max())
+    #update = np.random.sample(size = n_nodes * len(mask)).reshape([n_nodes, len(mask)])
+    
+
+    q = np.zeros((n_nodes, len(mask)))
+    p = project_unit_ball(update,
+                         is_sparse=False)
+    
+
+    q[np.where(update != 0)]= project_unit_cube(update[np.where(update != 0)],
+                                                is_sparse=False)
+
+    
+    
     index_rev = [jj*n_nodes + ii  for ii in range(n_nodes) for jj in range(n_nodes)]
     #index_rev_mask = [(jj%n_nodes) * n_nodes + jj / n_nodes  for jj in mask]
-    rk = {mask[i]: i for i in range(len(mask))}
-    index_rev_mask = [rk[(jj%n_nodes)*n_nodes + jj/n_nodes]  for jj in mask]
-    p = 0.5*(p - p[:,index_rev])
-    q = 0.5*(q - q[:,index_rev])
-    print("init p", p.max())
+    #rk = {mask[i]: i for i in range(len(mask))}
+    #index_rev_mask = [rk[(jj%n_nodes)*n_nodes + jj/n_nodes]  for jj in mask]
+    #p = 0.5*(p - p[:,index_rev])
+    #q = 0.5*(q - q[:,index_rev])
+    print("init p", p.max(), q.max(), q.min())
     t_k, it = 1, 1
     converged = False
     
@@ -113,64 +122,71 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
     r = copy.deepcopy(p)
     s = copy.deepcopy(q)
     while not converged:
+        #STOP
         belly = (alpha * r + (1-alpha) * s).dot(delta_k.T)
         if verbose:    
             if logger is not None: logger.info("belly %f"%belly.max())
             else : print("belly ", belly.max())
 
-        proj = project_DS2(B-lambd * belly.todense(),  max_it=max_iter_projection, eps = tol_projection)
+        proj = project_DS2(B-lambd * belly,  max_it=max_iter_projection, eps = tol_projection)
+        #STOP
         x_k = proj
         #x_k = project_DS_symmetric(np.array(inside),  max_it=max_iter_projection, eps = tol_projection)
-        L_x = sc.sparse.csr_matrix((delta_k[:, mask].T.dot(proj.T)).T)
-        update_p = p[:, mask] + 2.0 * alpha *lambd / gamma * L_x
+        L_x = proj.dot(delta_k)
+        print("update.max(())", L_x.max())
+        update_p = p + 2.0 * alpha *lambd / gamma * L_x
         #update_p = p[:, mask] + 2.0 * alpha *lambd / gamma * sc.sparse.csc_matrix((delta_k.T.dot(proj.T)).T)[:, mask]
         #update_p = 0.5 * (update_p - update_p[:, index_rev_mask])
-        t = project_unit_ball(update_p.todense(),
+        p = project_unit_ball(update_p,
                               is_sparse=False)
-        p = p.tolil()
-        p[:, mask]= sc.sparse.lil_matrix(t)
-        p = p.tocsr()
+        #p = p.tolil()
+        #p= sc.sparse.lil_matrix(t)
+        #p = p.tocsr()
         
         #update_q = q[:, mask] + 2.0 * (1-alpha) / gamma * sc.sparse.csc_matrix((delta_k.T.dot(proj.T)).T)[:, mask]
-        update_q = q[:, mask] + 2.0 * (1-alpha) / gamma * L_x
+        update_q = q+ 2.0 * (1-alpha) / gamma * L_x
         #update_q = 0.5 * (update_q - update_q[:, index_rev_mask])
-        t = project_unit_cube(update_q.todense(),
-                              is_sparse=False)
+        #STOP
+        inv_update_q = copy.deepcopy(update_q)
+        inv_update_q[np.where(update_q!=0)] = 1.0/np.abs(update_q[np.where(inv_update_q!=0)])
+        #t = project_unit_cube(update_q.todense(),
+                              #is_sparse=False)
 
-        q = q.tolil()
-        q[:, mask] = sc.sparse.lil_matrix(t)
-        q = q.tocsr()
-        if verbose: print(q.max(), q.min(), p.max(), p.min())
+        q =   np.multiply(inv_update_q, update_q)    
+        #q = q.tolil()
+        #q[:, mask] = sc.sparse.lil_matrix(t)
+        #q = q.tocsr()
+        if verbose: print("max q, p",q.max(), q.min(), p.max(), p.min())
 
         #### Check convergence
         delta_x.append(np.linalg.norm( x_k - x_km1, 'fro')/np.linalg.norm(x_km1,'fro'))
-        delta_p.append(sc.sparse.linalg.norm(p - p_old, 'fro'))
-        delta_q.append(sc.sparse.linalg.norm(q - q_old, 'fro'))
+        delta_p.append(np.linalg.norm(p - p_old, 'fro'))
+        delta_q.append(np.linalg.norm(q - q_old, 'fro'))
         #converged = (delta_x[-1] < tol and it>1)\
         #             or (it > maxiterFISTA)
-        converged = (math.sqrt((alpha**2 * sc.sparse.linalg.norm(p-p_old,'fro')**2 
-                                + (1 - alpha)**2 * sc.sparse.linalg.norm(q-q_old,'fro')**2))
-                     / np.max([0, math.sqrt((alpha**2 * sc.sparse.linalg.norm(p_old,'fro')**2 
-                                 + (1 - alpha)**2 * sc.sparse.linalg.norm(q_old,'fro')**2))]) 
+        converged = (math.sqrt((alpha**2 * np.linalg.norm(p-p_old,'fro')**2 
+                                + (1 - alpha)**2 * np.linalg.norm(q-q_old,'fro')**2))
+                     / np.max([0, math.sqrt((alpha**2 * np.linalg.norm(p_old,'fro')**2 
+                                 + (1 - alpha)**2 * np.linalg.norm(q_old,'fro')**2))]) 
                      < tol)\
                      or (delta_x[-1] < tol and it>=3)\
                      or (it > maxiterFISTA)
         if verbose: 
-            if logger is not None:  logger.info("norm : %f"%(math.sqrt((alpha**2 * sc.sparse.linalg.norm(p-p_old,'fro')**2 
-                                + (1 - alpha)**2 * sc.sparse.linalg.norm(q-q_old,'fro')**2))
-                     / np.max([0, math.sqrt((alpha**2 * sc.sparse.linalg.norm(p_old,'fro')**2 
-                                 + (1 - alpha)**2 * sc.sparse.linalg.norm(q_old,'fro')**2))])))
-            else: print("norm", math.sqrt((alpha**2 * sc.sparse.linalg.norm(p-p_old,'fro')**2 
-                                + (1 - alpha)**2 * sc.sparse.linalg.norm(q-q_old,'fro')**2))
-                     / np.max([0, math.sqrt((alpha**2 * sc.sparse.linalg.norm(p_old,'fro')**2 
-                                 + (1 - alpha)**2 * sc.sparse.linalg.norm(q_old,'fro')**2))]))
+            if logger is not None:  logger.info("norm", str(math.sqrt((alpha**2 * np.linalg.norm(p-p_old,'fro')**2 
+                                + (1 - alpha)**2 * np.linalg.norm(q-q_old,'fro')**2))
+                     / np.max([0, math.sqrt((alpha**2 * np.linalg.norm(p_old,'fro')**2 
+                                 + (1 - alpha)**2 * np.linalg.norm(q_old,'fro')**2))])))
+            else: print("norm", math.sqrt((alpha**2 * np.linalg.norm(p-p_old,'fro')**2 
+                                + (1 - alpha)**2 * np.linalg.norm(q-q_old,'fro')**2))
+                     / np.max([0, math.sqrt((alpha**2 * np.linalg.norm(p_old,'fro')**2 
+                                 + (1 - alpha)**2 * np.linalg.norm(q_old,'fro')**2))]))
 
         #dual.append(sc.sparse.linalg.norm(alpha * p[:, mask].dot((delta_k[:, mask]).T)\
         #            + (1 - alpha) * q[:, mask].dot((delta_k[:, mask]).T), 'fro'))
         t_kp1 = 0.5 * (1 + np.sqrt(1 + 4 * t_k**2))
 
-        r = p + (t_k - 1) / t_kp1 * (p - p_old)
-        s = q + (t_k - 1) / t_kp1 * (q - q_old)
+        r = p + (t_k - 1.0) / t_kp1 * (p - p_old)
+        s = q + (t_k - 1.0) / t_kp1 * (q - q_old)
         t_k = t_kp1
         x_km1 = x_k
         p_old, q_old = copy.deepcopy(p), copy.deepcopy(q)
@@ -184,14 +200,11 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
                 print(it,'efficient rank x_k', efficient_rank(x_k), 'delta', delta_x)
 
     toc0 = time.time()
-    if verbose: 
-        print("time:",time.time() - tic0)
-        if logger is not None:
-            logger.info("---------------------------------------------------")
+    if verbose: print("time:",time.time() - tic0)
     belly = (alpha * p+ (1-alpha) * q).dot(delta_k.T)
-    x_k = project_DS2(B-lambd * belly.todense(),  max_it=max_iter_projection, eps = tol_projection)
+    x_k = project_DS2(B-lambd * belly,  max_it=max_iter_projection, eps = tol_projection)
     val = np.trace(x_k.T.dot(K.todense().dot(x_k)) 
-                   - 2*(K.todense() -lambd *(delta_k.dot(alpha* p.T + (1.0 - alpha) * q.T)).todense().dot(x_k)))
+                   - 2*(K.todense() -lambd *(delta_k.dot(alpha* p.T + (1.0 - alpha) * q.T)).dot(x_k)))
 
     return x_k, toc0-tic0, delta_x, delta_p, delta_q, dual, val
 
@@ -231,7 +244,7 @@ def hcc_FISTA(K, pi_warm_start, lambd0, alpha =0.95,
         Z, time_taken, delta_x, _, _, dual, val = hcc_FISTA_denoise(K,
                                                                    pi_prev - 2.0/L * g_t,
                                                                    pi_prev,
-                                                                   2.0/L*lambd0,
+                                                                   lambd0,
                                                                    alpha=alpha, 
                                                                    maxiterFISTA=maxiterFISTA,
                                                                    eta=1.0,

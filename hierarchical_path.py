@@ -16,8 +16,8 @@ LAMBDA_MAX = 1e-3
 N_LAMBDA = 20
 LAMBDA0 = 1e-2
 
-def compute_reg_path(kernel, alpha, pi_warm_start, mode="ADMM", direction='up', tol= TOL,lambd0 = LAMBDA0,
-                     lambda_max= LAMBDA_MAX, n_lambda=N_LAMBDA,
+def compute_reg_path(kernel, alpha, pi_warm_start, mode="ADMM", direction='up', tol= TOL,
+                     lambdas = [0.1,0.5, 1.0,5.0,10.0],
                      verbose= False, savefile =None, logger=None, **kwargs):
     ''' Computes the regularization path for K
     
@@ -33,8 +33,7 @@ def compute_reg_path(kernel, alpha, pi_warm_start, mode="ADMM", direction='up', 
     evol_efficient_rank={}
     pi = {}
     x_init = pi_warm_start
-    lambd = lambd0
-    for it_lambda in range(n_lambda):
+    for lambd in lambdas:
         tic = time.time()
         if logger is not None: 
             logger.info('Starting lambda = %f'%lambd)
@@ -60,7 +59,7 @@ def compute_reg_path(kernel, alpha, pi_warm_start, mode="ADMM", direction='up', 
         print('--------------------------')
         print('--------------------------')
         toc = time.time()
-        pi[lambd0]={'pi':x_k, 'time':toc-tic}
+        pi[lambd]={'pi':x_k, 'time':toc-tic}
         # Check divergence compare to previous
 
         if verbose:
@@ -70,12 +69,8 @@ def compute_reg_path(kernel, alpha, pi_warm_start, mode="ADMM", direction='up', 
             logger.info('--------------------------------')
         if savefile is not None:
             pickle.dump(pi,open(savefile,'wb'))
-        if direction == 'down': 
-            lambd -= lambd0
-        else:
-            lambd += lambd0
-            
 
+            
     return pi, toc - tic, evol_efficient_rank
 
 

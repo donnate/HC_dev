@@ -56,7 +56,7 @@ if __name__ == '__main__':
     SAVEFILE = 'data/res_' +INPUTFILE+ args.savefile + '.pkl'
     ALGO = args.algorithm
 
-    data = pd.DataFrame.from_csv("data/data/"+ INPUTFILE +".csv")
+    data = pd.DataFrame.from_csv("data/"+ INPUTFILE +".csv")
     K = sc.sparse.csc_matrix(data.values)
     n_nodes = K.shape[0]
     logger.info("*********************************************************************")
