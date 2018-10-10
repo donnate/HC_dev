@@ -4,6 +4,7 @@ from projections import *
 from utils import *
 from convex_hc_ADMM import *
 from convex_hc_denoising import *
+from convex_hc_simplex import *
 import time
 import pickle
 
@@ -17,7 +18,7 @@ N_LAMBDA = 20
 LAMBDA0 = 1e-2
 
 def compute_reg_path(kernel, alpha, pi_warm_start, mode="ADMM", direction='up', tol= TOL,
-                     lambdas = [0.1,0.5, 1.0,5.0,10.0],
+                     lambdas = [0.001, 0.1, 0.1 ,0.5, 1.0, 5.0],
                      verbose= False, savefile =None, logger=None, **kwargs):
     ''' Computes the regularization path for K
     
@@ -41,11 +42,19 @@ def compute_reg_path(kernel, alpha, pi_warm_start, mode="ADMM", direction='up', 
             print('Starting lambda = %f'%lambd)
         if mode == 'ADMM':
               x_k, _, _, _, _, _ = hcc_ADMM(kernel, x_init, lambd,
-                                                             alpha=alpha,
-                                                             maxit_ADMM=MAXIT_ADMM,
-                                                             tol=TOL,verbose=True,
-                                                             maxiter_ux=MAXITER_UX,
-                                                             logger=logger)
+                                            alpha=alpha,
+                                            maxit_ADMM=MAXIT_ADMM,
+                                            tol=TOL,verbose=True,
+                                            maxiter_ux=MAXITER_UX,
+                                            logger=logger)
+        elif mode == 'simplex':
+              x_k, _, _ , _ = hcc_FISTA_tot_simplex(kernel, x_init, lambd,
+                                                    alpha=alpha, 
+                                                    maxiterFISTA=MAXIT_FISTA,
+                                                    tol = TOL,
+                                                    verbose=True,
+                                                    logger=logger)
+            
         else:
               x_k, _, _ , _ = hcc_FISTA(kernel, x_init, lambd,
                                         alpha=alpha, 

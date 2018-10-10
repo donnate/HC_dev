@@ -174,14 +174,14 @@ def hcc_FISTA_simplex(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
                      or (delta_x[-1] < tol and it>=3)\
                      or (it > maxiterFISTA)
         if verbose: 
-            if logger is not None:  logger.info("norm", str(math.sqrt((alpha**2 * np.linalg.norm(p-p_old,'fro')**2 
+            if logger is not None:  logger.info("norm dual %f"%(math.sqrt((alpha**2 * np.linalg.norm(p-p_old,'fro')**2 
                                 + (1 - alpha)**2 * np.linalg.norm(q-q_old,'fro')**2))
                      / np.max([0, math.sqrt((alpha**2 * np.linalg.norm(p_old,'fro')**2 
                                  + (1 - alpha)**2 * np.linalg.norm(q_old,'fro')**2))])))
-            else: print("norm", math.sqrt((alpha**2 * np.linalg.norm(p-p_old,'fro')**2 
+            else: print("norm dual %f"%(math.sqrt((alpha**2 * np.linalg.norm(p-p_old,'fro')**2 
                                 + (1 - alpha)**2 * np.linalg.norm(q-q_old,'fro')**2))
                      / np.max([0, math.sqrt((alpha**2 * np.linalg.norm(p_old,'fro')**2 
-                                 + (1 - alpha)**2 * np.linalg.norm(q_old,'fro')**2))]))
+                                 + (1 - alpha)**2 * np.linalg.norm(q_old,'fro')**2))])))
 
         #dual.append(sc.sparse.linalg.norm(alpha * p[:, mask].dot((delta_k[:, mask]).T)\
         #            + (1 - alpha) * q[:, mask].dot((delta_k[:, mask]).T), 'fro'))
@@ -223,7 +223,7 @@ def hcc_FISTA_simplex(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
 
 
 
-def hcc_FISTA(K, pi_warm_start, lambd0, alpha =0.95,
+def hcc_FISTA_tot_simplex(K, pi_warm_start, lambd0, alpha =0.95,
               maxiterFISTA = 2000, tol=5*1e-3, debug_mode=True,
               lambda_spot = 0, verbose =False, logger=None):
     if debug_mode: verbose =True
@@ -246,7 +246,7 @@ def hcc_FISTA(K, pi_warm_start, lambd0, alpha =0.95,
     while not converged:
         g_t =  (K.todense().dot(B) - K.todense())
         #B=  project_DS2(B - g_t)#+np.abs(B - g_t))
-        Z, time_taken, delta_x, _, _, dual, val = hcc_FISTA_denoise(K,
+        Z, time_taken, delta_x, _, _, dual, val = hcc_FISTA_simplex(K,
                                                                    pi_prev - 2.0/L * g_t,
                                                                    pi_prev,
                                                                    lambd0,
@@ -294,7 +294,6 @@ def hcc_FISTA(K, pi_warm_start, lambd0, alpha =0.95,
     toc = time.time()
     
     return pi_prev, toc-tic, evol_efficient_rank, delta_pi
-
 
 
 
