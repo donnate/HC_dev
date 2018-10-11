@@ -162,7 +162,7 @@ def project_simplex(v, z=1.0):
     return np.array([max(v[i] - theta, 0) for i in range(len(v))])
 
 
-def project_stochmat(G_tilde, v =1.0, orient=0):
+def project_stochmat(G_tilde, v =1.0, orient=1):
     ''' Projection onto the set of stochastic matrices
         INPUT:
         -----------------------------------------------------------
@@ -176,5 +176,5 @@ def project_stochmat(G_tilde, v =1.0, orient=0):
         Y           :      projection of m unto the DS set
     '''
     n = G_tilde.shape[0]
-    Y = np.apply_along_axis(project_simplex, orient, G_tilde, z = v)
+    Y = np.apply_along_axis(project_simplex, orient, np.asarray(G_tilde), z = v)
     return Y
