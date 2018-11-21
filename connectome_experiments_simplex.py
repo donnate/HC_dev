@@ -46,7 +46,7 @@ def mtx_from_utr(utr,complete=True):
 
 if __name__ == '__main__':
     parser = ArgumentParser("Run evaluation on connectome dataset.")
-    parser.add_argument("-logger","--loggerfile", help="logger file name", default='connectome')
+    parser.add_argument("-logger","--loggerfile", help="logger file name", default='connectome3_')
     parser.add_argument("-savefile","--savefile", help="save file name", default='01')
     parser.add_argument("-i","--inputfile", help="input file name in the data folder",
                         default='data/rsfmri/corrdata.npy')
