@@ -18,7 +18,7 @@ N_LAMBDA = 20
 LAMBDA0 = 1e-2
 
 def compute_reg_path(kernel, alpha, pi_warm_start, mode="ADMM", direction='up', tol= TOL,
-                     lambdas = [0.001, 0.1, 0.1 ,0.5, 1.0, 5.0],
+                     lambdas = [0.00001, 0.001, 0.005, 0.01, 0.05, 0.1 ,0.5, 1.0],
                      verbose= False, savefile =None, logger=None, **kwargs):
     ''' Computes the regularization path for K
     

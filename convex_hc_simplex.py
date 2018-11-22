@@ -13,8 +13,8 @@ from utils import *
 
 TOL_PROJ = 1e-4
 
-def hcc_FISTA_simplex(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1, tol=1e-2,
-                      verbose=True, tol_projection=1e-4, max_iter_projection=100000,
+def hcc_FISTA_simplex(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=30, eta=1.0, tol=1e-2,
+                      verbose=True, tol_projection=1e-3, max_iter_projection=100000,
                       logger = None):
     ''' Hierarchical clustering algorithm based on FISTA (dual)
     Input: similarity matrix K assumed to be from a Mercer kernel (or at least PSD)
@@ -58,7 +58,12 @@ def hcc_FISTA_simplex(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
             mask += [indices[0][i]*n_nodes+indices[1][i]]
         mask = np.array(mask)
      
-    
+    lmin = sc.sparse.linalg.eigen.eigsh(K0, k =1,
+                                        which = 'SA',
+                                        return_eigenvectors=False)[0]
+    if lmin<1e-3:
+        K = K + (1e-3+ np.abs(lmin)) * sc.sparse.eye(K.shape[0])
+        ### Regularize
     #lmax = K_tilde.max() * sc.sparse.linalg.norm(K_tilde,'fro')
     
     
@@ -78,7 +83,7 @@ def hcc_FISTA_simplex(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
     lmax = (K**2).sum() 
     #if verbose: print("gamma =%f"%gamma)
     lmax = np.linalg.norm(delta_k,'fro')**2
-    gamma = 4 * max([alpha**2,(1-alpha)**2])*lmax * lambd**2
+    gamma = 8 * max([alpha**2,(1-alpha)**2])*lmax * lambd**2
     if verbose: print("lmax",lmax, "gamma", gamma)
     I = sc.sparse.eye(n_nodes)
     update = (delta_k.T.dot(x_k.T)).T
@@ -224,16 +229,24 @@ def hcc_FISTA_simplex(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
 
 
 def hcc_FISTA_tot_simplex(K, pi_warm_start, lambd0, alpha =0.95,
-              maxiterFISTA = 2000, tol=5*1e-3, debug_mode=True,
+              maxiterFISTA = 20, tol=1e-2, debug_mode=True,
               lambda_spot = 0, verbose =False, logger=None):
     if debug_mode: verbose =True
     Y, pi_prev, pi_prev_old = [pi_warm_start] * 3
+    
+    lmin = sc.sparse.linalg.eigen.eigsh(K, k =1,
+                                    which = 'SA',
+                                    return_eigenvectors=False)[0]
+    if lmin<1e-3:
+        K = K + (1e-3+ np.abs(lmin)) * sc.sparse.eye(K.shape[0])
+
     evol_efficient_rank=[]
     L = 2 * sc.sparse.linalg.norm(K, 'fro')
     lambd = 2 * lambd0 / L
     t_k = 1
     tic = time.time()
     delta_pi=[]
+    delta_val = []
     it = 0 
     converged = False
     if verbose:
@@ -260,20 +273,19 @@ def hcc_FISTA_tot_simplex(K, pi_warm_start, lambd0, alpha =0.95,
         pi_prev = Z
         if old_val < val:
             pi_prev = pi_prev_old
+            delta_val.append(0.0)
         else:
+            delta_val.append(np.abs(val-old_val)/np.abs(old_val))
             old_val = val
         t_kp1 = 0.5 * (1 + np.sqrt(1 + 4 * t_k**2))
         delta_pi.append(np.linalg.norm( pi_prev_old-pi_prev, 'fro')/np.linalg.norm( pi_prev_old, 'fro'))
-        if delta_pi[-1]< tol:
+        
+        if delta_val[-1]< tol:
             inc+=1
         else:
-            inc=0
-        if np.abs( efficient_rank(pi_prev_old)-efficient_rank(pi_prev))<2.0:
-            inc_rank += 1
-        else:
-            inc_rank = 0
-           
+            inc=0   
         #print delta_pi[-1]
+        print("inc = ", inc)
         converged = (inc>2) or (it > maxiterFISTA)
         evol_efficient_rank += [efficient_rank(pi_prev)]
         
