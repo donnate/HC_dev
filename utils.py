@@ -1,6 +1,6 @@
 import numpy as np
 import scipy as sc
-from scipy.spatial.distances import cdist
+from scipy.spatial.distance import cdist
 
 def diffusion_map(A, K_n):
     thr_inv = np.vectorize(lambda x:  x if x > 1e-9 else 1.0)

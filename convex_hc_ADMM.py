@@ -4,9 +4,15 @@ from projections import *
 import scipy as sc
 import time
 
+MAXIT_ADMM = 100
+MAXITER_UX = 100
+ALPHA = 0.5
+TOL = 1e-2
+RHO = 1.0
 
-def hcc_ADMM(K, pi_prev, lambd, alpha=0.5, maxit_ADMM=100, rho=1.0,
-             mode='kernelized', tol=1e-2, maxiter_ux=100, verbose=False, logger = None):
+
+def hcc_ADMM(K, pi_prev, lambd, alpha=ALPHA, maxit_ADMM=MAXIT_ADMM, rho=RHO,
+             mode='kernelized', tol=TOL, maxiter_ux=MAXITER_UX, verbose=False, logger = None):
     ''' Hierarchical clustering algorithm based on ADMM
         Input: similarity matrix K assumed to be from a Mercer kernel
         (or at least PSD)
@@ -61,8 +67,7 @@ def hcc_ADMM(K, pi_prev, lambd, alpha=0.5, maxit_ADMM=100, rho=1.0,
         L = 1.0 + (1.0 - alpha) * lambd / (rho)
         mask = delta.nonzero
         Z_temp = 1.0 / L * (X.dot(delta) + U)
-        #th = alpha * lambd / (rho + (1.0 - alpha) * lambd)
-        th = np.min([alpha * lambd / ((rho + (1.0 - alpha) * lambd)*norm_Z),2])
+        th = np.min([alpha * lambd / ((rho + (1.0 - alpha) * lambd)*norm_Z), 2])
         thres = np.vectorize(lambda x: x -th * np.sign(x) if np.abs(x) >  th else 0)
         Z_temp.data = thres(Z_temp.data)
         return Z_temp
@@ -108,7 +113,7 @@ def hcc_ADMM(K, pi_prev, lambd, alpha=0.5, maxit_ADMM=100, rho=1.0,
                     (primal_res[-1] < eps1 and dual_res[-1] < eps2)
         if verbose: 
             if logger is not None:
-                logger.info( "Primal res= %f, Dual_res= %f, at iteration %i"%(primal_res[-1],
+                logger.info("Primal res= %f, Dual_res= %f, at iteration %i"%(primal_res[-1],
                                                                    dual_res[-1],
                                                                    it))
             else:
@@ -118,4 +123,4 @@ def hcc_ADMM(K, pi_prev, lambd, alpha=0.5, maxit_ADMM=100, rho=1.0,
                      )
 
     toc = time.time()
-    return X, toc-tic, Z, U, primal_res, dual_res
+    return X.todense(), toc-tic, Z, U, primal_res, dual_res
