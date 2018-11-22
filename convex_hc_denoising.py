@@ -72,11 +72,13 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
     delta_k = delta_k.todense()
 
     lmax = np.linalg.norm(delta_k,'fro')**2
-    gamma = 4 * max([alpha**2,(1-alpha)**2])*lmax * lambd**2
+    #lmax = np.max(K.T.dot(K).diagonal())
+    #gamma = 4 * max([alpha**2,(1-alpha)**2])*lmax * lambd**2
+    gamma = 16 * max([alpha**2,(1-alpha)**2])*lmax * lambd**2
     if verbose: print("lmax",lmax, "gamma", gamma)
     I = sc.sparse.eye(n_nodes)
     update = (delta_k.T.dot(x_k.T)).T
-    print("update.max(())", update.max())
+    #print("update.max(())", update.max())
 
     q = np.zeros((n_nodes, len(mask)))
     p = project_unit_ball(update,
@@ -89,7 +91,7 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
     
     
     index_rev = [jj*n_nodes + ii  for ii in range(n_nodes) for jj in range(n_nodes)]
-    print("init p", p.max(), q.max(), q.min())
+    #print("init p", p.max(), q.max(), q.min())
     t_k, it = 1, 1
     converged = False
     
@@ -115,7 +117,7 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=100, eta=0.1
         proj = project_DS2(B-lambd * belly,  max_it=max_iter_projection, eps = tol_projection)
         x_k = proj
         L_x = proj.dot(delta_k)
-        print("update.max(())", L_x.max())
+        #print("update.max(())", L_x.max())
         
         update_p = p + 2.0 * alpha *lambd / gamma * L_x
         p = project_unit_ball(update_p,
@@ -200,7 +202,8 @@ def hcc_FISTA(K, pi_warm_start, lambd0, alpha =0.95,
         K = K + (1e-3+ np.abs(lmin)) * sc.sparse.eye(K.shape[0])
     Y, pi_prev, pi_prev_old = [pi_warm_start] * 3
     evol_efficient_rank=[]
-    L = 2 * sc.sparse.linalg.norm(K, 'fro')
+    #L = 2 * sc.sparse.linalg.norm(K, 'fro')
+    #L = 2 * sc.sparse.linalg.norm(K, 'fro')
     lambd = 2 * lambd0 / L
     t_k = 1
     tic = time.time()

@@ -85,16 +85,10 @@ if __name__ == '__main__':
 
 
 
-    corrdata = np.load("data/"+ INPUTFILE)
+    corrdata = np.load(INPUTFILE)
     # load the correlation data. This matrix contains
     # the upper triangle of the correlation matrix between each of the 630
     # regions, across each of the 84 good sessions
-    parceldata = pd.read_csv('data/data/parcel_data.txt',
-                          header=None,sep='\t')
-    parceldata.replace(to_replace='na', value='Subcortical', inplace=True)
-    parceldata.replace(to_replace='Zero', value='Unassigned', inplace=True)
-    parceldata.columns=['num','hemis','X','Y','Z','lobe','sublobe',
-                        'power','yeo7','yeo17']
 
     meancorr=np.mean(corrdata,0)
     density=0.1 
