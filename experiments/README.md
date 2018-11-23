@@ -2,18 +2,18 @@ The purpose of this experiments folder is to test our method and benchmark it ag
 
 We divide the experiments along the four main axes of investigation:
 
-1.__ Ability of the method to recover modular substructures:__ this is assessed on a variety of synthetic experiments,
-providing different ways of creating hierarchies (GM, nested subcliques, Stochastic Block models with varying densities. In this setting, we have groun
+__1. Ability of the method to recover modular substructures:__ this is assessed on a variety of synthetic experiments,
+providing different ways of creating hierarchies (Gaussian Mixtures, nested subcliques, Stochastic Block models with varying densities. In this setting, we have groun
 truth labels at our disposal, and are able to assess the accuracy of the recovered hierarchy; The accuracy 
 of the model is averaged over 100 trials (that is, random graph instances).
 
-2. __Ability of the method to be robust against noise and perturbations__: this is evaluated through a real dataset.
+__2. Ability of the method to be robust against noise and perturbations__: this is evaluated through a real dataset.
 
-3. __Comparison of the results with other hierarchical clustering techniques__: we enrich the analysis of our model
+__3. Comparison of the results with other hierarchical clustering techniques__: we enrich the analysis of our model
 by comparing it to: (a) average linkage (which seems to be people's favorite in applied studies), (b) ward linkage,
 (c) Spectral clustering with a varying number of clusters (d) robust hierarchical clustering [1] and (e) HC with spreading metrics [2].
 
-4.__Understanding the method__: the goal here is to get a full picture of the strengths and weaknesses of the method, and the influence of its parameter $alpha$.: what graph representation is the most suitable? What is its impact on the results? How does the value of alpha influence the results?
+__4. Understanding the method__: the goal here is to get a full picture of the strengths and weaknesses of the method, and the influence of its parameter $alpha$.: what graph representation is the most suitable? What is its impact on the results? How does the value of alpha influence the results?
 
 In order to assess the quality of our method, we  rely on different standard clustering and classification metrics:
 
