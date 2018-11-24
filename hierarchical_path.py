@@ -21,7 +21,7 @@ def compute_reg_path(kernel, alpha, pi_warm_start, mode="ADMM", direction='up', 
                      lambdas = [0.00001, 0.001, 0.005, 0.01, 0.05, 0.1 ,0.5, 1.0],
                      verbose= False, savefile =None, logger=None, **kwargs):
     ''' Computes the regularization path for K
-    
+
         INPUT:
         -----------------------------------------------------------
         kernel            :      similarity matrix
@@ -44,7 +44,7 @@ def compute_reg_path(kernel, alpha, pi_warm_start, mode="ADMM", direction='up', 
               x_k, _, _, _ = hcc_ADMM(kernel, x_init, lambd,
                                             alpha=alpha,
                                             maxit_ADMM=MAXIT_ADMM,
-                                            tol=TOL,verbose=True,
+                                            tol=TOL,verbose=verbose,
                                             maxiter_ux=MAXITER_UX,
                                             logger=logger)
         elif mode == 'simplex':
@@ -52,14 +52,13 @@ def compute_reg_path(kernel, alpha, pi_warm_start, mode="ADMM", direction='up', 
                                                     alpha=alpha, 
                                                     maxiterFISTA=MAXIT_FISTA,
                                                     tol = TOL,
-                                                    verbose=True,
+                                                    verbose=verbose,
                                                     logger=logger)
-            
         else:
               x_k, _, _, _ = hcc_FISTA(kernel, x_init, lambd,
                                         alpha=alpha, 
                                         maxiterFISTA=MAXIT_FISTA,
-                                        tol = TOL,verbose=True,
+                                        tol = TOL,verbose=verbose,
                                         logger=logger)
         
         pi[lambd] = x_k
