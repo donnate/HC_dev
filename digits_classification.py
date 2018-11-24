@@ -26,8 +26,8 @@ random.seed(2018)
 
 if __name__ == '__main__':
     parser = ArgumentParser("Run evaluation on MNIST dataset.")
-    parser.add_argument("-logger","--loggerfile",help="logger file name",default='log_synthetic.log')
-    parser.add_argument("-savefile","--savefile",help="save file name",default='data/res_digits.pkl')
+    parser.add_argument("-logger","--loggerfile",help="logger file name",default='final_log_synthetic.log')
+    parser.add_argument("-savefile","--savefile",help="save file name",default='data/final_res_digits.pkl')
     parser.add_argument("-a","--alpha",help="alpha",default=0.95, type=float)
     parser.add_argument("-s","--sigma",help="bandwith for kernel",default=200.0, type=float)
     parser.add_argument("-l0","--lambd0",help="lambda 0 ",default=1e-3, type=float)
@@ -58,9 +58,17 @@ if __name__ == '__main__':
     D = np.exp(-cdist(data, data)**2/(2*SIGMA))
     nn = np.zeros(D.shape)
     for i in range(D.shape[0]):
-        nn_n = [u for u in np.argsort(D[i,:])[-(N_NEIGHBORS+1):] if u!=1]
+        nn_n = [u for u in np.argsort(D[i,:])[-(N_NEIGHBORS+1):] if u!=i]
         nn[i, nn_n] = 1
     nn = nn +nn.T
+    nn[nn>1.0] = 1.0
+    K = D * nn
+    K = K.T.dot(K)
+    sqrtv = np.vectorize(lambda x: 1.0/np.sqrt(x) if x > 1e-10 else 0.0)
+    Deg = np.diagflat(sqrtv(K.diagonal()))
+    K = sc.sparse.csc_matrix(Deg.dot(K.dot(Deg)))
+    n_nodes = K.shape[0]
+    
     np.fill_diagonal(nn, 1)
 
     K = sc.sparse.csc_matrix(D * nn)
@@ -105,7 +113,7 @@ if __name__ == '__main__':
             #STOP
             g_t = 2.0 / (L) * (K.todense().dot(B) - K.todense())
             B=  project_DS2(B - g_t)#+np.abs(B - g_t))
-            Z, time_taken, delta_x, delta_p, delta_q, dual = hcc_FISTA_denoise(K, B,
+            Z, time_taken, delta_x, delta_p, delta_q, dual, val = hcc_FISTA_denoise(K, B,
                                                                                pi_prev,
                                                                                lambd,
                                                                                alpha=ALPHA, 
@@ -115,11 +123,12 @@ if __name__ == '__main__':
                                                                                verbose=True,
                                                                                tol_projection=1e-2*TOL,
                                                                                logger=logger)
+    
             pi_prev = Z
-            if it > 2:
-                if (np.linalg.norm( pi_prev_old-Z, 'fro')/np.linalg.norm( pi_prev_old, 'fro')>0.5
-                   and efficient_rank(Z)>evol_efficient_rank[lambd0][-1]):
-                    pi_prev =pi_prev_old
+            if value_taken[lambd0][-1] < val:
+                pi_prev = pi_prev_old
+            else:
+                old_val = val
 
             conv_p[lambd0][it] = delta_p
             conv_q[lambd0][it] = delta_q
