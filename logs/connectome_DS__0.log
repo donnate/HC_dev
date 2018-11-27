@@ -1,0 +1,1259 @@
+2018-10-10 21:16:52,162 INFO *********************************************************************
+2018-10-10 21:16:52,164 INFO *********************************************************************
+2018-10-10 21:16:52,164 INFO *********************************************************************
+2018-10-10 21:16:52,166 INFO Starting lambda = 0.001000
+2018-10-10 21:16:52,257 INFO Beginning l=0.001000
+2018-10-10 21:17:24,661 INFO norm dual= 1.558600
+2018-10-10 21:17:28,943 INFO inner loop 1: efficient rank x_k: 629.819098, delta_x: 0.044050
+2018-10-10 21:17:53,916 INFO norm dual= 0.520850
+2018-10-10 21:17:57,300 INFO inner loop 2: efficient rank x_k: 629.805715, delta_x: 0.007830
+2018-10-10 21:18:22,902 INFO norm dual= 0.219592
+2018-10-10 21:18:25,348 INFO inner loop 3: efficient rank x_k: 629.805769, delta_x: 0.007884
+2018-10-10 21:18:52,906 INFO norm dual= 0.183714
+2018-10-10 21:18:56,216 INFO inner loop 4: efficient rank x_k: 629.804297, delta_x: 0.005522
+2018-10-10 21:19:22,355 INFO norm dual= 0.147864
+2018-10-10 21:19:25,011 INFO inner loop 5: efficient rank x_k: 629.798826, delta_x: 0.004081
+2018-10-10 21:19:35,645 INFO --------------------------------------------------------
+2018-10-10 21:19:36,346 INFO it:1,  convergence value:1.000000, convergence pi:0.048741, rk: 629.795191)
+2018-10-10 21:23:46,549 INFO norm dual= 0.436512
+2018-10-10 21:23:50,884 INFO inner loop 1: efficient rank x_k: 629.247958, delta_x: 0.044570
+2018-10-10 21:24:25,818 INFO norm dual= 0.274975
+2018-10-10 21:24:30,278 INFO inner loop 2: efficient rank x_k: 629.248699, delta_x: 0.009897
+2018-10-10 21:25:04,508 INFO norm dual= 0.222702
+2018-10-10 21:25:10,261 INFO inner loop 3: efficient rank x_k: 629.233159, delta_x: 0.007029
+2018-10-10 21:25:42,337 INFO norm dual= 0.178295
+2018-10-10 21:25:47,567 INFO inner loop 4: efficient rank x_k: 629.217445, delta_x: 0.005577
+2018-10-10 21:26:37,037 INFO norm dual= 0.141879
+2018-10-10 21:26:43,068 INFO inner loop 5: efficient rank x_k: 629.202403, delta_x: 0.004541
+2018-10-10 21:26:59,090 INFO --------------------------------------------------------
+2018-10-10 21:27:01,178 INFO it:2,  convergence value:0.063134, convergence pi:0.047649, rk: 629.193627)
+2018-10-10 21:32:02,106 INFO norm dual= 0.353038
+2018-10-10 21:32:06,308 INFO inner loop 1: efficient rank x_k: 627.910680, delta_x: 0.056793
+2018-10-10 21:32:38,176 INFO norm dual= 0.187968
+2018-10-10 21:32:43,640 INFO inner loop 2: efficient rank x_k: 627.896868, delta_x: 0.009253
+2018-10-10 21:33:16,190 INFO norm dual= 0.152191
+2018-10-10 21:33:23,659 INFO inner loop 3: efficient rank x_k: 627.867657, delta_x: 0.005233
+2018-10-10 21:34:02,309 INFO norm dual= 0.122019
+2018-10-10 21:34:07,137 INFO inner loop 4: efficient rank x_k: 627.841272, delta_x: 0.003878
+2018-10-10 21:34:21,734 INFO --------------------------------------------------------
+2018-10-10 21:34:23,106 INFO it:3,  convergence value:0.070660, convergence pi:0.059597, rk: 627.825618)
+2018-10-10 21:39:09,931 INFO norm dual= 0.356792
+2018-10-10 21:39:14,462 INFO inner loop 1: efficient rank x_k: 625.417401, delta_x: 0.067779
+2018-10-10 21:39:47,751 INFO norm dual= 0.217046
+2018-10-10 21:39:52,899 INFO inner loop 2: efficient rank x_k: 625.402060, delta_x: 0.010837
+2018-10-10 21:40:27,048 INFO norm dual= 0.135096
+2018-10-10 21:40:33,438 INFO inner loop 3: efficient rank x_k: 625.360935, delta_x: 0.007085
+2018-10-10 21:41:04,286 INFO norm dual= 0.096675
+2018-10-10 21:41:09,371 INFO inner loop 4: efficient rank x_k: 625.318988, delta_x: 0.004528
+2018-10-10 21:41:19,769 INFO --------------------------------------------------------
+2018-10-10 21:41:21,548 INFO it:4,  convergence value:0.065457, convergence pi:0.070293, rk: 625.293929)
+2018-10-10 21:46:42,559 INFO norm dual= 0.337360
+2018-10-10 21:46:47,436 INFO inner loop 1: efficient rank x_k: 621.324246, delta_x: 0.076522
+2018-10-10 21:47:27,328 INFO norm dual= 0.162993
+2018-10-10 21:47:34,730 INFO inner loop 2: efficient rank x_k: 621.287580, delta_x: 0.012685
+2018-10-10 21:48:07,303 INFO norm dual= 0.115168
+2018-10-10 21:48:12,377 INFO inner loop 3: efficient rank x_k: 621.230118, delta_x: 0.005494
+2018-10-10 21:48:51,956 INFO norm dual= 0.084967
+2018-10-10 21:48:56,606 INFO inner loop 4: efficient rank x_k: 621.175127, delta_x: 0.003793
+2018-10-10 21:49:12,806 INFO --------------------------------------------------------
+2018-10-10 21:49:15,155 INFO it:5,  convergence value:0.062291, convergence pi:0.079055, rk: 621.142957)
+2018-10-10 21:54:18,005 INFO norm dual= 0.415151
+2018-10-10 21:54:22,005 INFO inner loop 1: efficient rank x_k: 615.181992, delta_x: 0.083950
+2018-10-10 21:54:52,829 INFO norm dual= 0.175451
+2018-10-10 21:54:58,346 INFO inner loop 2: efficient rank x_k: 615.159221, delta_x: 0.015652
+2018-10-10 21:55:27,906 INFO norm dual= 0.105508
+2018-10-10 21:55:31,711 INFO inner loop 3: efficient rank x_k: 615.091210, delta_x: 0.007464
+2018-10-10 21:55:55,532 INFO norm dual= 0.079941
+2018-10-10 21:56:00,947 INFO inner loop 4: efficient rank x_k: 615.018353, delta_x: 0.004317
+2018-10-10 21:56:10,597 INFO --------------------------------------------------------
+2018-10-10 21:56:12,098 INFO it:6,  convergence value:0.052687, convergence pi:0.086216, rk: 614.977766)
+2018-10-10 22:01:18,730 INFO norm dual= 0.380284
+2018-10-10 22:01:25,978 INFO inner loop 1: efficient rank x_k: 606.790849, delta_x: 0.088801
+2018-10-10 22:02:15,219 INFO norm dual= 0.154855
+2018-10-10 22:02:19,777 INFO inner loop 2: efficient rank x_k: 606.743641, delta_x: 0.017400
+2018-10-10 22:03:10,998 INFO norm dual= 0.096872
+2018-10-10 22:03:15,708 INFO inner loop 3: efficient rank x_k: 606.663491, delta_x: 0.006650
+2018-10-10 22:03:44,991 INFO norm dual= 0.068382
+2018-10-10 22:03:50,521 INFO inner loop 4: efficient rank x_k: 606.578145, delta_x: 0.004344
+2018-10-10 22:04:02,141 INFO --------------------------------------------------------
+2018-10-10 22:04:03,676 INFO it:7,  convergence value:0.045039, convergence pi:0.090979, rk: 606.531555)
+2018-10-10 22:09:46,757 INFO norm dual= 0.386396
+2018-10-10 22:09:54,391 INFO inner loop 1: efficient rank x_k: 596.079597, delta_x: 0.091491
+2018-10-10 22:10:48,679 INFO norm dual= 0.130441
+2018-10-10 22:10:56,875 INFO inner loop 2: efficient rank x_k: 596.056660, delta_x: 0.017491
+2018-10-10 22:11:42,746 INFO norm dual= 0.078601
+2018-10-10 22:11:51,256 INFO inner loop 3: efficient rank x_k: 595.957140, delta_x: 0.006072
+2018-10-10 22:12:26,989 INFO norm dual= 0.064145
+2018-10-10 22:12:32,633 INFO inner loop 4: efficient rank x_k: 595.854363, delta_x: 0.003767
+2018-10-10 22:12:43,633 INFO --------------------------------------------------------
+2018-10-10 22:12:44,968 INFO it:8,  convergence value:0.036230, convergence pi:0.093574, rk: 595.802316)
+2018-10-10 22:18:03,770 INFO norm dual= 0.386495
+2018-10-10 22:18:08,424 INFO inner loop 1: efficient rank x_k: 583.549946, delta_x: 0.091497
+2018-10-10 22:18:38,751 INFO norm dual= 0.125049
+2018-10-10 22:18:44,444 INFO inner loop 2: efficient rank x_k: 583.504910, delta_x: 0.021648
+2018-10-10 22:19:21,440 INFO norm dual= 0.072608
+2018-10-10 22:19:29,425 INFO inner loop 3: efficient rank x_k: 583.397743, delta_x: 0.006052
+2018-10-10 22:20:14,813 INFO norm dual= 0.043795
+2018-10-10 22:20:23,494 INFO inner loop 4: efficient rank x_k: 583.291836, delta_x: 0.003378
+2018-10-10 22:20:45,685 INFO --------------------------------------------------------
+2018-10-10 22:20:47,861 INFO it:9,  convergence value:0.030215, convergence pi:0.093552, rk: 583.231106)
+2018-10-10 22:26:39,873 INFO norm dual= 0.364843
+2018-10-10 22:26:44,829 INFO inner loop 1: efficient rank x_k: 570.086326, delta_x: 0.090012
+2018-10-10 22:27:21,175 INFO norm dual= 0.118163
+2018-10-10 22:27:25,830 INFO inner loop 2: efficient rank x_k: 570.050540, delta_x: 0.020867
+2018-10-10 22:28:02,653 INFO norm dual= 0.061732
+2018-10-10 22:28:11,222 INFO inner loop 3: efficient rank x_k: 569.931528, delta_x: 0.006422
+2018-10-10 22:29:05,223 INFO norm dual= 0.053644
+2018-10-10 22:29:12,816 INFO inner loop 4: efficient rank x_k: 569.808914, delta_x: 0.003504
+2018-10-10 22:29:27,599 INFO --------------------------------------------------------
+2018-10-10 22:29:29,402 INFO it:10,  convergence value:0.023781, convergence pi:0.091788, rk: 569.750054)
+2018-10-10 22:35:02,780 INFO norm dual= 0.354808
+2018-10-10 22:35:08,176 INFO inner loop 1: efficient rank x_k: 557.145705, delta_x: 0.086655
+2018-10-10 22:35:42,755 INFO norm dual= 0.110620
+2018-10-10 22:35:48,981 INFO inner loop 2: efficient rank x_k: 557.098640, delta_x: 0.022966
+2018-10-10 22:36:26,691 INFO norm dual= 0.058628
+2018-10-10 22:36:31,169 INFO inner loop 3: efficient rank x_k: 556.972849, delta_x: 0.006367
+2018-10-10 22:37:06,383 INFO norm dual= 0.039830
+2018-10-10 22:37:10,654 INFO inner loop 4: efficient rank x_k: 556.846154, delta_x: 0.003607
+2018-10-10 22:37:19,379 INFO --------------------------------------------------------
+2018-10-10 22:37:20,552 INFO it:11,  convergence value:0.019313, convergence pi:0.088176, rk: 556.782276)
+2018-10-10 22:42:58,261 INFO norm dual= 0.338741
+2018-10-10 22:43:03,970 INFO inner loop 1: efficient rank x_k: 546.358076, delta_x: 0.083375
+2018-10-10 22:43:35,060 INFO norm dual= 0.108554
+2018-10-10 22:43:40,905 INFO inner loop 2: efficient rank x_k: 546.305192, delta_x: 0.022879
+2018-10-10 22:44:10,942 INFO norm dual= 0.051641
+2018-10-10 22:44:15,926 INFO inner loop 3: efficient rank x_k: 546.177816, delta_x: 0.006731
+2018-10-10 22:44:49,233 INFO norm dual= 0.036346
+2018-10-10 22:44:54,988 INFO inner loop 4: efficient rank x_k: 546.044666, delta_x: 0.003543
+2018-10-10 22:45:03,583 INFO --------------------------------------------------------
+2018-10-10 22:45:04,515 INFO it:12,  convergence value:0.014982, convergence pi:0.084952, rk: 545.980768)
+2018-10-10 22:50:37,090 INFO norm dual= 0.333675
+2018-10-10 22:50:43,353 INFO inner loop 1: efficient rank x_k: 539.008206, delta_x: 0.080326
+2018-10-10 22:51:22,752 INFO norm dual= 0.091606
+2018-10-10 22:51:28,587 INFO inner loop 2: efficient rank x_k: 538.958981, delta_x: 0.023700
+2018-10-10 22:52:00,661 INFO norm dual= 0.049348
+2018-10-10 22:52:05,254 INFO inner loop 3: efficient rank x_k: 538.815258, delta_x: 0.005881
+2018-10-10 22:52:35,715 INFO norm dual= 0.033006
+2018-10-10 22:52:40,628 INFO inner loop 4: efficient rank x_k: 538.681173, delta_x: 0.003324
+2018-10-10 22:52:50,372 INFO --------------------------------------------------------
+2018-10-10 22:52:51,538 INFO it:13,  convergence value:0.011823, convergence pi:0.081414, rk: 538.614811)
+2018-10-10 22:58:50,811 INFO norm dual= 0.309544
+2018-10-10 22:58:54,820 INFO inner loop 1: efficient rank x_k: 535.740842, delta_x: 0.078002
+2018-10-10 22:59:30,787 INFO norm dual= 0.103171
+2018-10-10 22:59:36,774 INFO inner loop 2: efficient rank x_k: 535.675778, delta_x: 0.022857
+2018-10-10 23:00:13,257 INFO norm dual= 0.047059
+2018-10-10 23:00:17,956 INFO inner loop 3: efficient rank x_k: 535.534976, delta_x: 0.007213
+2018-10-10 23:00:45,455 INFO norm dual= 0.030375
+2018-10-10 23:00:50,045 INFO inner loop 4: efficient rank x_k: 535.394186, delta_x: 0.003585
+2018-10-10 23:00:58,307 INFO --------------------------------------------------------
+2018-10-10 23:01:00,382 INFO it:14,  convergence value:0.008863, convergence pi:0.078793, rk: 535.326828)
+2018-10-10 23:06:57,875 INFO norm dual= 0.313889
+2018-10-10 23:07:03,590 INFO inner loop 1: efficient rank x_k: 536.325816, delta_x: 0.077135
+2018-10-10 23:07:42,578 INFO norm dual= 0.082115
+2018-10-10 23:07:49,312 INFO inner loop 2: efficient rank x_k: 536.271162, delta_x: 0.023963
+2018-10-10 23:08:24,063 INFO norm dual= 0.039069
+2018-10-10 23:08:28,382 INFO inner loop 3: efficient rank x_k: 536.115758, delta_x: 0.005979
+2018-10-10 23:08:54,036 INFO norm dual= 0.025664
+2018-10-10 23:08:58,194 INFO inner loop 4: efficient rank x_k: 535.974477, delta_x: 0.002998
+2018-10-10 23:09:05,539 INFO --------------------------------------------------------
+2018-10-10 23:09:06,411 INFO it:15,  convergence value:0.006641, convergence pi:0.077534, rk: 535.905961)
+2018-10-10 23:15:05,060 INFO norm dual= 0.292730
+2018-10-10 23:15:09,595 INFO inner loop 1: efficient rank x_k: 540.059917, delta_x: 0.076769
+2018-10-10 23:15:43,223 INFO norm dual= 0.098492
+2018-10-10 23:15:47,550 INFO inner loop 2: efficient rank x_k: 539.981343, delta_x: 0.022716
+2018-10-10 23:16:20,072 INFO norm dual= 0.042455
+2018-10-10 23:16:24,438 INFO inner loop 3: efficient rank x_k: 539.829904, delta_x: 0.007349
+2018-10-10 23:17:00,772 INFO norm dual= 0.029243
+2018-10-10 23:17:07,093 INFO inner loop 4: efficient rank x_k: 539.683206, delta_x: 0.003310
+2018-10-10 23:17:17,934 INFO --------------------------------------------------------
+2018-10-10 23:17:19,188 INFO it:16,  convergence value:0.004506, convergence pi:0.076923, rk: 539.613706)
+2018-10-10 23:23:40,992 INFO norm dual= 0.301360
+2018-10-10 23:23:45,634 INFO inner loop 1: efficient rank x_k: 545.846199, delta_x: 0.077468
+2018-10-10 23:24:27,573 INFO norm dual= 0.078786
+2018-10-10 23:24:36,410 INFO inner loop 2: efficient rank x_k: 545.779196, delta_x: 0.024300
+2018-10-10 23:25:18,853 INFO norm dual= 0.035104
+2018-10-10 23:25:26,350 INFO inner loop 3: efficient rank x_k: 545.622182, delta_x: 0.006035
+2018-10-10 23:26:13,445 INFO norm dual= 0.020508
+2018-10-10 23:26:21,792 INFO inner loop 4: efficient rank x_k: 545.478658, delta_x: 0.002853
+2018-10-10 23:26:44,295 INFO --------------------------------------------------------
+2018-10-10 23:26:46,266 INFO it:17,  convergence value:0.002960, convergence pi:0.077358, rk: 545.408246)
+2018-10-10 23:33:25,708 INFO norm dual= 0.289304
+2018-10-10 23:33:32,561 INFO inner loop 1: efficient rank x_k: 552.606123, delta_x: 0.078081
+2018-10-10 23:34:09,332 INFO norm dual= 0.091542
+2018-10-10 23:34:14,598 INFO inner loop 2: efficient rank x_k: 552.522564, delta_x: 0.022958
+2018-10-10 23:34:45,856 INFO norm dual= 0.040156
+2018-10-10 23:34:51,108 INFO inner loop 3: efficient rank x_k: 552.367682, delta_x: 0.007200
+2018-10-10 23:35:26,698 INFO norm dual= 0.025725
+2018-10-10 23:35:34,834 INFO inner loop 4: efficient rank x_k: 552.224311, delta_x: 0.003156
+2018-10-10 23:35:47,607 INFO --------------------------------------------------------
+2018-10-10 23:35:48,994 INFO it:18,  convergence value:0.001322, convergence pi:0.077724, rk: 552.154252)
+2018-10-10 23:35:48,995 INFO **********************************
+2018-10-10 23:35:48,995 INFO **********************************
+2018-10-10 23:35:48,995 INFO **********************************
+2018-10-10 23:35:49,597 INFO finished lambda = 0.001000
+2018-10-10 23:35:49,598 INFO --------------------------------
+2018-10-10 23:35:50,040 INFO Starting lambda = 0.100000
+2018-10-10 23:35:50,429 INFO Beginning l=0.100000
+2018-10-10 23:43:19,835 INFO norm dual= 0.128758
+2018-10-10 23:43:26,281 INFO inner loop 1: efficient rank x_k: 445.432765, delta_x: 0.954705
+2018-10-10 23:44:28,905 INFO norm dual= 0.116564
+2018-10-10 23:44:35,134 INFO inner loop 2: efficient rank x_k: 446.207029, delta_x: 0.544574
+2018-10-10 23:45:42,841 INFO norm dual= 0.108205
+2018-10-10 23:45:49,059 INFO inner loop 3: efficient rank x_k: 448.538160, delta_x: 0.448577
+2018-10-10 23:46:51,647 INFO norm dual= 0.114921
+2018-10-10 23:46:56,882 INFO inner loop 4: efficient rank x_k: 449.518605, delta_x: 0.413414
+2018-10-10 23:48:04,786 INFO norm dual= 0.099365
+2018-10-10 23:48:11,094 INFO inner loop 5: efficient rank x_k: 451.922621, delta_x: 0.420525
+2018-10-10 23:49:20,941 INFO norm dual= 0.074414
+2018-10-10 23:49:28,956 INFO inner loop 6: efficient rank x_k: 455.027552, delta_x: 0.413190
+2018-10-10 23:50:44,473 INFO norm dual= 0.079450
+2018-10-10 23:50:53,247 INFO inner loop 7: efficient rank x_k: 453.140109, delta_x: 0.393773
+2018-10-10 23:52:10,712 INFO norm dual= 0.052179
+2018-10-10 23:52:15,523 INFO inner loop 8: efficient rank x_k: 459.388761, delta_x: 0.352550
+2018-10-10 23:53:28,330 INFO norm dual= 0.050993
+2018-10-10 23:53:35,370 INFO inner loop 9: efficient rank x_k: 457.730725, delta_x: 0.296739
+2018-10-10 23:54:42,100 INFO norm dual= 0.035776
+2018-10-10 23:54:48,420 INFO inner loop 10: efficient rank x_k: 457.901836, delta_x: 0.261526
+2018-10-10 23:55:42,759 INFO norm dual= 0.028012
+2018-10-10 23:55:48,563 INFO inner loop 11: efficient rank x_k: 456.633381, delta_x: 0.247856
+2018-10-10 23:56:44,834 INFO norm dual= 0.026632
+2018-10-10 23:56:50,683 INFO inner loop 12: efficient rank x_k: 457.006335, delta_x: 0.208232
+2018-10-10 23:57:52,534 INFO norm dual= 0.028136
+2018-10-10 23:57:59,881 INFO inner loop 13: efficient rank x_k: 457.129336, delta_x: 0.146564
+2018-10-10 23:58:58,198 INFO norm dual= 0.014411
+2018-10-10 23:59:04,421 INFO inner loop 14: efficient rank x_k: 457.938594, delta_x: 0.109703
+2018-10-11 00:00:08,451 INFO norm dual= 0.011524
+2018-10-11 00:00:15,182 INFO inner loop 15: efficient rank x_k: 457.174072, delta_x: 0.091650
+2018-10-11 00:01:43,793 INFO norm dual= 0.009124
+2018-10-11 00:01:54,198 INFO inner loop 16: efficient rank x_k: 456.928517, delta_x: 0.066886
+2018-10-11 00:04:00,473 INFO norm dual= 0.007067
+2018-10-11 00:04:11,358 INFO inner loop 17: efficient rank x_k: 456.989122, delta_x: 0.052008
+2018-10-11 00:05:56,186 INFO norm dual= 0.005691
+2018-10-11 00:06:07,797 INFO inner loop 18: efficient rank x_k: 456.876779, delta_x: 0.038636
+2018-10-11 00:07:29,336 INFO norm dual= 0.005443
+2018-10-11 00:07:37,949 INFO inner loop 19: efficient rank x_k: 456.833850, delta_x: 0.026375
+2018-10-11 00:08:40,435 INFO norm dual= 0.009348
+2018-10-11 00:08:47,760 INFO inner loop 20: efficient rank x_k: 456.860363, delta_x: 0.024109
+2018-10-11 00:09:46,548 INFO norm dual= 0.021343
+2018-10-11 00:09:53,968 INFO inner loop 21: efficient rank x_k: 456.721145, delta_x: 0.031898
+2018-10-11 00:10:51,542 INFO norm dual= 0.017274
+2018-10-11 00:10:57,618 INFO inner loop 22: efficient rank x_k: 457.254748, delta_x: 0.041966
+2018-10-11 00:11:30,414 INFO --------------------------------------------------------
+2018-10-11 00:11:32,403 INFO it:1,  convergence value:1.000000, convergence pi:0.968472, rk: 457.292195)
+2018-10-11 00:15:37,806 INFO norm dual= 1.212675
+2018-10-11 00:15:48,084 INFO inner loop 1: efficient rank x_k: 318.540572, delta_x: 0.962335
+2018-10-11 00:17:32,843 INFO norm dual= 0.222262
+2018-10-11 00:17:42,259 INFO inner loop 2: efficient rank x_k: 420.468815, delta_x: 1.244623
+2018-10-11 00:19:07,228 INFO norm dual= 0.151037
+2018-10-11 00:19:17,072 INFO inner loop 3: efficient rank x_k: 440.434168, delta_x: 1.047983
+2018-10-11 00:20:35,880 INFO norm dual= 0.117862
+2018-10-11 00:20:45,461 INFO inner loop 4: efficient rank x_k: 432.252162, delta_x: 0.946269
+2018-10-11 00:22:08,554 INFO norm dual= 0.102514
+2018-10-11 00:22:15,911 INFO inner loop 5: efficient rank x_k: 433.039897, delta_x: 0.762932
+2018-10-11 00:23:34,437 INFO norm dual= 0.086706
+2018-10-11 00:23:42,129 INFO inner loop 6: efficient rank x_k: 430.418357, delta_x: 0.684902
+2018-10-11 00:24:57,853 INFO norm dual= 0.078273
+2018-10-11 00:25:04,360 INFO inner loop 7: efficient rank x_k: 427.689407, delta_x: 0.629666
+2018-10-11 00:26:24,542 INFO norm dual= 0.060399
+2018-10-11 00:26:32,835 INFO inner loop 8: efficient rank x_k: 426.211510, delta_x: 0.599644
+2018-10-11 00:27:30,113 INFO norm dual= 0.037863
+2018-10-11 00:27:36,604 INFO inner loop 9: efficient rank x_k: 428.009650, delta_x: 0.465575
+2018-10-11 00:28:32,883 INFO norm dual= 0.021624
+2018-10-11 00:28:40,179 INFO inner loop 10: efficient rank x_k: 427.845944, delta_x: 0.376176
+2018-10-11 00:29:54,598 INFO norm dual= 0.013328
+2018-10-11 00:30:04,524 INFO inner loop 11: efficient rank x_k: 426.864948, delta_x: 0.200421
+2018-10-11 00:31:32,366 INFO norm dual= 0.008209
+2018-10-11 00:31:39,603 INFO inner loop 12: efficient rank x_k: 426.365823, delta_x: 0.089333
+2018-10-11 00:32:54,997 INFO norm dual= 0.005185
+2018-10-11 00:33:03,671 INFO inner loop 13: efficient rank x_k: 426.103052, delta_x: 0.036445
+2018-10-11 00:34:25,395 INFO norm dual= 0.003243
+2018-10-11 00:34:33,729 INFO inner loop 14: efficient rank x_k: 426.038442, delta_x: 0.018257
+2018-10-11 00:35:16,895 INFO --------------------------------------------------------
+2018-10-11 00:35:18,684 INFO it:2,  convergence value:0.006783, convergence pi:1.085333, rk: 426.022255)
+2018-10-11 00:40:02,327 INFO norm dual= 0.886167
+2018-10-11 00:40:10,711 INFO inner loop 1: efficient rank x_k: 368.746103, delta_x: 1.110392
+2018-10-11 00:41:49,661 INFO norm dual= 0.239488
+2018-10-11 00:41:57,263 INFO inner loop 2: efficient rank x_k: 431.609608, delta_x: 1.423707
+2018-10-11 00:43:35,696 INFO norm dual= 0.186968
+2018-10-11 00:43:44,231 INFO inner loop 3: efficient rank x_k: 447.863295, delta_x: 1.238512
+2018-10-11 00:45:17,342 INFO norm dual= 0.172133
+2018-10-11 00:45:24,132 INFO inner loop 4: efficient rank x_k: 450.575646, delta_x: 1.151201
+2018-10-11 00:46:53,829 INFO norm dual= 0.158193
+2018-10-11 00:47:01,979 INFO inner loop 5: efficient rank x_k: 450.330725, delta_x: 1.109020
+2018-10-11 00:48:20,515 INFO norm dual= 0.143322
+2018-10-11 00:48:25,786 INFO inner loop 6: efficient rank x_k: 447.885181, delta_x: 1.056967
+2018-10-11 00:49:30,205 INFO norm dual= 0.128448
+2018-10-11 00:49:37,059 INFO inner loop 7: efficient rank x_k: 446.371883, delta_x: 0.989419
+2018-10-11 00:50:57,569 INFO norm dual= 0.112553
+2018-10-11 00:51:08,595 INFO inner loop 8: efficient rank x_k: 443.782455, delta_x: 0.935605
+2018-10-11 00:52:45,866 INFO norm dual= 0.094350
+2018-10-11 00:52:55,331 INFO inner loop 9: efficient rank x_k: 440.364271, delta_x: 0.889790
+2018-10-11 00:54:18,692 INFO norm dual= 0.081453
+2018-10-11 00:54:26,896 INFO inner loop 10: efficient rank x_k: 440.861837, delta_x: 0.813724
+2018-10-11 00:55:49,504 INFO norm dual= 0.070225
+2018-10-11 00:55:55,979 INFO inner loop 11: efficient rank x_k: 441.474827, delta_x: 0.714871
+2018-10-11 00:57:24,998 INFO norm dual= 0.066570
+2018-10-11 00:57:32,712 INFO inner loop 12: efficient rank x_k: 442.632194, delta_x: 0.633230
+2018-10-11 00:59:09,282 INFO norm dual= 0.062918
+2018-10-11 00:59:17,447 INFO inner loop 13: efficient rank x_k: 438.958567, delta_x: 0.608377
+2018-10-11 01:00:53,382 INFO norm dual= 0.038701
+2018-10-11 01:01:02,246 INFO inner loop 14: efficient rank x_k: 437.698451, delta_x: 0.575503
+2018-10-11 01:02:34,950 INFO norm dual= 0.023908
+2018-10-11 01:02:41,302 INFO inner loop 15: efficient rank x_k: 439.655868, delta_x: 0.487008
+2018-10-11 01:04:17,516 INFO norm dual= 0.019047
+2018-10-11 01:04:23,693 INFO inner loop 16: efficient rank x_k: 440.581747, delta_x: 0.358460
+2018-10-11 01:05:47,207 INFO norm dual= 0.012824
+2018-10-11 01:05:53,964 INFO inner loop 17: efficient rank x_k: 440.260044, delta_x: 0.253760
+2018-10-11 01:07:15,687 INFO norm dual= 0.006873
+2018-10-11 01:07:27,412 INFO inner loop 18: efficient rank x_k: 439.565075, delta_x: 0.185375
+2018-10-11 01:09:04,693 INFO norm dual= 0.002962
+2018-10-11 01:09:11,415 INFO inner loop 19: efficient rank x_k: 439.341273, delta_x: 0.113780
+2018-10-11 01:10:04,785 INFO --------------------------------------------------------
+2018-10-11 01:10:06,750 INFO it:3,  convergence value:0.005778, convergence pi:1.287675, rk: 439.020367)
+2018-10-11 01:13:21,083 INFO norm dual= 1.259110
+2018-10-11 01:13:30,335 INFO inner loop 1: efficient rank x_k: 374.971960, delta_x: 1.250144
+2018-10-11 01:14:33,992 INFO norm dual= 0.383639
+2018-10-11 01:14:39,908 INFO inner loop 2: efficient rank x_k: 439.575656, delta_x: 1.563572
+2018-10-11 01:15:43,900 INFO norm dual= 0.235182
+2018-10-11 01:15:50,091 INFO inner loop 3: efficient rank x_k: 439.588270, delta_x: 1.383649
+2018-10-11 01:17:03,498 INFO norm dual= 0.166971
+2018-10-11 01:17:10,298 INFO inner loop 4: efficient rank x_k: 446.058016, delta_x: 1.242034
+2018-10-11 01:18:32,782 INFO norm dual= 0.137981
+2018-10-11 01:18:38,679 INFO inner loop 5: efficient rank x_k: 446.428437, delta_x: 1.094553
+2018-10-11 01:20:00,126 INFO norm dual= 0.126385
+2018-10-11 01:20:09,092 INFO inner loop 6: efficient rank x_k: 444.816591, delta_x: 0.987853
+2018-10-11 01:21:28,212 INFO norm dual= 0.105396
+2018-10-11 01:21:37,765 INFO inner loop 7: efficient rank x_k: 443.048284, delta_x: 0.909696
+2018-10-11 01:22:54,552 INFO norm dual= 0.088944
+2018-10-11 01:23:03,912 INFO inner loop 8: efficient rank x_k: 442.475218, delta_x: 0.823435
+2018-10-11 01:24:16,136 INFO norm dual= 0.066374
+2018-10-11 01:24:23,439 INFO inner loop 9: efficient rank x_k: 439.740113, delta_x: 0.737235
+2018-10-11 01:25:40,831 INFO norm dual= 0.048708
+2018-10-11 01:25:49,213 INFO inner loop 10: efficient rank x_k: 440.288525, delta_x: 0.634945
+2018-10-11 01:26:52,623 INFO norm dual= 0.034952
+2018-10-11 01:26:58,788 INFO inner loop 11: efficient rank x_k: 439.881872, delta_x: 0.524152
+2018-10-11 01:28:04,054 INFO norm dual= 0.024562
+2018-10-11 01:28:08,491 INFO inner loop 12: efficient rank x_k: 440.521944, delta_x: 0.397130
+2018-10-11 01:29:09,868 INFO norm dual= 0.016014
+2018-10-11 01:29:14,933 INFO inner loop 13: efficient rank x_k: 439.651956, delta_x: 0.273778
+2018-10-11 01:30:10,581 INFO norm dual= 0.010117
+2018-10-11 01:30:17,338 INFO inner loop 14: efficient rank x_k: 438.831971, delta_x: 0.175667
+2018-10-11 01:31:26,278 INFO norm dual= 0.006673
+2018-10-11 01:31:35,625 INFO inner loop 15: efficient rank x_k: 438.297699, delta_x: 0.090039
+2018-10-11 01:32:50,498 INFO norm dual= 0.004728
+2018-10-11 01:32:59,847 INFO inner loop 16: efficient rank x_k: 438.077363, delta_x: 0.041143
+2018-10-11 01:33:40,845 INFO --------------------------------------------------------
+2018-10-11 01:33:42,914 INFO it:4,  convergence value:0.006402, convergence pi:1.402137, rk: 437.940643)
+2018-10-11 01:37:54,684 INFO norm dual= 1.229630
+2018-10-11 01:38:01,419 INFO inner loop 1: efficient rank x_k: 377.068336, delta_x: 1.257902
+2018-10-11 01:39:25,254 INFO norm dual= 0.283966
+2018-10-11 01:39:36,379 INFO inner loop 2: efficient rank x_k: 444.039526, delta_x: 1.596877
+2018-10-11 01:40:59,722 INFO norm dual= 0.180724
+2018-10-11 01:41:05,974 INFO inner loop 3: efficient rank x_k: 446.000469, delta_x: 1.228714
+2018-10-11 01:42:09,827 INFO norm dual= 0.144372
+2018-10-11 01:42:16,846 INFO inner loop 4: efficient rank x_k: 446.915897, delta_x: 1.055609
+2018-10-11 01:43:18,567 INFO norm dual= 0.115797
+2018-10-11 01:43:28,655 INFO inner loop 5: efficient rank x_k: 446.924396, delta_x: 0.981122
+2018-10-11 01:44:29,730 INFO norm dual= 0.110380
+2018-10-11 01:44:40,252 INFO inner loop 6: efficient rank x_k: 446.289071, delta_x: 0.872958
+2018-10-11 01:45:57,515 INFO norm dual= 0.092585
+2018-10-11 01:46:07,895 INFO inner loop 7: efficient rank x_k: 444.248190, delta_x: 0.789342
+2018-10-11 01:47:32,871 INFO norm dual= 0.066364
+2018-10-11 01:47:41,151 INFO inner loop 8: efficient rank x_k: 441.615296, delta_x: 0.757159
+2018-10-11 01:49:00,481 INFO norm dual= 0.050354
+2018-10-11 01:49:07,536 INFO inner loop 9: efficient rank x_k: 442.108449, delta_x: 0.595988
+2018-10-11 01:50:12,324 INFO norm dual= 0.034036
+2018-10-11 01:50:18,086 INFO inner loop 10: efficient rank x_k: 440.847406, delta_x: 0.509979
+2018-10-11 01:51:24,193 INFO norm dual= 0.023421
+2018-10-11 01:51:31,286 INFO inner loop 11: efficient rank x_k: 441.923697, delta_x: 0.388286
+2018-10-11 01:52:50,540 INFO norm dual= 0.017336
+2018-10-11 01:52:58,151 INFO inner loop 12: efficient rank x_k: 441.329872, delta_x: 0.245224
+2018-10-11 01:54:12,951 INFO norm dual= 0.010827
+2018-10-11 01:54:21,791 INFO inner loop 13: efficient rank x_k: 440.849154, delta_x: 0.157396
+2018-10-11 01:55:37,826 INFO norm dual= 0.005372
+2018-10-11 01:55:45,922 INFO inner loop 14: efficient rank x_k: 440.272166, delta_x: 0.105916
+2018-10-11 01:57:08,026 INFO norm dual= 0.002595
+2018-10-11 01:57:15,274 INFO inner loop 15: efficient rank x_k: 440.098819, delta_x: 0.053719
+2018-10-11 01:57:58,649 INFO --------------------------------------------------------
+2018-10-11 01:58:00,821 INFO it:5,  convergence value:0.000000, convergence pi:0.000000, rk: 437.940643)
+2018-10-11 02:01:27,754 INFO norm dual= 1.206938
+2018-10-11 02:01:36,159 INFO inner loop 1: efficient rank x_k: 416.144234, delta_x: 1.286430
+2018-10-11 02:02:49,779 INFO norm dual= 0.279385
+2018-10-11 02:02:57,318 INFO inner loop 2: efficient rank x_k: 449.515503, delta_x: 1.543609
+2018-10-11 02:04:12,068 INFO norm dual= 0.196285
+2018-10-11 02:04:20,086 INFO inner loop 3: efficient rank x_k: 452.141777, delta_x: 1.239729
+2018-10-11 02:05:36,811 INFO norm dual= 0.163636
+2018-10-11 02:05:43,724 INFO inner loop 4: efficient rank x_k: 454.577996, delta_x: 1.103503
+2018-10-11 02:07:00,835 INFO norm dual= 0.149341
+2018-10-11 02:07:08,644 INFO inner loop 5: efficient rank x_k: 454.361762, delta_x: 1.004752
+2018-10-11 02:08:25,903 INFO norm dual= 0.115455
+2018-10-11 02:08:33,189 INFO inner loop 6: efficient rank x_k: 453.262908, delta_x: 0.925635
+2018-10-11 02:09:37,751 INFO norm dual= 0.105105
+2018-10-11 02:09:43,997 INFO inner loop 7: efficient rank x_k: 454.013467, delta_x: 0.873029
+2018-10-11 02:10:48,820 INFO norm dual= 0.069900
+2018-10-11 02:10:53,846 INFO inner loop 8: efficient rank x_k: 450.208422, delta_x: 0.765751
+2018-10-11 02:11:56,170 INFO norm dual= 0.051382
+2018-10-11 02:12:01,966 INFO inner loop 9: efficient rank x_k: 453.753272, delta_x: 0.667299
+2018-10-11 02:13:10,203 INFO norm dual= 0.035915
+2018-10-11 02:13:16,640 INFO inner loop 10: efficient rank x_k: 453.049284, delta_x: 0.496535
+2018-10-11 02:14:32,721 INFO norm dual= 0.025610
+2018-10-11 02:14:40,273 INFO inner loop 11: efficient rank x_k: 453.070304, delta_x: 0.392085
+2018-10-11 02:15:59,034 INFO norm dual= 0.016689
+2018-10-11 02:16:06,742 INFO inner loop 12: efficient rank x_k: 452.617876, delta_x: 0.284453
+2018-10-11 02:17:21,752 INFO norm dual= 0.010368
+2018-10-11 02:17:31,454 INFO inner loop 13: efficient rank x_k: 452.260172, delta_x: 0.174552
+2018-10-11 02:18:40,469 INFO norm dual= 0.005976
+2018-10-11 02:18:49,646 INFO inner loop 14: efficient rank x_k: 451.652228, delta_x: 0.086410
+2018-10-11 02:19:58,099 INFO norm dual= 0.003622
+2018-10-11 02:20:05,735 INFO inner loop 15: efficient rank x_k: 451.451098, delta_x: 0.040291
+2018-10-11 02:20:44,582 INFO --------------------------------------------------------
+2018-10-11 02:20:46,765 INFO it:6,  convergence value:0.000661, convergence pi:1.421074, rk: 451.434206)
+2018-10-11 02:25:05,317 INFO norm dual= 1.066870
+2018-10-11 02:25:13,930 INFO inner loop 1: efficient rank x_k: 371.014369, delta_x: 1.247080
+2018-10-11 02:26:29,175 INFO norm dual= 0.238237
+2018-10-11 02:26:35,865 INFO inner loop 2: efficient rank x_k: 435.666237, delta_x: 1.537382
+2018-10-11 02:28:18,009 INFO norm dual= 0.163119
+2018-10-11 02:28:25,046 INFO inner loop 3: efficient rank x_k: 441.816595, delta_x: 1.312215
+2018-10-11 02:29:35,926 INFO norm dual= 0.134572
+2018-10-11 02:29:42,993 INFO inner loop 4: efficient rank x_k: 446.398845, delta_x: 1.051802
+2018-10-11 02:31:02,058 INFO norm dual= 0.122650
+2018-10-11 02:31:09,318 INFO inner loop 5: efficient rank x_k: 444.967077, delta_x: 0.954544
+2018-10-11 02:32:27,622 INFO norm dual= 0.103502
+2018-10-11 02:32:35,776 INFO inner loop 6: efficient rank x_k: 440.824000, delta_x: 0.881706
+2018-10-11 02:34:01,783 INFO norm dual= 0.075553
+2018-10-11 02:34:10,665 INFO inner loop 7: efficient rank x_k: 439.537673, delta_x: 0.825966
+2018-10-11 02:35:27,358 INFO norm dual= 0.057306
+2018-10-11 02:35:34,793 INFO inner loop 8: efficient rank x_k: 437.875752, delta_x: 0.703828
+2018-10-11 02:36:35,142 INFO norm dual= 0.044402
+2018-10-11 02:36:41,819 INFO inner loop 9: efficient rank x_k: 437.610939, delta_x: 0.588946
+2018-10-11 02:37:39,614 INFO norm dual= 0.032276
+2018-10-11 02:37:47,269 INFO inner loop 10: efficient rank x_k: 438.207295, delta_x: 0.446260
+2018-10-11 02:38:58,232 INFO norm dual= 0.024275
+2018-10-11 02:39:05,156 INFO inner loop 11: efficient rank x_k: 438.393295, delta_x: 0.320739
+2018-10-11 02:40:12,034 INFO norm dual= 0.018107
+2018-10-11 02:40:20,276 INFO inner loop 12: efficient rank x_k: 438.094606, delta_x: 0.238166
+2018-10-11 02:41:39,201 INFO norm dual= 0.016342
+2018-10-11 02:41:47,351 INFO inner loop 13: efficient rank x_k: 437.790963, delta_x: 0.198050
+2018-10-11 02:43:04,923 INFO norm dual= 0.007620
+2018-10-11 02:43:12,388 INFO inner loop 14: efficient rank x_k: 438.290659, delta_x: 0.132515
+2018-10-11 02:44:33,455 INFO norm dual= 0.004510
+2018-10-11 02:44:41,296 INFO inner loop 15: efficient rank x_k: 437.924483, delta_x: 0.101524
+2018-10-11 02:45:26,264 INFO --------------------------------------------------------
+2018-10-11 02:45:28,566 INFO it:7,  convergence value:0.000000, convergence pi:0.000000, rk: 451.434206)
+2018-10-11 02:45:28,568 INFO **********************************
+2018-10-11 02:45:28,569 INFO **********************************
+2018-10-11 02:45:28,569 INFO **********************************
+2018-10-11 02:45:29,353 INFO finished lambda = 0.100000
+2018-10-11 02:45:29,356 INFO --------------------------------
+2018-10-11 02:45:30,869 INFO Starting lambda = 0.100000
+2018-10-11 02:45:31,173 INFO Beginning l=0.100000
+2018-10-11 02:49:55,356 INFO norm dual= 1.066936
+2018-10-11 02:50:01,829 INFO inner loop 1: efficient rank x_k: 365.717250, delta_x: 1.245352
+2018-10-11 02:51:18,003 INFO norm dual= 0.239383
+2018-10-11 02:51:24,010 INFO inner loop 2: efficient rank x_k: 431.141858, delta_x: 1.548410
+2018-10-11 02:53:10,432 INFO norm dual= 0.159377
+2018-10-11 02:53:19,345 INFO inner loop 3: efficient rank x_k: 437.341814, delta_x: 1.301735
+2018-10-11 02:54:41,828 INFO norm dual= 0.134704
+2018-10-11 02:54:48,527 INFO inner loop 4: efficient rank x_k: 440.822752, delta_x: 1.051887
+2018-10-11 02:56:01,926 INFO norm dual= 0.118297
+2018-10-11 02:56:08,048 INFO inner loop 5: efficient rank x_k: 440.905360, delta_x: 0.961045
+2018-10-11 02:57:27,774 INFO norm dual= 0.101708
+2018-10-11 02:57:35,741 INFO inner loop 6: efficient rank x_k: 439.453511, delta_x: 0.867221
+2018-10-11 02:58:57,069 INFO norm dual= 0.077835
+2018-10-11 02:59:04,767 INFO inner loop 7: efficient rank x_k: 435.317142, delta_x: 0.803789
+2018-10-11 03:00:27,632 INFO norm dual= 0.059236
+2018-10-11 03:00:36,928 INFO inner loop 8: efficient rank x_k: 433.942281, delta_x: 0.732333
+2018-10-11 03:02:05,172 INFO norm dual= 0.044534
+2018-10-11 03:02:11,500 INFO inner loop 9: efficient rank x_k: 434.256992, delta_x: 0.610323
+2018-10-11 03:03:27,531 INFO norm dual= 0.034402
+2018-10-11 03:03:36,278 INFO inner loop 10: efficient rank x_k: 433.781712, delta_x: 0.467276
+2018-10-11 03:05:01,678 INFO norm dual= 0.024129
+2018-10-11 03:05:09,836 INFO inner loop 11: efficient rank x_k: 433.491764, delta_x: 0.347397
+2018-10-11 03:06:28,565 INFO norm dual= 0.020223
+2018-10-11 03:06:35,741 INFO inner loop 12: efficient rank x_k: 432.770251, delta_x: 0.249312
+2018-10-11 03:07:47,058 INFO norm dual= 0.021593
+2018-10-11 03:07:54,689 INFO inner loop 13: efficient rank x_k: 432.321852, delta_x: 0.182082
+2018-10-11 03:08:59,153 INFO norm dual= 0.023606
+2018-10-11 03:09:05,413 INFO inner loop 14: efficient rank x_k: 432.411656, delta_x: 0.169674
+2018-10-11 03:10:14,775 INFO norm dual= 0.019560
+2018-10-11 03:10:23,793 INFO inner loop 15: efficient rank x_k: 432.322711, delta_x: 0.155881
+2018-10-11 03:11:50,919 INFO norm dual= 0.010739
+2018-10-11 03:12:00,648 INFO inner loop 16: efficient rank x_k: 432.318875, delta_x: 0.154785
+2018-10-11 03:13:13,935 INFO norm dual= 0.006278
+2018-10-11 03:13:20,906 INFO inner loop 17: efficient rank x_k: 432.099083, delta_x: 0.157063
+2018-10-11 03:14:31,617 INFO norm dual= 0.004333
+2018-10-11 03:14:39,563 INFO inner loop 18: efficient rank x_k: 431.671109, delta_x: 0.119748
+2018-10-11 03:15:21,112 INFO --------------------------------------------------------
+2018-10-11 03:15:23,325 INFO it:1,  convergence value:1.000000, convergence pi:1.380640, rk: 431.787000)
+2018-10-11 03:20:12,519 INFO norm dual= 1.115986
+2018-10-11 03:20:19,868 INFO inner loop 1: efficient rank x_k: 366.938291, delta_x: 1.278527
+2018-10-11 03:21:37,013 INFO norm dual= 0.200521
+2018-10-11 03:21:45,513 INFO inner loop 2: efficient rank x_k: 442.154638, delta_x: 1.538426
+2018-10-11 03:23:00,543 INFO norm dual= 0.167185
+2018-10-11 03:23:09,252 INFO inner loop 3: efficient rank x_k: 446.334567, delta_x: 1.250178
+2018-10-11 03:24:29,588 INFO norm dual= 0.145467
+2018-10-11 03:24:39,686 INFO inner loop 4: efficient rank x_k: 442.159547, delta_x: 1.191102
+2018-10-11 03:25:53,670 INFO norm dual= 0.134064
+2018-10-11 03:26:01,924 INFO inner loop 5: efficient rank x_k: 442.348629, delta_x: 1.092980
+2018-10-11 03:27:17,239 INFO norm dual= 0.107496
+2018-10-11 03:27:26,435 INFO inner loop 6: efficient rank x_k: 440.790757, delta_x: 0.972587
+2018-10-11 03:28:43,259 INFO norm dual= 0.091205
+2018-10-11 03:28:50,411 INFO inner loop 7: efficient rank x_k: 441.583783, delta_x: 0.872625
+2018-10-11 03:30:01,436 INFO norm dual= 0.078502
+2018-10-11 03:30:08,559 INFO inner loop 8: efficient rank x_k: 439.805632, delta_x: 0.787026
+2018-10-11 03:31:02,065 INFO norm dual= 0.060309
+2018-10-11 03:31:08,127 INFO inner loop 9: efficient rank x_k: 436.198183, delta_x: 0.738825
+2018-10-11 03:32:25,095 INFO norm dual= 0.042746
+2018-10-11 03:32:34,381 INFO inner loop 10: efficient rank x_k: 435.813353, delta_x: 0.691838
+2018-10-11 03:33:49,650 INFO norm dual= 0.023030
+2018-10-11 03:33:57,702 INFO inner loop 11: efficient rank x_k: 438.658948, delta_x: 0.463898
+2018-10-11 03:35:06,587 INFO norm dual= 0.018086
+2018-10-11 03:35:13,136 INFO inner loop 12: efficient rank x_k: 437.894722, delta_x: 0.306769
+2018-10-11 03:36:27,092 INFO norm dual= 0.013046
+2018-10-11 03:36:34,230 INFO inner loop 13: efficient rank x_k: 437.462980, delta_x: 0.183253
+2018-10-11 03:37:52,612 INFO norm dual= 0.008768
+2018-10-11 03:37:59,710 INFO inner loop 14: efficient rank x_k: 436.850040, delta_x: 0.135319
+2018-10-11 03:39:14,453 INFO norm dual= 0.006227
+2018-10-11 03:39:23,504 INFO inner loop 15: efficient rank x_k: 437.018399, delta_x: 0.102834
+2018-10-11 03:40:30,728 INFO norm dual= 0.002002
+2018-10-11 03:40:37,508 INFO inner loop 16: efficient rank x_k: 436.840959, delta_x: 0.092613
+2018-10-11 03:41:14,785 INFO --------------------------------------------------------
+2018-10-11 03:41:16,498 INFO it:2,  convergence value:0.000359, convergence pi:1.411163, rk: 436.778171)
+2018-10-11 03:45:31,731 INFO norm dual= 1.124762
+2018-10-11 03:45:37,570 INFO inner loop 1: efficient rank x_k: 369.889406, delta_x: 1.258760
+2018-10-11 03:46:47,253 INFO norm dual= 0.275599
+2018-10-11 03:46:55,256 INFO inner loop 2: efficient rank x_k: 432.280624, delta_x: 1.542851
+2018-10-11 03:48:39,511 INFO norm dual= 0.159592
+2018-10-11 03:48:48,777 INFO inner loop 3: efficient rank x_k: 441.479907, delta_x: 1.329314
+2018-10-11 03:50:20,138 INFO norm dual= 0.129807
+2018-10-11 03:50:27,173 INFO inner loop 4: efficient rank x_k: 443.090444, delta_x: 1.128874
+2018-10-11 03:51:58,645 INFO norm dual= 0.111021
+2018-10-11 03:52:05,483 INFO inner loop 5: efficient rank x_k: 443.052469, delta_x: 0.992339
+2018-10-11 03:53:43,608 INFO norm dual= 0.093796
+2018-10-11 03:53:52,978 INFO inner loop 6: efficient rank x_k: 442.132048, delta_x: 0.854413
+2018-10-11 03:55:27,323 INFO norm dual= 0.075234
+2018-10-11 03:55:35,152 INFO inner loop 7: efficient rank x_k: 439.730749, delta_x: 0.777004
+2018-10-11 03:57:09,195 INFO norm dual= 0.057169
+2018-10-11 03:57:16,909 INFO inner loop 8: efficient rank x_k: 436.604521, delta_x: 0.704726
+2018-10-11 03:58:46,968 INFO norm dual= 0.040714
+2018-10-11 03:58:56,977 INFO inner loop 9: efficient rank x_k: 434.604825, delta_x: 0.607647
+2018-10-11 04:00:28,985 INFO norm dual= 0.029309
+2018-10-11 04:00:37,633 INFO inner loop 10: efficient rank x_k: 435.802480, delta_x: 0.437361
+2018-10-11 04:02:06,286 INFO norm dual= 0.020082
+2018-10-11 04:02:15,753 INFO inner loop 11: efficient rank x_k: 436.037406, delta_x: 0.321438
+2018-10-11 04:03:47,046 INFO norm dual= 0.013709
+2018-10-11 04:03:54,563 INFO inner loop 12: efficient rank x_k: 435.384712, delta_x: 0.217203
+2018-10-11 04:05:24,370 INFO norm dual= 0.007943
+2018-10-11 04:05:31,401 INFO inner loop 13: efficient rank x_k: 434.671715, delta_x: 0.146961
+2018-10-11 04:06:58,951 INFO norm dual= 0.005164
+2018-10-11 04:07:05,312 INFO inner loop 14: efficient rank x_k: 434.531760, delta_x: 0.096877
+2018-10-11 04:08:17,697 INFO norm dual= 0.003234
+2018-10-11 04:08:23,832 INFO inner loop 15: efficient rank x_k: 434.661146, delta_x: 0.061500
+2018-10-11 04:09:05,449 INFO --------------------------------------------------------
+2018-10-11 04:09:07,367 INFO it:3,  convergence value:0.000003, convergence pi:1.405467, rk: 434.527019)
+2018-10-11 04:13:37,210 INFO norm dual= 1.206226
+2018-10-11 04:13:46,631 INFO inner loop 1: efficient rank x_k: 366.846930, delta_x: 1.264999
+2018-10-11 04:15:11,378 INFO norm dual= 0.225111
+2018-10-11 04:15:19,456 INFO inner loop 2: efficient rank x_k: 441.406059, delta_x: 1.580257
+2018-10-11 04:16:39,694 INFO norm dual= 0.187596
+2018-10-11 04:16:49,695 INFO inner loop 3: efficient rank x_k: 450.211931, delta_x: 1.255114
+2018-10-11 04:17:58,412 INFO norm dual= 0.151396
+2018-10-11 04:18:05,758 INFO inner loop 4: efficient rank x_k: 451.410019, delta_x: 1.154213
+2018-10-11 04:19:11,683 INFO norm dual= 0.129279
+2018-10-11 04:19:19,720 INFO inner loop 5: efficient rank x_k: 446.762394, delta_x: 1.068783
+2018-10-11 04:20:26,461 INFO norm dual= 0.114613
+2018-10-11 04:20:35,761 INFO inner loop 6: efficient rank x_k: 446.809736, delta_x: 0.913027
+2018-10-11 04:21:51,963 INFO norm dual= 0.095740
+2018-10-11 04:22:00,109 INFO inner loop 7: efficient rank x_k: 445.541071, delta_x: 0.845232
+2018-10-11 04:23:08,163 INFO norm dual= 0.074201
+2018-10-11 04:23:14,145 INFO inner loop 8: efficient rank x_k: 441.706407, delta_x: 0.766612
+2018-10-11 04:24:30,201 INFO norm dual= 0.058364
+2018-10-11 04:24:37,915 INFO inner loop 9: efficient rank x_k: 440.089133, delta_x: 0.691169
+2018-10-11 04:25:56,096 INFO norm dual= 0.039705
+2018-10-11 04:26:06,697 INFO inner loop 10: efficient rank x_k: 439.316801, delta_x: 0.636472
+2018-10-11 04:27:23,341 INFO norm dual= 0.021888
+2018-10-11 04:27:31,037 INFO inner loop 11: efficient rank x_k: 442.296183, delta_x: 0.513633
+2018-10-11 04:28:57,873 INFO norm dual= 0.014951
+2018-10-11 04:29:07,652 INFO inner loop 12: efficient rank x_k: 443.947224, delta_x: 0.304175
+2018-10-11 04:30:19,898 INFO norm dual= 0.009473
+2018-10-11 04:30:29,355 INFO inner loop 13: efficient rank x_k: 443.544365, delta_x: 0.154190
+2018-10-11 04:31:42,847 INFO norm dual= 0.007230
+2018-10-11 04:31:51,078 INFO inner loop 14: efficient rank x_k: 443.160683, delta_x: 0.093484
+2018-10-11 04:33:10,014 INFO norm dual= 0.004515
+2018-10-11 04:33:18,191 INFO inner loop 15: efficient rank x_k: 442.984970, delta_x: 0.073855
+2018-10-11 04:33:59,514 INFO --------------------------------------------------------
+2018-10-11 04:34:01,484 INFO it:4,  convergence value:0.000000, convergence pi:0.000000, rk: 434.527019)
+2018-10-11 04:34:01,485 INFO **********************************
+2018-10-11 04:34:01,485 INFO **********************************
+2018-10-11 04:34:01,485 INFO **********************************
+2018-10-11 04:34:02,763 INFO finished lambda = 0.100000
+2018-10-11 04:34:02,764 INFO --------------------------------
+2018-10-11 04:34:05,025 INFO Starting lambda = 0.500000
+2018-10-11 04:34:05,303 INFO Beginning l=0.500000
+2018-10-11 04:39:10,837 INFO norm dual= 1.072188
+2018-10-11 04:39:19,079 INFO inner loop 1: efficient rank x_k: 405.815683, delta_x: 1.698119
+2018-10-11 04:41:24,429 INFO norm dual= 0.302319
+2018-10-11 04:41:33,644 INFO inner loop 2: efficient rank x_k: 456.284678, delta_x: 1.549552
+2018-10-11 04:43:41,052 INFO norm dual= 0.214535
+2018-10-11 04:43:51,295 INFO inner loop 3: efficient rank x_k: 467.321882, delta_x: 1.391617
+2018-10-11 04:46:03,741 INFO norm dual= 0.146252
+2018-10-11 04:46:13,071 INFO inner loop 4: efficient rank x_k: 468.097418, delta_x: 1.347900
+2018-10-11 04:48:21,574 INFO norm dual= 0.144042
+2018-10-11 04:48:30,047 INFO inner loop 5: efficient rank x_k: 467.006136, delta_x: 1.276562
+2018-10-11 04:50:27,089 INFO norm dual= 0.127447
+2018-10-11 04:50:34,035 INFO inner loop 6: efficient rank x_k: 466.573957, delta_x: 1.189247
+2018-10-11 04:52:37,329 INFO norm dual= 0.121535
+2018-10-11 04:52:44,556 INFO inner loop 7: efficient rank x_k: 467.948699, delta_x: 1.140151
+2018-10-11 04:54:53,101 INFO norm dual= 0.106701
+2018-10-11 04:55:01,293 INFO inner loop 8: efficient rank x_k: 465.742159, delta_x: 1.079770
+2018-10-11 04:57:11,081 INFO norm dual= 0.097290
+2018-10-11 04:57:17,788 INFO inner loop 9: efficient rank x_k: 465.549007, delta_x: 1.037334
+2018-10-11 04:59:27,277 INFO norm dual= 0.087853
+2018-10-11 04:59:36,595 INFO inner loop 10: efficient rank x_k: 465.318902, delta_x: 1.003322
+2018-10-11 05:01:54,238 INFO norm dual= 0.077973
+2018-10-11 05:02:00,471 INFO inner loop 11: efficient rank x_k: 466.337380, delta_x: 0.923551
+2018-10-11 05:04:12,270 INFO norm dual= 0.075363
+2018-10-11 05:04:19,405 INFO inner loop 12: efficient rank x_k: 467.146803, delta_x: 0.865351
+2018-10-11 05:06:17,457 INFO norm dual= 0.076514
+2018-10-11 05:06:25,754 INFO inner loop 13: efficient rank x_k: 466.411576, delta_x: 0.841707
+2018-10-11 05:08:37,108 INFO norm dual= 0.070594
+2018-10-11 05:08:45,427 INFO inner loop 14: efficient rank x_k: 465.216392, delta_x: 0.797146
+2018-10-11 05:10:57,278 INFO norm dual= 0.066245
+2018-10-11 05:11:07,644 INFO inner loop 15: efficient rank x_k: 466.125430, delta_x: 0.766491
+2018-10-11 05:12:58,895 INFO norm dual= 0.061284
+2018-10-11 05:13:06,039 INFO inner loop 16: efficient rank x_k: 465.863936, delta_x: 0.746062
+2018-10-11 05:15:16,481 INFO norm dual= 0.055922
+2018-10-11 05:15:26,135 INFO inner loop 17: efficient rank x_k: 465.463633, delta_x: 0.698775
+2018-10-11 05:17:35,956 INFO norm dual= 0.048165
+2018-10-11 05:17:45,931 INFO inner loop 18: efficient rank x_k: 466.450866, delta_x: 0.663078
+2018-10-11 05:19:49,666 INFO norm dual= 0.049124
+2018-10-11 05:19:59,652 INFO inner loop 19: efficient rank x_k: 465.213181, delta_x: 0.645402
+2018-10-11 05:22:12,651 INFO norm dual= 0.049578
+2018-10-11 05:22:20,172 INFO inner loop 20: efficient rank x_k: 464.074569, delta_x: 0.633446
+2018-10-11 05:24:31,818 INFO norm dual= 0.046994
+2018-10-11 05:24:39,080 INFO inner loop 21: efficient rank x_k: 463.543117, delta_x: 0.618392
+2018-10-11 05:27:02,963 INFO norm dual= 0.042712
+2018-10-11 05:27:13,105 INFO inner loop 22: efficient rank x_k: 462.994682, delta_x: 0.620958
+2018-10-11 05:28:42,060 INFO --------------------------------------------------------
+2018-10-11 05:28:43,708 INFO it:1,  convergence value:1.000000, convergence pi:1.931182, rk: 464.070991)
+2018-10-11 05:33:57,255 INFO norm dual= 1.186250
+2018-10-11 05:34:03,970 INFO inner loop 1: efficient rank x_k: 388.073195, delta_x: 1.273262
+2018-10-11 05:36:16,720 INFO norm dual= 0.293009
+2018-10-11 05:36:24,951 INFO inner loop 2: efficient rank x_k: 454.398419, delta_x: 1.602423
+2018-10-11 05:38:55,397 INFO norm dual= 0.200472
+2018-10-11 05:39:03,644 INFO inner loop 3: efficient rank x_k: 462.517346, delta_x: 1.403203
+2018-10-11 05:41:49,494 INFO norm dual= 0.151980
+2018-10-11 05:41:58,895 INFO inner loop 4: efficient rank x_k: 462.291691, delta_x: 1.310809
+2018-10-11 05:44:41,666 INFO norm dual= 0.118381
+2018-10-11 05:44:49,675 INFO inner loop 5: efficient rank x_k: 463.303197, delta_x: 1.285281
+2018-10-11 05:47:42,165 INFO norm dual= 0.105924
+2018-10-11 05:47:52,451 INFO inner loop 6: efficient rank x_k: 466.312317, delta_x: 1.214954
+2018-10-11 05:50:38,521 INFO norm dual= 0.100871
+2018-10-11 05:50:46,373 INFO inner loop 7: efficient rank x_k: 467.473231, delta_x: 1.114338
+2018-10-11 05:53:17,879 INFO norm dual= 0.097464
+2018-10-11 05:53:25,454 INFO inner loop 8: efficient rank x_k: 467.204637, delta_x: 1.042873
+2018-10-11 05:56:19,204 INFO norm dual= 0.096597
+2018-10-11 05:56:28,337 INFO inner loop 9: efficient rank x_k: 464.980287, delta_x: 0.984166
+2018-10-11 05:59:14,701 INFO norm dual= 0.088739
+2018-10-11 05:59:25,030 INFO inner loop 10: efficient rank x_k: 467.198937, delta_x: 0.942644
+2018-10-11 06:02:15,357 INFO norm dual= 0.088658
+2018-10-11 06:02:23,938 INFO inner loop 11: efficient rank x_k: 467.697131, delta_x: 0.913562
+2018-10-11 06:04:52,911 INFO norm dual= 0.079534
+2018-10-11 06:05:02,162 INFO inner loop 12: efficient rank x_k: 465.194617, delta_x: 0.891631
+2018-10-11 06:08:02,359 INFO norm dual= 0.087591
+2018-10-11 06:08:11,883 INFO inner loop 13: efficient rank x_k: 465.426783, delta_x: 0.866595
+2018-10-11 06:11:00,570 INFO norm dual= 0.079330
+2018-10-11 06:11:09,921 INFO inner loop 14: efficient rank x_k: 468.894639, delta_x: 0.816447
+2018-10-11 06:13:56,483 INFO norm dual= 0.087698
+2018-10-11 06:14:06,682 INFO inner loop 15: efficient rank x_k: 468.376553, delta_x: 0.801108
+2018-10-11 06:16:45,509 INFO norm dual= 0.065127
+2018-10-11 06:16:55,271 INFO inner loop 16: efficient rank x_k: 469.409593, delta_x: 0.755927
+2018-10-11 06:19:21,858 INFO norm dual= 0.064368
+2018-10-11 06:19:30,605 INFO inner loop 17: efficient rank x_k: 470.846292, delta_x: 0.705002
+2018-10-11 06:21:54,726 INFO norm dual= 0.067405
+2018-10-11 06:22:02,083 INFO inner loop 18: efficient rank x_k: 472.284833, delta_x: 0.650212
+2018-10-11 06:24:42,552 INFO norm dual= 0.050716
+2018-10-11 06:24:50,256 INFO inner loop 19: efficient rank x_k: 471.765377, delta_x: 0.594383
+2018-10-11 06:27:47,325 INFO norm dual= 0.049327
+2018-10-11 06:27:56,581 INFO inner loop 20: efficient rank x_k: 471.713828, delta_x: 0.577342
+2018-10-11 06:30:44,437 INFO norm dual= 0.043651
+2018-10-11 06:30:52,700 INFO inner loop 21: efficient rank x_k: 472.882881, delta_x: 0.524665
+2018-10-11 06:33:32,321 INFO norm dual= 0.040601
+2018-10-11 06:33:38,061 INFO inner loop 22: efficient rank x_k: 471.878437, delta_x: 0.513952
+2018-10-11 06:35:46,419 INFO --------------------------------------------------------
+2018-10-11 06:35:49,794 INFO it:2,  convergence value:0.000000, convergence pi:0.000000, rk: 464.070991)
+2018-10-11 06:40:59,484 INFO norm dual= 1.191969
+2018-10-11 06:41:08,174 INFO inner loop 1: efficient rank x_k: 398.466666, delta_x: 1.275029
+2018-10-11 06:43:17,941 INFO norm dual= 0.298628
+2018-10-11 06:43:27,716 INFO inner loop 2: efficient rank x_k: 456.823842, delta_x: 1.594653
+2018-10-11 06:45:41,543 INFO norm dual= 0.195914
+2018-10-11 06:45:47,712 INFO inner loop 3: efficient rank x_k: 465.917662, delta_x: 1.401130
+2018-10-11 06:48:21,514 INFO norm dual= 0.138702
+2018-10-11 06:48:28,170 INFO inner loop 4: efficient rank x_k: 466.182499, delta_x: 1.309249
+2018-10-11 06:51:10,443 INFO norm dual= 0.123874
+2018-10-11 06:51:17,056 INFO inner loop 5: efficient rank x_k: 467.148579, delta_x: 1.267437
+2018-10-11 06:53:50,813 INFO norm dual= 0.114076
+2018-10-11 06:53:59,065 INFO inner loop 6: efficient rank x_k: 468.069134, delta_x: 1.228788
+2018-10-11 06:56:28,222 INFO norm dual= 0.098646
+2018-10-11 06:56:37,417 INFO inner loop 7: efficient rank x_k: 468.977622, delta_x: 1.155176
+2018-10-11 06:59:00,334 INFO norm dual= 0.093912
+2018-10-11 06:59:09,232 INFO inner loop 8: efficient rank x_k: 471.036345, delta_x: 1.074240
+2018-10-11 07:01:35,603 INFO norm dual= 0.094987
+2018-10-11 07:01:43,103 INFO inner loop 9: efficient rank x_k: 471.149362, delta_x: 1.002688
+2018-10-11 07:04:15,655 INFO norm dual= 0.084911
+2018-10-11 07:04:25,961 INFO inner loop 10: efficient rank x_k: 469.975312, delta_x: 0.970380
+2018-10-11 07:07:09,417 INFO norm dual= 0.104570
+2018-10-11 07:07:18,382 INFO inner loop 11: efficient rank x_k: 470.743648, delta_x: 0.930993
+2018-10-11 07:09:49,214 INFO norm dual= 0.101264
+2018-10-11 07:09:58,693 INFO inner loop 12: efficient rank x_k: 472.763182, delta_x: 0.881339
+2018-10-11 07:12:31,692 INFO norm dual= 0.099378
+2018-10-11 07:12:40,979 INFO inner loop 13: efficient rank x_k: 473.123883, delta_x: 0.859105
+2018-10-11 07:15:25,017 INFO norm dual= 0.074101
+2018-10-11 07:15:33,948 INFO inner loop 14: efficient rank x_k: 472.486186, delta_x: 0.837950
+2018-10-11 07:18:04,614 INFO norm dual= 0.062495
+2018-10-11 07:18:13,482 INFO inner loop 15: efficient rank x_k: 473.868124, delta_x: 0.798081
+2018-10-11 07:20:29,721 INFO norm dual= 0.060293
+2018-10-11 07:20:37,853 INFO inner loop 16: efficient rank x_k: 476.199829, delta_x: 0.743697
+2018-10-11 07:23:03,817 INFO norm dual= 0.051810
+2018-10-11 07:23:11,961 INFO inner loop 17: efficient rank x_k: 475.354271, delta_x: 0.720982
+2018-10-11 07:25:47,449 INFO norm dual= 0.050199
+2018-10-11 07:25:54,379 INFO inner loop 18: efficient rank x_k: 475.688532, delta_x: 0.692669
+2018-10-11 07:28:33,375 INFO norm dual= 0.065084
+2018-10-11 07:28:42,863 INFO inner loop 19: efficient rank x_k: 476.594870, delta_x: 0.663724
+2018-10-11 07:31:15,537 INFO norm dual= 0.053043
+2018-10-11 07:31:22,570 INFO inner loop 20: efficient rank x_k: 477.319497, delta_x: 0.657687
+2018-10-11 07:33:59,409 INFO norm dual= 0.035839
+2018-10-11 07:34:06,318 INFO inner loop 21: efficient rank x_k: 477.555168, delta_x: 0.637277
+2018-10-11 07:36:32,062 INFO norm dual= 0.032546
+2018-10-11 07:36:38,427 INFO inner loop 22: efficient rank x_k: 477.261251, delta_x: 0.585746
+2018-10-11 07:38:23,523 INFO --------------------------------------------------------
+2018-10-11 07:38:26,515 INFO it:3,  convergence value:0.000000, convergence pi:0.000000, rk: 464.070991)
+2018-10-11 07:43:32,954 INFO norm dual= 1.194767
+2018-10-11 07:43:40,427 INFO inner loop 1: efficient rank x_k: 400.936103, delta_x: 1.277313
+2018-10-11 07:46:04,728 INFO norm dual= 0.301775
+2018-10-11 07:46:13,118 INFO inner loop 2: efficient rank x_k: 456.446571, delta_x: 1.590864
+2018-10-11 07:48:49,227 INFO norm dual= 0.189728
+2018-10-11 07:48:59,261 INFO inner loop 3: efficient rank x_k: 461.139164, delta_x: 1.400409
+2018-10-11 07:51:33,602 INFO norm dual= 0.145676
+2018-10-11 07:51:43,738 INFO inner loop 4: efficient rank x_k: 467.162262, delta_x: 1.293028
+2018-10-11 07:54:16,044 INFO norm dual= 0.118322
+2018-10-11 07:54:23,915 INFO inner loop 5: efficient rank x_k: 466.601602, delta_x: 1.267164
+2018-10-11 07:57:00,578 INFO norm dual= 0.106945
+2018-10-11 07:57:08,707 INFO inner loop 6: efficient rank x_k: 467.744373, delta_x: 1.198952
+2018-10-11 07:59:37,265 INFO norm dual= 0.112751
+2018-10-11 07:59:47,020 INFO inner loop 7: efficient rank x_k: 469.312818, delta_x: 1.084318
+2018-10-11 08:02:55,536 INFO norm dual= 0.095203
+2018-10-11 08:03:04,293 INFO inner loop 8: efficient rank x_k: 469.471239, delta_x: 1.042083
+2018-10-11 08:05:55,960 INFO norm dual= 0.093967
+2018-10-11 08:06:02,963 INFO inner loop 9: efficient rank x_k: 468.279971, delta_x: 0.980987
+2018-10-11 08:08:33,659 INFO norm dual= 0.083405
+2018-10-11 08:08:43,271 INFO inner loop 10: efficient rank x_k: 468.907072, delta_x: 0.931214
+2018-10-11 08:11:21,328 INFO norm dual= 0.084962
+2018-10-11 08:11:29,739 INFO inner loop 11: efficient rank x_k: 468.580839, delta_x: 0.891259
+2018-10-11 08:14:06,769 INFO norm dual= 0.066428
+2018-10-11 08:14:16,265 INFO inner loop 12: efficient rank x_k: 469.119988, delta_x: 0.828047
+2018-10-11 08:17:37,056 INFO norm dual= 0.072691
+2018-10-11 08:17:50,182 INFO inner loop 13: efficient rank x_k: 469.801967, delta_x: 0.788301
+2018-10-11 08:20:42,173 INFO norm dual= 0.060554
+2018-10-11 08:20:48,788 INFO inner loop 14: efficient rank x_k: 468.849727, delta_x: 0.728835
+2018-10-11 08:23:28,045 INFO norm dual= 0.054693
+2018-10-11 08:23:35,323 INFO inner loop 15: efficient rank x_k: 469.975092, delta_x: 0.699080
+2018-10-11 08:26:25,229 INFO norm dual= 0.052903
+2018-10-11 08:26:32,087 INFO inner loop 16: efficient rank x_k: 469.794481, delta_x: 0.669341
+2018-10-11 08:29:16,415 INFO norm dual= 0.051477
+2018-10-11 08:29:26,168 INFO inner loop 17: efficient rank x_k: 468.798324, delta_x: 0.649727
+2018-10-11 08:32:38,158 INFO norm dual= 0.059092
+2018-10-11 08:32:48,333 INFO inner loop 18: efficient rank x_k: 469.328028, delta_x: 0.638560
+2018-10-11 08:35:49,104 INFO norm dual= 0.048826
+2018-10-11 08:35:59,411 INFO inner loop 19: efficient rank x_k: 469.888178, delta_x: 0.642974
+2018-10-11 08:39:08,600 INFO norm dual= 0.053734
+2018-10-11 08:39:18,657 INFO inner loop 20: efficient rank x_k: 470.111278, delta_x: 0.615641
+2018-10-11 08:42:05,351 INFO norm dual= 0.057179
+2018-10-11 08:42:12,933 INFO inner loop 21: efficient rank x_k: 471.837760, delta_x: 0.569938
+2018-10-11 08:45:12,759 INFO norm dual= 0.049828
+2018-10-11 08:45:24,655 INFO inner loop 22: efficient rank x_k: 471.516893, delta_x: 0.527765
+2018-10-11 08:47:47,731 INFO --------------------------------------------------------
+2018-10-11 08:47:49,626 INFO it:4,  convergence value:0.000000, convergence pi:0.000000, rk: 464.070991)
+2018-10-11 08:47:49,629 INFO **********************************
+2018-10-11 08:47:49,631 INFO **********************************
+2018-10-11 08:47:49,631 INFO **********************************
+2018-10-11 08:47:50,672 INFO finished lambda = 0.500000
+2018-10-11 08:47:50,673 INFO --------------------------------
+2018-10-11 08:47:53,714 INFO Starting lambda = 1.000000
+2018-10-11 08:47:54,029 INFO Beginning l=1.000000
+2018-10-11 08:53:41,328 INFO norm dual= 1.144996
+2018-10-11 08:53:51,073 INFO inner loop 1: efficient rank x_k: 409.223347, delta_x: 1.416623
+2018-10-11 08:56:29,709 INFO norm dual= 0.330333
+2018-10-11 08:56:38,479 INFO inner loop 2: efficient rank x_k: 460.122267, delta_x: 1.558302
+2018-10-11 08:59:41,054 INFO norm dual= 0.220655
+2018-10-11 08:59:47,600 INFO inner loop 3: efficient rank x_k: 475.561546, delta_x: 1.416717
+2018-10-11 09:03:11,298 INFO norm dual= 0.170597
+2018-10-11 09:03:21,381 INFO inner loop 4: efficient rank x_k: 478.528924, delta_x: 1.355926
+2018-10-11 09:07:03,118 INFO norm dual= 0.113563
+2018-10-11 09:07:13,581 INFO inner loop 5: efficient rank x_k: 475.118386, delta_x: 1.326183
+2018-10-11 09:10:54,724 INFO norm dual= 0.098289
+2018-10-11 09:11:03,728 INFO inner loop 6: efficient rank x_k: 472.643782, delta_x: 1.249248
+2018-10-11 09:14:23,935 INFO norm dual= 0.101984
+2018-10-11 09:14:33,492 INFO inner loop 7: efficient rank x_k: 472.730083, delta_x: 1.132211
+2018-10-11 09:18:25,246 INFO norm dual= 0.105192
+2018-10-11 09:18:31,885 INFO inner loop 8: efficient rank x_k: 473.318200, delta_x: 1.065031
+2018-10-11 09:21:47,029 INFO norm dual= 0.081027
+2018-10-11 09:21:54,767 INFO inner loop 9: efficient rank x_k: 474.555098, delta_x: 1.007092
+2018-10-11 09:25:03,053 INFO norm dual= 0.080565
+2018-10-11 09:25:10,452 INFO inner loop 10: efficient rank x_k: 471.090960, delta_x: 0.947135
+2018-10-11 09:28:27,758 INFO norm dual= 0.073604
+2018-10-11 09:28:38,058 INFO inner loop 11: efficient rank x_k: 472.917326, delta_x: 0.907025
+2018-10-11 09:31:50,349 INFO norm dual= 0.070899
+2018-10-11 09:31:59,478 INFO inner loop 12: efficient rank x_k: 471.777342, delta_x: 0.864615
+2018-10-11 09:35:31,510 INFO norm dual= 0.059499
+2018-10-11 09:35:38,981 INFO inner loop 13: efficient rank x_k: 470.672967, delta_x: 0.838169
+2018-10-11 09:39:05,539 INFO norm dual= 0.065878
+2018-10-11 09:39:16,621 INFO inner loop 14: efficient rank x_k: 471.723821, delta_x: 0.832608
+2018-10-11 09:42:59,726 INFO norm dual= 0.067631
+2018-10-11 09:43:09,678 INFO inner loop 15: efficient rank x_k: 470.718209, delta_x: 0.821082
+2018-10-11 09:46:43,533 INFO norm dual= 0.066274
+2018-10-11 09:46:53,524 INFO inner loop 16: efficient rank x_k: 471.730247, delta_x: 0.806032
+2018-10-11 09:50:44,326 INFO norm dual= 0.071709
+2018-10-11 09:50:53,934 INFO inner loop 17: efficient rank x_k: 469.260701, delta_x: 0.806439
+2018-10-11 09:54:28,669 INFO norm dual= 0.071460
+2018-10-11 09:54:38,077 INFO inner loop 18: efficient rank x_k: 472.447931, delta_x: 0.789199
+2018-10-11 09:58:50,175 INFO norm dual= 0.065781
+2018-10-11 09:58:59,389 INFO inner loop 19: efficient rank x_k: 470.296842, delta_x: 0.783161
+2018-10-11 10:02:34,722 INFO norm dual= 0.060234
+2018-10-11 10:02:44,964 INFO inner loop 20: efficient rank x_k: 470.146631, delta_x: 0.743422
+2018-10-11 10:06:19,077 INFO norm dual= 0.049623
+2018-10-11 10:06:29,041 INFO inner loop 21: efficient rank x_k: 471.529809, delta_x: 0.731244
+2018-10-11 10:10:17,084 INFO norm dual= 0.046901
+2018-10-11 10:10:23,505 INFO inner loop 22: efficient rank x_k: 471.029261, delta_x: 0.710808
+2018-10-11 10:13:17,311 INFO --------------------------------------------------------
+2018-10-11 10:13:20,010 INFO it:1,  convergence value:1.000000, convergence pi:1.577257, rk: 470.851241)
+2018-10-11 10:20:20,396 INFO norm dual= 0.980319
+2018-10-11 10:20:31,685 INFO inner loop 1: efficient rank x_k: 417.729761, delta_x: 1.325103
+2018-10-11 10:23:46,865 INFO norm dual= 0.340595
+2018-10-11 10:23:57,225 INFO inner loop 2: efficient rank x_k: 457.431498, delta_x: 1.512241
+2018-10-11 10:27:28,258 INFO norm dual= 0.222987
+2018-10-11 10:27:38,685 INFO inner loop 3: efficient rank x_k: 469.574631, delta_x: 1.424620
+2018-10-11 10:31:14,115 INFO norm dual= 0.178073
+2018-10-11 10:31:23,366 INFO inner loop 4: efficient rank x_k: 472.655356, delta_x: 1.322436
+2018-10-11 10:35:16,617 INFO norm dual= 0.136761
+2018-10-11 10:35:25,802 INFO inner loop 5: efficient rank x_k: 476.627920, delta_x: 1.267614
+2018-10-11 10:39:06,854 INFO norm dual= 0.125739
+2018-10-11 10:39:17,201 INFO inner loop 6: efficient rank x_k: 476.112835, delta_x: 1.247262
+2018-10-11 10:42:42,636 INFO norm dual= 0.117738
+2018-10-11 10:42:49,579 INFO inner loop 7: efficient rank x_k: 479.342798, delta_x: 1.110630
+2018-10-11 10:46:37,815 INFO norm dual= 0.117083
+2018-10-11 10:46:48,357 INFO inner loop 8: efficient rank x_k: 477.650842, delta_x: 1.050469
+2018-10-11 10:50:27,923 INFO norm dual= 0.111121
+2018-10-11 10:50:38,231 INFO inner loop 9: efficient rank x_k: 475.098489, delta_x: 0.999644
+2018-10-11 10:54:23,219 INFO norm dual= 0.111885
+2018-10-11 10:54:30,469 INFO inner loop 10: efficient rank x_k: 477.332606, delta_x: 0.958387
+2018-10-11 10:57:53,899 INFO norm dual= 0.114301
+2018-10-11 10:58:04,167 INFO inner loop 11: efficient rank x_k: 479.392488, delta_x: 0.923968
+2018-10-11 11:01:36,072 INFO norm dual= 0.078910
+2018-10-11 11:01:43,691 INFO inner loop 12: efficient rank x_k: 480.799171, delta_x: 0.901378
+2018-10-11 11:05:25,460 INFO norm dual= 0.075351
+2018-10-11 11:05:35,854 INFO inner loop 13: efficient rank x_k: 478.168893, delta_x: 0.872304
+2018-10-11 11:09:20,263 INFO norm dual= 0.090774
+2018-10-11 11:09:29,177 INFO inner loop 14: efficient rank x_k: 478.131465, delta_x: 0.858773
+2018-10-11 11:13:02,415 INFO norm dual= 0.088354
+2018-10-11 11:13:12,641 INFO inner loop 15: efficient rank x_k: 479.629683, delta_x: 0.842039
+2018-10-11 11:16:33,355 INFO norm dual= 0.065744
+2018-10-11 11:16:43,981 INFO inner loop 16: efficient rank x_k: 477.828526, delta_x: 0.813257
+2018-10-11 11:20:18,555 INFO norm dual= 0.067424
+2018-10-11 11:20:28,190 INFO inner loop 17: efficient rank x_k: 479.502165, delta_x: 0.783125
+2018-10-11 11:24:05,750 INFO norm dual= 0.073308
+2018-10-11 11:24:15,061 INFO inner loop 18: efficient rank x_k: 478.452795, delta_x: 0.761274
+2018-10-11 11:27:49,365 INFO norm dual= 0.053178
+2018-10-11 11:28:00,398 INFO inner loop 19: efficient rank x_k: 478.168170, delta_x: 0.768057
+2018-10-11 11:31:30,435 INFO norm dual= 0.055242
+2018-10-11 11:31:40,488 INFO inner loop 20: efficient rank x_k: 479.341559, delta_x: 0.756277
+2018-10-11 11:35:04,857 INFO norm dual= 0.051699
+2018-10-11 11:35:14,121 INFO inner loop 21: efficient rank x_k: 480.121078, delta_x: 0.727987
+2018-10-11 11:38:59,761 INFO norm dual= 0.050056
+2018-10-11 11:39:10,544 INFO inner loop 22: efficient rank x_k: 477.933483, delta_x: 0.709050
+2018-10-11 11:41:54,304 INFO --------------------------------------------------------
+2018-10-11 11:41:56,962 INFO it:2,  convergence value:0.004389, convergence pi:1.430551, rk: 478.440892)
+2018-10-11 11:47:05,370 INFO norm dual= 1.273014
+2018-10-11 11:47:15,449 INFO inner loop 1: efficient rank x_k: 405.380470, delta_x: 1.282616
+2018-10-11 11:50:37,775 INFO norm dual= 0.411716
+2018-10-11 11:50:47,162 INFO inner loop 2: efficient rank x_k: 456.586139, delta_x: 1.576351
+2018-10-11 11:54:08,520 INFO norm dual= 0.239859
+2018-10-11 11:54:19,081 INFO inner loop 3: efficient rank x_k: 467.725064, delta_x: 1.398960
+2018-10-11 11:57:59,771 INFO norm dual= 0.194930
+2018-10-11 11:58:11,002 INFO inner loop 4: efficient rank x_k: 469.782658, delta_x: 1.342725
+2018-10-11 12:01:55,478 INFO norm dual= 0.150257
+2018-10-11 12:02:05,496 INFO inner loop 5: efficient rank x_k: 469.963392, delta_x: 1.308003
+2018-10-11 12:05:53,720 INFO norm dual= 0.145332
+2018-10-11 12:06:03,672 INFO inner loop 6: efficient rank x_k: 474.094088, delta_x: 1.213739
+2018-10-11 12:09:43,693 INFO norm dual= 0.113226
+2018-10-11 12:09:55,582 INFO inner loop 7: efficient rank x_k: 474.658051, delta_x: 1.100504
+2018-10-11 12:13:17,874 INFO norm dual= 0.108346
+2018-10-11 12:13:27,604 INFO inner loop 8: efficient rank x_k: 474.076961, delta_x: 1.035744
+2018-10-11 12:16:52,102 INFO norm dual= 0.115849
+2018-10-11 12:17:01,431 INFO inner loop 9: efficient rank x_k: 474.678353, delta_x: 0.984288
+2018-10-11 12:20:28,517 INFO norm dual= 0.090675
+2018-10-11 12:20:37,220 INFO inner loop 10: efficient rank x_k: 475.785069, delta_x: 0.953280
+2018-10-11 12:23:57,275 INFO norm dual= 0.092914
+2018-10-11 12:24:04,871 INFO inner loop 11: efficient rank x_k: 471.675121, delta_x: 0.923850
+2018-10-11 12:27:21,777 INFO norm dual= 0.091911
+2018-10-11 12:27:28,281 INFO inner loop 12: efficient rank x_k: 472.605648, delta_x: 0.905927
+2018-10-11 12:30:21,837 INFO norm dual= 0.079117
+2018-10-11 12:30:30,336 INFO inner loop 13: efficient rank x_k: 471.399566, delta_x: 0.892063
+2018-10-11 12:33:46,428 INFO norm dual= 0.075729
+2018-10-11 12:33:56,355 INFO inner loop 14: efficient rank x_k: 471.729595, delta_x: 0.876071
+2018-10-11 12:37:22,100 INFO norm dual= 0.079453
+2018-10-11 12:37:32,116 INFO inner loop 15: efficient rank x_k: 470.660014, delta_x: 0.870467
+2018-10-11 12:41:00,967 INFO norm dual= 0.072878
+2018-10-11 12:41:10,331 INFO inner loop 16: efficient rank x_k: 469.077667, delta_x: 0.871750
+2018-10-11 12:44:29,886 INFO norm dual= 0.062006
+2018-10-11 12:44:39,926 INFO inner loop 17: efficient rank x_k: 470.002850, delta_x: 0.852571
+2018-10-11 12:47:48,344 INFO norm dual= 0.055251
+2018-10-11 12:47:57,484 INFO inner loop 18: efficient rank x_k: 470.196689, delta_x: 0.817331
+2018-10-11 12:51:18,743 INFO norm dual= 0.065919
+2018-10-11 12:51:28,861 INFO inner loop 19: efficient rank x_k: 467.731523, delta_x: 0.799361
+2018-10-11 12:55:09,225 INFO norm dual= 0.064172
+2018-10-11 12:55:19,075 INFO inner loop 20: efficient rank x_k: 467.594578, delta_x: 0.792527
+2018-10-11 12:58:52,073 INFO norm dual= 0.057624
+2018-10-11 12:59:01,994 INFO inner loop 21: efficient rank x_k: 464.444685, delta_x: 0.777294
+2018-10-11 13:02:15,491 INFO norm dual= 0.057802
+2018-10-11 13:02:24,547 INFO inner loop 22: efficient rank x_k: 465.871698, delta_x: 0.769543
+2018-10-11 13:05:04,600 INFO --------------------------------------------------------
+2018-10-11 13:05:06,907 INFO it:3,  convergence value:0.000000, convergence pi:0.000000, rk: 478.440892)
+2018-10-11 13:10:21,373 INFO norm dual= 1.282621
+2018-10-11 13:10:31,556 INFO inner loop 1: efficient rank x_k: 409.158424, delta_x: 1.281528
+2018-10-11 13:13:41,990 INFO norm dual= 0.423831
+2018-10-11 13:13:52,614 INFO inner loop 2: efficient rank x_k: 459.107938, delta_x: 1.580817
+2018-10-11 13:17:19,646 INFO norm dual= 0.231226
+2018-10-11 13:17:28,772 INFO inner loop 3: efficient rank x_k: 470.606221, delta_x: 1.390925
+2018-10-11 13:20:46,064 INFO norm dual= 0.163370
+2018-10-11 13:20:55,880 INFO inner loop 4: efficient rank x_k: 473.874636, delta_x: 1.347362
+2018-10-11 13:24:27,065 INFO norm dual= 0.151621
+2018-10-11 13:24:37,962 INFO inner loop 5: efficient rank x_k: 471.508266, delta_x: 1.315754
+2018-10-11 13:28:18,322 INFO norm dual= 0.129054
+2018-10-11 13:28:25,833 INFO inner loop 6: efficient rank x_k: 476.818086, delta_x: 1.204852
+2018-10-11 13:31:48,409 INFO norm dual= 0.126967
+2018-10-11 13:31:58,209 INFO inner loop 7: efficient rank x_k: 473.758962, delta_x: 1.108404
+2018-10-11 13:35:33,124 INFO norm dual= 0.111714
+2018-10-11 13:35:44,177 INFO inner loop 8: efficient rank x_k: 473.443266, delta_x: 1.075496
+2018-10-11 13:39:02,579 INFO norm dual= 0.110764
+2018-10-11 13:39:13,894 INFO inner loop 9: efficient rank x_k: 476.020935, delta_x: 1.027077
+2018-10-11 13:42:35,414 INFO norm dual= 0.104220
+2018-10-11 13:42:45,610 INFO inner loop 10: efficient rank x_k: 471.902453, delta_x: 0.995999
+2018-10-11 13:46:03,270 INFO norm dual= 0.100311
+2018-10-11 13:46:11,109 INFO inner loop 11: efficient rank x_k: 476.754792, delta_x: 0.952995
+2018-10-11 13:49:31,755 INFO norm dual= 0.084683
+2018-10-11 13:49:42,239 INFO inner loop 12: efficient rank x_k: 475.797953, delta_x: 0.917905
+2018-10-11 13:52:53,429 INFO norm dual= 0.083943
+2018-10-11 13:53:04,148 INFO inner loop 13: efficient rank x_k: 470.972886, delta_x: 0.906426
+2018-10-11 13:56:37,410 INFO norm dual= 0.092088
+2018-10-11 13:56:47,670 INFO inner loop 14: efficient rank x_k: 469.660129, delta_x: 0.911188
+2018-10-11 13:59:55,148 INFO norm dual= 0.089015
+2018-10-11 14:00:05,423 INFO inner loop 15: efficient rank x_k: 472.426507, delta_x: 0.870597
+2018-10-11 14:03:51,479 INFO norm dual= 0.079568
+2018-10-11 14:04:01,111 INFO inner loop 16: efficient rank x_k: 472.730835, delta_x: 0.863244
+2018-10-11 14:07:27,623 INFO norm dual= 0.065615
+2018-10-11 14:07:36,912 INFO inner loop 17: efficient rank x_k: 471.085386, delta_x: 0.837702
+2018-10-11 14:10:52,120 INFO norm dual= 0.065167
+2018-10-11 14:11:03,050 INFO inner loop 18: efficient rank x_k: 472.293380, delta_x: 0.816828
+2018-10-11 14:14:14,241 INFO norm dual= 0.059469
+2018-10-11 14:14:23,771 INFO inner loop 19: efficient rank x_k: 470.040752, delta_x: 0.779689
+2018-10-11 14:17:15,794 INFO norm dual= 0.056082
+2018-10-11 14:17:25,307 INFO inner loop 20: efficient rank x_k: 470.187543, delta_x: 0.757036
+2018-10-11 14:21:00,408 INFO norm dual= 0.061884
+2018-10-11 14:21:11,227 INFO inner loop 21: efficient rank x_k: 471.465164, delta_x: 0.763022
+2018-10-11 14:24:38,397 INFO norm dual= 0.048429
+2018-10-11 14:24:49,341 INFO inner loop 22: efficient rank x_k: 470.732552, delta_x: 0.756833
+2018-10-11 14:27:21,316 INFO --------------------------------------------------------
+2018-10-11 14:27:23,563 INFO it:4,  convergence value:0.000000, convergence pi:0.000000, rk: 478.440892)
+2018-10-11 14:27:23,567 INFO **********************************
+2018-10-11 14:27:23,568 INFO **********************************
+2018-10-11 14:27:23,568 INFO **********************************
+2018-10-11 14:27:25,044 INFO finished lambda = 1.000000
+2018-10-11 14:27:25,045 INFO --------------------------------
+2018-10-11 14:27:30,246 INFO Starting lambda = 5.000000
+2018-10-11 14:27:30,480 INFO Beginning l=5.000000
+2018-10-11 14:36:08,056 INFO norm dual= 1.162944
+2018-10-11 14:36:17,215 INFO inner loop 1: efficient rank x_k: 446.287311, delta_x: 1.668325
+2018-10-11 14:42:38,051 INFO norm dual= 0.511781
+2018-10-11 14:42:48,228 INFO inner loop 2: efficient rank x_k: 471.678165, delta_x: 1.481049
+2018-10-11 14:49:51,387 INFO norm dual= 0.306215
+2018-10-11 14:50:01,888 INFO inner loop 3: efficient rank x_k: 483.434692, delta_x: 1.448581
+2018-10-11 14:57:14,184 INFO norm dual= 0.235843
+2018-10-11 14:57:23,586 INFO inner loop 4: efficient rank x_k: 479.238452, delta_x: 1.383260
+2018-10-11 15:04:40,992 INFO norm dual= 0.162057
+2018-10-11 15:04:49,990 INFO inner loop 5: efficient rank x_k: 470.970366, delta_x: 1.383898
+2018-10-11 15:11:49,768 INFO norm dual= 0.129015
+2018-10-11 15:11:59,420 INFO inner loop 6: efficient rank x_k: 478.309040, delta_x: 1.319250
+2018-10-11 15:18:46,759 INFO norm dual= 0.131996
+2018-10-11 15:18:54,392 INFO inner loop 7: efficient rank x_k: 481.852077, delta_x: 1.239248
+2018-10-11 15:25:34,982 INFO norm dual= 0.119222
+2018-10-11 15:25:42,594 INFO inner loop 8: efficient rank x_k: 477.342677, delta_x: 1.167250
+2018-10-11 15:31:37,315 INFO norm dual= 0.095413
+2018-10-11 15:31:47,146 INFO inner loop 9: efficient rank x_k: 478.697792, delta_x: 1.023824
+2018-10-11 15:38:16,347 INFO norm dual= 0.091072
+2018-10-11 15:38:26,319 INFO inner loop 10: efficient rank x_k: 473.793288, delta_x: 0.917921
+2018-10-11 15:44:53,005 INFO norm dual= 0.087533
+2018-10-11 15:45:02,661 INFO inner loop 11: efficient rank x_k: 470.558334, delta_x: 0.866123
+2018-10-11 15:51:27,385 INFO norm dual= 0.079071
+2018-10-11 15:51:37,078 INFO inner loop 12: efficient rank x_k: 466.646988, delta_x: 0.826422
+2018-10-11 15:57:52,591 INFO norm dual= 0.082523
+2018-10-11 15:58:01,503 INFO inner loop 13: efficient rank x_k: 460.629612, delta_x: 0.766812
+2018-10-11 16:04:36,005 INFO norm dual= 0.064493
+2018-10-11 16:04:46,296 INFO inner loop 14: efficient rank x_k: 458.518154, delta_x: 0.696100
+2018-10-11 16:11:26,546 INFO norm dual= 0.048207
+2018-10-11 16:11:35,898 INFO inner loop 15: efficient rank x_k: 458.103518, delta_x: 0.664069
+2018-10-11 16:17:55,037 INFO norm dual= 0.030299
+2018-10-11 16:18:05,858 INFO inner loop 16: efficient rank x_k: 451.600018, delta_x: 0.611407
+2018-10-11 16:24:23,025 INFO norm dual= 0.038096
+2018-10-11 16:24:32,294 INFO inner loop 17: efficient rank x_k: 453.130272, delta_x: 0.542400
+2018-10-11 16:30:56,146 INFO norm dual= 0.030377
+2018-10-11 16:31:04,931 INFO inner loop 18: efficient rank x_k: 454.850917, delta_x: 0.526944
+2018-10-11 16:37:22,303 INFO norm dual= 0.046366
+2018-10-11 16:37:31,015 INFO inner loop 19: efficient rank x_k: 448.657065, delta_x: 0.497549
+2018-10-11 16:43:41,211 INFO norm dual= 0.028920
+2018-10-11 16:43:50,976 INFO inner loop 20: efficient rank x_k: 451.975177, delta_x: 0.506160
+2018-10-11 16:50:18,767 INFO norm dual= 0.022922
+2018-10-11 16:50:26,979 INFO inner loop 21: efficient rank x_k: 449.127716, delta_x: 0.482400
+2018-10-11 16:56:33,258 INFO norm dual= 0.022453
+2018-10-11 16:56:42,092 INFO inner loop 22: efficient rank x_k: 447.695601, delta_x: 0.446302
+2018-10-11 17:02:16,103 INFO --------------------------------------------------------
+2018-10-11 17:02:17,908 INFO it:1,  convergence value:1.000000, convergence pi:1.701388, rk: 446.060491)
+2018-10-11 17:13:07,982 INFO norm dual= 0.876121
+2018-10-11 17:13:16,760 INFO inner loop 1: efficient rank x_k: 444.889908, delta_x: 1.449816
+2018-10-11 17:19:55,061 INFO norm dual= 0.385967
+2018-10-11 17:20:03,537 INFO inner loop 2: efficient rank x_k: 472.060861, delta_x: 1.446725
+2018-10-11 17:26:55,752 INFO norm dual= 0.284424
+2018-10-11 17:27:05,016 INFO inner loop 3: efficient rank x_k: 487.343358, delta_x: 1.418090
+2018-10-11 17:34:09,723 INFO norm dual= 0.192359
+2018-10-11 17:34:18,624 INFO inner loop 4: efficient rank x_k: 482.367450, delta_x: 1.393250
+2018-10-11 17:41:27,194 INFO norm dual= 0.133683
+2018-10-11 17:41:38,355 INFO inner loop 5: efficient rank x_k: 487.697966, delta_x: 1.354923
+2018-10-11 17:48:44,268 INFO norm dual= 0.105540
+2018-10-11 17:48:50,909 INFO inner loop 6: efficient rank x_k: 497.564133, delta_x: 1.298594
+2018-10-11 17:55:41,615 INFO norm dual= 0.109600
+2018-10-11 17:55:51,270 INFO inner loop 7: efficient rank x_k: 492.324505, delta_x: 1.185881
+2018-10-11 18:02:30,640 INFO norm dual= 0.077697
+2018-10-11 18:02:40,814 INFO inner loop 8: efficient rank x_k: 490.111038, delta_x: 1.090949
+2018-10-11 18:09:10,724 INFO norm dual= 0.069695
+2018-10-11 18:09:16,886 INFO inner loop 9: efficient rank x_k: 489.005387, delta_x: 0.985285
+2018-10-11 18:16:03,206 INFO norm dual= 0.056422
+2018-10-11 18:16:10,125 INFO inner loop 10: efficient rank x_k: 492.762864, delta_x: 0.906977
+2018-10-11 18:23:09,220 INFO norm dual= 0.045877
+2018-10-11 18:23:19,388 INFO inner loop 11: efficient rank x_k: 490.518567, delta_x: 0.818377
+2018-10-11 18:29:47,986 INFO norm dual= 0.069552
+2018-10-11 18:29:58,201 INFO inner loop 12: efficient rank x_k: 485.688696, delta_x: 0.717248
+2018-10-11 18:36:24,880 INFO norm dual= 0.087764
+2018-10-11 18:36:34,976 INFO inner loop 13: efficient rank x_k: 483.502386, delta_x: 0.674995
+2018-10-11 18:43:08,619 INFO norm dual= 0.058438
+2018-10-11 18:43:19,059 INFO inner loop 14: efficient rank x_k: 483.826385, delta_x: 0.625620
+2018-10-11 18:49:41,952 INFO norm dual= 0.051297
+2018-10-11 18:49:50,638 INFO inner loop 15: efficient rank x_k: 483.669805, delta_x: 0.596789
+2018-10-11 18:56:02,169 INFO norm dual= 0.043270
+2018-10-11 18:56:12,478 INFO inner loop 16: efficient rank x_k: 479.059215, delta_x: 0.559440
+2018-10-11 19:02:26,958 INFO norm dual= 0.038714
+2018-10-11 19:02:36,798 INFO inner loop 17: efficient rank x_k: 478.990838, delta_x: 0.518162
+2018-10-11 19:09:21,394 INFO norm dual= 0.028306
+2018-10-11 19:09:46,131 INFO inner loop 18: efficient rank x_k: 479.756946, delta_x: 0.474865
+2018-10-11 19:16:38,737 INFO norm dual= 0.026628
+2018-10-11 19:16:47,651 INFO inner loop 19: efficient rank x_k: 479.398193, delta_x: 0.435900
+2018-10-11 19:22:36,452 INFO norm dual= 0.017880
+2018-10-11 19:22:45,306 INFO inner loop 20: efficient rank x_k: 478.262771, delta_x: 0.409470
+2018-10-11 19:28:42,968 INFO norm dual= 0.014326
+2018-10-11 19:28:51,048 INFO inner loop 21: efficient rank x_k: 479.763844, delta_x: 0.377788
+2018-10-11 19:34:28,686 INFO norm dual= 0.012074
+2018-10-11 19:34:38,475 INFO inner loop 22: efficient rank x_k: 478.553687, delta_x: 0.322105
+2018-10-11 19:39:35,855 INFO --------------------------------------------------------
+2018-10-11 19:39:38,518 INFO it:2,  convergence value:0.030089, convergence pi:1.444886, rk: 476.748443)
+2018-10-11 19:49:36,205 INFO norm dual= 0.900050
+2018-10-11 19:49:44,726 INFO inner loop 1: efficient rank x_k: 452.126378, delta_x: 1.437765
+2018-10-11 19:56:20,250 INFO norm dual= 0.379679
+2018-10-11 19:56:29,751 INFO inner loop 2: efficient rank x_k: 475.986963, delta_x: 1.425963
+2018-10-11 20:03:20,710 INFO norm dual= 0.287681
+2018-10-11 20:03:28,022 INFO inner loop 3: efficient rank x_k: 488.722679, delta_x: 1.397797
+2018-10-11 20:09:55,717 INFO norm dual= 0.176650
+2018-10-11 20:10:03,662 INFO inner loop 4: efficient rank x_k: 483.504838, delta_x: 1.375329
+2018-10-11 20:16:39,452 INFO norm dual= 0.127827
+2018-10-11 20:16:48,324 INFO inner loop 5: efficient rank x_k: 484.285118, delta_x: 1.331258
+2018-10-11 20:23:10,063 INFO norm dual= 0.109036
+2018-10-11 20:23:18,847 INFO inner loop 6: efficient rank x_k: 492.607602, delta_x: 1.284962
+2018-10-11 20:27:37,139 INFO norm dual= 0.120733
+2018-10-11 20:27:42,297 INFO inner loop 7: efficient rank x_k: 488.383273, delta_x: 1.179052
+2018-10-11 20:31:57,492 INFO norm dual= 0.098595
+2018-10-11 20:32:03,140 INFO inner loop 8: efficient rank x_k: 492.594742, delta_x: 1.085449
+2018-10-11 20:36:16,391 INFO norm dual= 0.097684
+2018-10-11 20:36:21,855 INFO inner loop 9: efficient rank x_k: 492.521521, delta_x: 0.959989
+2018-10-11 20:40:28,576 INFO norm dual= 0.067049
+2018-10-11 20:40:33,532 INFO inner loop 10: efficient rank x_k: 485.690250, delta_x: 0.882347
+2018-10-11 20:44:28,516 INFO norm dual= 0.079207
+2018-10-11 20:44:31,868 INFO inner loop 11: efficient rank x_k: 492.057221, delta_x: 0.816710
+2018-10-11 20:48:21,499 INFO norm dual= 0.068356
+2018-10-11 20:48:26,342 INFO inner loop 12: efficient rank x_k: 486.303720, delta_x: 0.771323
+2018-10-11 20:52:16,605 INFO norm dual= 0.049055
+2018-10-11 20:52:21,743 INFO inner loop 13: efficient rank x_k: 488.970550, delta_x: 0.721762
+2018-10-11 20:56:10,844 INFO norm dual= 0.056549
+2018-10-11 20:56:16,491 INFO inner loop 14: efficient rank x_k: 486.516488, delta_x: 0.663225
+2018-10-11 21:00:10,111 INFO norm dual= 0.052189
+2018-10-11 21:00:15,173 INFO inner loop 15: efficient rank x_k: 485.076154, delta_x: 0.590879
+2018-10-11 21:04:01,433 INFO norm dual= 0.045894
+2018-10-11 21:04:06,535 INFO inner loop 16: efficient rank x_k: 483.310712, delta_x: 0.531589
+2018-10-11 21:08:00,272 INFO norm dual= 0.045071
+2018-10-11 21:08:06,126 INFO inner loop 17: efficient rank x_k: 480.799766, delta_x: 0.493139
+2018-10-11 21:11:45,256 INFO norm dual= 0.055633
+2018-10-11 21:11:50,453 INFO inner loop 18: efficient rank x_k: 481.216694, delta_x: 0.488996
+2018-10-11 21:15:38,388 INFO norm dual= 0.032220
+2018-10-11 21:15:43,720 INFO inner loop 19: efficient rank x_k: 481.475706, delta_x: 0.495672
+2018-10-11 21:19:41,616 INFO norm dual= 0.022069
+2018-10-11 21:19:47,900 INFO inner loop 20: efficient rank x_k: 480.804956, delta_x: 0.458650
+2018-10-11 21:23:32,546 INFO norm dual= 0.022418
+2018-10-11 21:23:38,029 INFO inner loop 21: efficient rank x_k: 479.471772, delta_x: 0.406374
+2018-10-11 21:27:31,352 INFO norm dual= 0.021344
+2018-10-11 21:27:37,067 INFO inner loop 22: efficient rank x_k: 479.349015, delta_x: 0.374442
+2018-10-11 21:30:56,097 INFO --------------------------------------------------------
+2018-10-11 21:30:57,850 INFO it:3,  convergence value:0.010391, convergence pi:1.408913, rk: 477.741452)
+2018-10-11 21:36:32,786 INFO norm dual= 1.028521
+2018-10-11 21:36:38,418 INFO inner loop 1: efficient rank x_k: 437.329077, delta_x: 1.423592
+2018-10-11 21:40:42,591 INFO norm dual= 0.410074
+2018-10-11 21:40:47,743 INFO inner loop 2: efficient rank x_k: 477.091838, delta_x: 1.454147
+2018-10-11 21:45:04,826 INFO norm dual= 0.255302
+2018-10-11 21:45:10,732 INFO inner loop 3: efficient rank x_k: 474.283848, delta_x: 1.388712
+2018-10-11 21:49:40,508 INFO norm dual= 0.170522
+2018-10-11 21:49:44,434 INFO inner loop 4: efficient rank x_k: 478.238570, delta_x: 1.390259
+2018-10-11 21:53:46,106 INFO norm dual= 0.114161
+2018-10-11 21:53:50,743 INFO inner loop 5: efficient rank x_k: 488.473597, delta_x: 1.368628
+2018-10-11 21:57:57,367 INFO norm dual= 0.086262
+2018-10-11 21:58:02,049 INFO inner loop 6: efficient rank x_k: 485.800596, delta_x: 1.242306
+2018-10-11 22:02:08,838 INFO norm dual= 0.098146
+2018-10-11 22:02:14,107 INFO inner loop 7: efficient rank x_k: 492.667160, delta_x: 1.183346
+2018-10-11 22:06:14,006 INFO norm dual= 0.081283
+2018-10-11 22:06:18,965 INFO inner loop 8: efficient rank x_k: 489.445774, delta_x: 1.074031
+2018-10-11 22:10:24,548 INFO norm dual= 0.087301
+2018-10-11 22:10:29,513 INFO inner loop 9: efficient rank x_k: 490.814101, delta_x: 0.936973
+2018-10-11 22:14:31,038 INFO norm dual= 0.075875
+2018-10-11 22:14:37,582 INFO inner loop 10: efficient rank x_k: 493.071202, delta_x: 0.837911
+2018-10-11 22:18:37,681 INFO norm dual= 0.071741
+2018-10-11 22:18:42,741 INFO inner loop 11: efficient rank x_k: 490.970560, delta_x: 0.735900
+2018-10-11 22:22:46,005 INFO norm dual= 0.083638
+2018-10-11 22:22:50,623 INFO inner loop 12: efficient rank x_k: 489.905619, delta_x: 0.677575
+2018-10-11 22:26:40,519 INFO norm dual= 0.070619
+2018-10-11 22:26:44,401 INFO inner loop 13: efficient rank x_k: 489.873037, delta_x: 0.670201
+2018-10-11 22:30:30,103 INFO norm dual= 0.064952
+2018-10-11 22:30:34,385 INFO inner loop 14: efficient rank x_k: 486.723304, delta_x: 0.599577
+2018-10-11 22:34:20,039 INFO norm dual= 0.053811
+2018-10-11 22:34:25,567 INFO inner loop 15: efficient rank x_k: 485.341315, delta_x: 0.551751
+2018-10-11 22:37:59,735 INFO norm dual= 0.041270
+2018-10-11 22:38:04,843 INFO inner loop 16: efficient rank x_k: 487.614008, delta_x: 0.522109
+2018-10-11 22:41:48,538 INFO norm dual= 0.043735
+2018-10-11 22:41:54,084 INFO inner loop 17: efficient rank x_k: 483.014600, delta_x: 0.488399
+2018-10-11 22:45:32,911 INFO norm dual= 0.036110
+2018-10-11 22:45:37,793 INFO inner loop 18: efficient rank x_k: 485.210706, delta_x: 0.472390
+2018-10-11 22:49:12,396 INFO norm dual= 0.027736
+2018-10-11 22:49:17,165 INFO inner loop 19: efficient rank x_k: 481.956039, delta_x: 0.440478
+2018-10-11 22:52:52,141 INFO norm dual= 0.037107
+2018-10-11 22:52:57,015 INFO inner loop 20: efficient rank x_k: 482.439713, delta_x: 0.373467
+2018-10-11 22:56:35,746 INFO norm dual= 0.027591
+2018-10-11 22:56:41,536 INFO inner loop 21: efficient rank x_k: 480.872722, delta_x: 0.339958
+2018-10-11 23:00:18,729 INFO norm dual= 0.047491
+2018-10-11 23:00:23,597 INFO inner loop 22: efficient rank x_k: 484.082294, delta_x: 0.348373
+2018-10-11 23:03:39,765 INFO --------------------------------------------------------
+2018-10-11 23:03:40,725 INFO it:4,  convergence value:0.000000, convergence pi:0.000000, rk: 477.741452)
+2018-10-11 23:09:08,437 INFO norm dual= 1.028827
+2018-10-11 23:09:13,264 INFO inner loop 1: efficient rank x_k: 437.251081, delta_x: 1.421958
+2018-10-11 23:13:13,894 INFO norm dual= 0.394178
+2018-10-11 23:13:19,540 INFO inner loop 2: efficient rank x_k: 479.819941, delta_x: 1.449152
+2018-10-11 23:17:19,947 INFO norm dual= 0.263456
+2018-10-11 23:17:24,678 INFO inner loop 3: efficient rank x_k: 485.387930, delta_x: 1.410532
+2018-10-11 23:21:14,443 INFO norm dual= 0.176855
+2018-10-11 23:21:19,587 INFO inner loop 4: efficient rank x_k: 475.322643, delta_x: 1.377829
+2018-10-11 23:25:33,941 INFO norm dual= 0.115727
+2018-10-11 23:25:39,761 INFO inner loop 5: efficient rank x_k: 488.892536, delta_x: 1.356501
+2018-10-11 23:29:48,724 INFO norm dual= 0.109121
+2018-10-11 23:29:53,442 INFO inner loop 6: efficient rank x_k: 495.304803, delta_x: 1.268121
+2018-10-11 23:34:02,808 INFO norm dual= 0.133157
+2018-10-11 23:34:07,529 INFO inner loop 7: efficient rank x_k: 494.481038, delta_x: 1.159039
+2018-10-11 23:38:04,660 INFO norm dual= 0.093869
+2018-10-11 23:38:10,580 INFO inner loop 8: efficient rank x_k: 496.969223, delta_x: 1.073955
+2018-10-11 23:41:46,153 INFO norm dual= 0.072825
+2018-10-11 23:41:51,247 INFO inner loop 9: efficient rank x_k: 493.609748, delta_x: 0.963960
+2018-10-11 23:45:41,327 INFO norm dual= 0.083186
+2018-10-11 23:45:47,023 INFO inner loop 10: efficient rank x_k: 495.139654, delta_x: 0.872275
+2018-10-11 23:49:35,867 INFO norm dual= 0.062188
+2018-10-11 23:49:40,766 INFO inner loop 11: efficient rank x_k: 495.039102, delta_x: 0.809389
+2018-10-11 23:53:25,998 INFO norm dual= 0.065118
+2018-10-11 23:53:30,978 INFO inner loop 12: efficient rank x_k: 492.117511, delta_x: 0.728393
+2018-10-11 23:57:17,622 INFO norm dual= 0.053141
+2018-10-11 23:57:21,458 INFO inner loop 13: efficient rank x_k: 492.299392, delta_x: 0.692850
+2018-10-12 00:01:09,767 INFO norm dual= 0.044589
+2018-10-12 00:01:14,762 INFO inner loop 14: efficient rank x_k: 489.936806, delta_x: 0.661160
+2018-10-12 00:04:50,850 INFO norm dual= 0.053400
+2018-10-12 00:04:55,762 INFO inner loop 15: efficient rank x_k: 489.007828, delta_x: 0.616373
+2018-10-12 00:08:35,730 INFO norm dual= 0.055786
+2018-10-12 00:08:41,424 INFO inner loop 16: efficient rank x_k: 489.600551, delta_x: 0.575835
+2018-10-12 00:12:16,676 INFO norm dual= 0.041586
+2018-10-12 00:12:21,694 INFO inner loop 17: efficient rank x_k: 487.794604, delta_x: 0.546953
+2018-10-12 00:16:02,647 INFO norm dual= 0.056535
+2018-10-12 00:16:08,001 INFO inner loop 18: efficient rank x_k: 486.895653, delta_x: 0.564166
+2018-10-12 00:19:44,126 INFO norm dual= 0.031574
+2018-10-12 00:19:49,151 INFO inner loop 19: efficient rank x_k: 488.496118, delta_x: 0.534522
+2018-10-12 00:23:32,772 INFO norm dual= 0.023254
+2018-10-12 00:23:37,793 INFO inner loop 20: efficient rank x_k: 487.419269, delta_x: 0.506654
+2018-10-12 00:27:10,682 INFO norm dual= 0.022696
+2018-10-12 00:27:15,504 INFO inner loop 21: efficient rank x_k: 487.433309, delta_x: 0.468396
+2018-10-12 00:30:58,307 INFO norm dual= 0.022262
+2018-10-12 00:31:03,261 INFO inner loop 22: efficient rank x_k: 488.214337, delta_x: 0.457037
+2018-10-12 00:34:18,759 INFO --------------------------------------------------------
+2018-10-12 00:34:19,713 INFO it:5,  convergence value:0.000000, convergence pi:0.000000, rk: 477.741452)
+2018-10-12 00:39:54,935 INFO norm dual= 1.031115
+2018-10-12 00:39:59,628 INFO inner loop 1: efficient rank x_k: 437.455654, delta_x: 1.423283
+2018-10-12 00:43:57,664 INFO norm dual= 0.407614
+2018-10-12 00:44:03,974 INFO inner loop 2: efficient rank x_k: 479.219483, delta_x: 1.446710
+2018-10-12 00:47:27,882 INFO norm dual= 0.255279
+2018-10-12 00:47:31,799 INFO inner loop 3: efficient rank x_k: 489.775482, delta_x: 1.395945
+2018-10-12 00:50:44,608 INFO norm dual= 0.187022
+2018-10-12 00:50:48,138 INFO inner loop 4: efficient rank x_k: 479.643685, delta_x: 1.387019
+2018-10-12 00:53:59,350 INFO norm dual= 0.122313
+2018-10-12 00:54:02,255 INFO inner loop 5: efficient rank x_k: 489.994935, delta_x: 1.374190
+2018-10-12 00:57:13,045 INFO norm dual= 0.127314
+2018-10-12 00:57:16,683 INFO inner loop 6: efficient rank x_k: 500.714069, delta_x: 1.279220
+2018-10-12 01:00:24,787 INFO norm dual= 0.110196
+2018-10-12 01:00:28,609 INFO inner loop 7: efficient rank x_k: 497.216005, delta_x: 1.213082
+2018-10-12 01:03:32,893 INFO norm dual= 0.089011
+2018-10-12 01:03:36,620 INFO inner loop 8: efficient rank x_k: 498.234258, delta_x: 1.081363
+2018-10-12 01:06:27,830 INFO norm dual= 0.066433
+2018-10-12 01:06:30,109 INFO inner loop 9: efficient rank x_k: 497.129414, delta_x: 0.989196
+2018-10-12 01:09:27,512 INFO norm dual= 0.068564
+2018-10-12 01:09:31,044 INFO inner loop 10: efficient rank x_k: 500.006231, delta_x: 0.914248
+2018-10-12 01:12:30,643 INFO norm dual= 0.071107
+2018-10-12 01:12:33,643 INFO inner loop 11: efficient rank x_k: 497.671632, delta_x: 0.815881
+2018-10-12 01:15:32,266 INFO norm dual= 0.069406
+2018-10-12 01:15:35,762 INFO inner loop 12: efficient rank x_k: 498.423767, delta_x: 0.752126
+2018-10-12 01:18:35,941 INFO norm dual= 0.052726
+2018-10-12 01:18:39,216 INFO inner loop 13: efficient rank x_k: 497.317489, delta_x: 0.696837
+2018-10-12 01:21:33,931 INFO norm dual= 0.062900
+2018-10-12 01:21:37,383 INFO inner loop 14: efficient rank x_k: 495.029886, delta_x: 0.626269
+2018-10-12 01:24:30,568 INFO norm dual= 0.053368
+2018-10-12 01:24:32,991 INFO inner loop 15: efficient rank x_k: 493.155875, delta_x: 0.605494
+2018-10-12 01:27:27,797 INFO norm dual= 0.044495
+2018-10-12 01:27:31,247 INFO inner loop 16: efficient rank x_k: 493.689272, delta_x: 0.590534
+2018-10-12 01:30:23,612 INFO norm dual= 0.036351
+2018-10-12 01:30:26,850 INFO inner loop 17: efficient rank x_k: 491.975871, delta_x: 0.569794
+2018-10-12 01:33:21,286 INFO norm dual= 0.027658
+2018-10-12 01:33:24,563 INFO inner loop 18: efficient rank x_k: 492.892085, delta_x: 0.511774
+2018-10-12 01:36:24,290 INFO norm dual= 0.019639
+2018-10-12 01:36:26,646 INFO inner loop 19: efficient rank x_k: 491.429974, delta_x: 0.483467
+2018-10-12 01:39:20,540 INFO norm dual= 0.017329
+2018-10-12 01:39:22,959 INFO inner loop 20: efficient rank x_k: 490.028970, delta_x: 0.452773
+2018-10-12 01:42:17,127 INFO norm dual= 0.018841
+2018-10-12 01:42:19,749 INFO inner loop 21: efficient rank x_k: 490.692700, delta_x: 0.415382
+2018-10-12 01:45:10,624 INFO norm dual= 0.014272
+2018-10-12 01:45:13,425 INFO inner loop 22: efficient rank x_k: 490.203843, delta_x: 0.387273
+2018-10-12 01:47:56,995 INFO --------------------------------------------------------
+2018-10-12 01:47:57,912 INFO it:6,  convergence value:0.000000, convergence pi:0.000000, rk: 477.741452)
+2018-10-12 01:47:57,913 INFO **********************************
+2018-10-12 01:47:57,913 INFO **********************************
+2018-10-12 01:47:57,914 INFO **********************************
+2018-10-12 01:47:58,127 INFO finished lambda = 5.000000
+2018-10-12 01:47:58,127 INFO --------------------------------
+2018-10-12 01:48:00,243 INFO *********************************************************************
+2018-10-12 01:48:00,262 INFO *********************************************************************
+2018-10-12 01:48:00,262 INFO *********************************************************************
+2018-10-12 01:48:00,263 INFO DONE

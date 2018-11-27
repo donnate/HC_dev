@@ -18,6 +18,7 @@ MAX_ITER_PROJ = 1e4
 MAXITER_FISTA = 200
 ALPHA = 0.5
 
+
 def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=ALPHA, maxiterFISTA=MAXITER_FISTA,
                       eta=1.0, tol=TOL, verbose=True, tol_projection=TOL_PROJ,
                       max_iter_projection=MAX_ITER_PROJ,
@@ -114,9 +115,10 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=ALPHA, maxiterFISTA=MAXITER_FI
     r = copy.deepcopy(p)
     s = copy.deepcopy(q)
     inc = 0
+    vpos = np.vectorize(lambda x: x if x>0 else 0)
     while not converged:
         belly = (alpha * r + (1-alpha) * s).dot(delta_k.T)
-        proj = project_DS2(B-lambd * belly,  max_it=max_iter_projection, eps = tol_projection)
+        proj = project_DS2(vpos(B-lambd * belly),  max_it=max_iter_projection, eps = tol_projection)
         x_k = proj
         L_x = proj.dot(delta_k)
         #print("update.max(())", L_x.max())
@@ -190,12 +192,7 @@ def hcc_FISTA(K, pi_warm_start, lambd0, alpha=ALPHA,
               maxiterFISTA=MAXITER_FISTA, tol=TOL, debug_mode=True,
               lambda_spot=0, verbose=False, logger=None):
     if debug_mode: verbose =True
-        
-    lmin = sc.sparse.linalg.eigen.eigsh(K, k =1,
-                                        which = 'SA',
-                                        return_eigenvectors=False)[0]
-    if lmin<1e-3:
-        K = K + (1e-3+ np.abs(lmin)) * sc.sparse.eye(K.shape[0])
+
     Y, pi_prev, pi_prev_old = [pi_warm_start] * 3
     evol_efficient_rank=[]
     #L = 2 * sc.sparse.linalg.norm(K, 'fro')
@@ -230,7 +227,7 @@ def hcc_FISTA(K, pi_warm_start, lambd0, alpha=ALPHA,
                                                                    tol_projection=TOL_PROJ,
                                                                    logger=logger)
         pi_prev = Z
-        if old_val < val:
+        if False: #old_val < val:
             pi_prev = pi_prev_old
             delta_val.append(0.0)
         else:
@@ -246,7 +243,9 @@ def hcc_FISTA(K, pi_warm_start, lambd0, alpha=ALPHA,
         print("inc = ", inc)
 
         converged = (inc > TOL_INC) or (it > maxiterFISTA)
-        evol_efficient_rank += [efficient_rank(pi_prev)]
+        try: eff_rank = efficient_rank(pi_prev)
+        except: eff_rank = np.nan
+        evol_efficient_rank += [eff_rank]
 
         B = pi_prev + t_k / t_kp1 * (Z - pi_prev) +\
             (t_k - 1) / t_kp1 * (pi_prev - pi_prev_old)
