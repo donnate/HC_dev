@@ -41,25 +41,26 @@ def compute_reg_path(kernel, alpha, pi_warm_start, mode="ADMM", direction='up', 
         else:
             print('Starting lambda = %f'%lambd)
         if mode == 'ADMM':
-              x_k, _, _, _, _, _ = hcc_ADMM(kernel, x_init, lambd,
+              x_k, _, _, _ = hcc_ADMM(kernel, x_init, lambd,
                                             alpha=alpha,
                                             maxit_ADMM=MAXIT_ADMM,
                                             tol=TOL,verbose=verbose,
                                             maxiter_ux=MAXITER_UX,
                                             logger=logger)
         elif mode == 'simplex':
-              x_k, _, _ , _ = hcc_FISTA_tot_simplex(kernel, x_init, lambd,
+              x_k, _, _, _ = hcc_FISTA_tot_simplex(kernel, x_init, lambd,
                                                     alpha=alpha, 
                                                     maxiterFISTA=MAXIT_FISTA,
                                                     tol = TOL,
                                                     verbose=verbose,
                                                     logger=logger)
         else:
-              x_k, _, _ , _ = hcc_FISTA(kernel, x_init, lambd,
+              x_k, _, _, _ = hcc_FISTA(kernel, x_init, lambd,
                                         alpha=alpha, 
                                         maxiterFISTA=MAXIT_FISTA,
                                         tol = TOL,verbose=verbose,
                                         logger=logger)
+        
         pi[lambd] = x_k
         x_init = x_k
         evol_efficient_rank[lambd]  = efficient_rank(x_k)

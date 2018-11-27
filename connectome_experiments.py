@@ -46,10 +46,10 @@ def mtx_from_utr(utr,complete=True):
 
 if __name__ == '__main__':
     parser = ArgumentParser("Run evaluation on connectome dataset.")
-    parser.add_argument("-logger","--loggerfile", help="logger file name", default='connectome_DS_')
+    parser.add_argument("-logger","--loggerfile", help="logger file name", default='final_log_connectome_DS_')
     parser.add_argument("-savefile","--savefile", help="save file name", default='01')
     parser.add_argument("-i","--inputfile", help="input file name in the data folder",
-                        default='data/rsfmri/corrdata.npy')
+                        default='data/data/rsfmri/corrdata.npy')
     parser.add_argument("-a","--alpha", help="alpha", default=0.95, type=float)
     parser.add_argument("-s","--sigma", help="bandwith for kernel", default=200.0, type=float)
     parser.add_argument("-l0","--lambd0", help="lambda 0 ",default=1e-3, type=float)
@@ -64,7 +64,7 @@ if __name__ == '__main__':
     INPUTFILE = args.inputfile
     ALGO = args.algorithm
     WHICH_SESSION = args.which_session
-    SAVEFILE = 'data/results_' +args.loggerfile + '_' + str(WHICH_SESSION) + '.pkl'
+    SAVEFILE = 'data/final_connectome_results_' +args.loggerfile + '_' + str(WHICH_SESSION) + '.pkl'
     LOG_FILE = 'logs/' + args.loggerfile + '_' + str(WHICH_SESSION) + '.log'
     ALPHA = args.alpha
     SIGMA = args.sigma
@@ -102,10 +102,14 @@ if __name__ == '__main__':
     #adjmtx[adjmtx>0]=1
     np.fill_diagonal(adjmtx, 1)  ### this has to yield a similarity matrix
     K = sc.sparse.csr_matrix(adjmtx)
-
-
-
+    K = K.T.dot(K)
+    sqrtv = np.vectorize(lambda x: 1.0/np.sqrt(x) if x > 1e-10 else 0.0)
+    Deg = np.diagflat(sqrtv(K.diagonal()))
+    K = sc.sparse.csc_matrix(Deg.dot(K.dot(Deg)))
     n_nodes = K.shape[0]
+
+
+
     logger.info("*********************************************************************")
     logger.info("*********************************************************************")
     logger.info("*********************************************************************")
