@@ -58,15 +58,7 @@ def hcc_FISTA_simplex(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=30, eta=1.0,
             mask += [indices[0][i]*n_nodes+indices[1][i]]
         mask = np.array(mask)
      
-    lmin = sc.sparse.linalg.eigen.eigsh(K0, k =1,
-                                        which = 'SA',
-                                        return_eigenvectors=False)[0]
-    if lmin<1e-3:
-        K = K + (1e-3+ np.abs(lmin)) * sc.sparse.eye(K.shape[0])
-        ### Regularize
-    #lmax = K_tilde.max() * sc.sparse.linalg.norm(K_tilde,'fro')
-    
-    
+
     I = sc.sparse.eye(n_nodes)
     delta_k=sc.sparse.lil_matrix((n_nodes, n_nodes**2))
     for ii in range(n_nodes):
@@ -83,7 +75,7 @@ def hcc_FISTA_simplex(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=30, eta=1.0,
     lmax = (K**2).sum() 
     #if verbose: print("gamma =%f"%gamma)
     lmax = np.linalg.norm(delta_k,'fro')**2
-    gamma = 8 * max([alpha**2,(1-alpha)**2])*lmax * lambd**2
+    gamma = 16 * max([alpha**2,(1-alpha)**2])*lmax * lambd**2
     if verbose: print("lmax",lmax, "gamma", gamma)
     I = sc.sparse.eye(n_nodes)
     update = (delta_k.T.dot(x_k.T)).T
@@ -133,8 +125,7 @@ def hcc_FISTA_simplex(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=30, eta=1.0,
             if logger is not None: logger.info("belly %f"%belly.max())
             else : print("belly ", belly.max())
 
-        proj = project_stochmat(B-lambd * belly -1.0/n_nodes * I,
-                                (n_nodes -1.0)/n_nodes) + 1.0/n_nodes * I#,  max_it=max_iter_projection, eps = tol_projection)
+        proj = project_stochmat(B-lambd * belly,1.0) #+ 1.0/n_nodes * I#,  max_it=max_iter_projection, eps = tol_projection)
         
         #STOP
         x_k = proj
@@ -209,10 +200,7 @@ def hcc_FISTA_simplex(K, B, pi_prev, lambd, alpha=0.5, maxiterFISTA=30, eta=1.0,
     toc0 = time.time()
     if verbose: print("time:",time.time() - tic0)
     belly = (alpha * p+ (1-alpha) * q).dot(delta_k.T)
-    x_k = project_stochmat(B-lambd * belly -1.0/n_nodes * I,
-                           (n_nodes -1.0)/n_nodes
-                           ) + 1.0/n_nodes * I#,  max_it=max_iter_projection, eps = tol_projection)
-        
+    x_k = project_stochmat(B-lambd * belly,1.0)
     val = np.trace(x_k.T.dot(K.todense().dot(x_k)) 
                    - 2*(K.todense() -lambd *(delta_k.dot(alpha* p.T + (1.0 - alpha) * q.T)).dot(x_k)))
 
