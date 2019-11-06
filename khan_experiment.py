@@ -54,9 +54,9 @@ if __name__ == '__main__':
     USE_TRAINING_SET = args.is_train
     
     if USE_TRAINING_SET == 1:
-        data = pd.DataFrame.from_csv("/scratch/users/cdonnat/convex_clustering/HC_dev/data/khan_train.csv")
+        data = pd.DataFrame.from_csv("/scratch/users/cdonnat/HC_data/khan_train.csv")
     else:
-        data = pd.DataFrame.from_csv("/scratch/users/cdonnat/convex_clustering/HC_dev/data/khan_test.csv")
+        data = pd.DataFrame.from_csv("/scratch/users/cdonnat/HC_data/khan_test.csv")
     MAXITERFISTA2 =50
     D = np.exp(-cdist(data, data)**2/(2*SIGMA))
     nn = np.zeros(D.shape)

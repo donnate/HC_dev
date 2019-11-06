@@ -49,7 +49,7 @@ if __name__ == '__main__':
     parser.add_argument("-logger","--loggerfile", help="logger file name", default='final_log_connectome_DS_')
     parser.add_argument("-savefile","--savefile", help="save file name", default='01')
     parser.add_argument("-i","--inputfile", help="input file name in the data folder",
-                        default='/scratch/users/cdonnat/convex_clustering/HC_dev/data/corrdata.npy')
+                        default='/scratch/users/cdonnat/HC_data/corrdata.npy')
     parser.add_argument("-a","--alpha", help="alpha", default=0.95, type=float)
     parser.add_argument("-s","--sigma", help="bandwith for kernel", default=200.0, type=float)
     parser.add_argument("-l0","--lambd0", help="lambda 0 ",default=1e-3, type=float)

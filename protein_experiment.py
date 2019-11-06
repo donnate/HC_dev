@@ -47,7 +47,7 @@ if __name__ == '__main__':
     NAME_EXPERIMENT = 'protein_experiment_alpha_' + str(ALPHA)
     SAVEFILE = args.savefile
     LOG_FILE = args.loggerfile
-    INPUTFILE = '/scratch/users/cdonnat/convex_clustering/HC_dev/data/protein_edges.csv'
+    INPUTFILE = '/scratch/users/cdonnat/HC_data/protein_edges.csv'
 
     logger = logging.getLogger('myapp')
     fh = logging.FileHandler(LOG_FILE)
