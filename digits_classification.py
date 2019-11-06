@@ -109,6 +109,7 @@ if __name__ == '__main__':
         eta_t = 1.0
         inc  = 0
         inc_rank = 0
+        old_val = 1e18
         while not converged:
             #STOP
             g_t = 2.0 / (L) * (K.todense().dot(B) - K.todense())
@@ -125,7 +126,7 @@ if __name__ == '__main__':
                                                                                logger=logger)
     
             pi_prev = Z
-            if value_taken[lambd0][-1] < val:
+            if  old_val < val:
                 pi_prev = pi_prev_old
             else:
                 old_val = val

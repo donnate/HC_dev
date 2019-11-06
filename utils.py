@@ -20,9 +20,14 @@ def diffusion_map(A, K_n):
 
 
 def efficient_rank(pi_prev):
-    _,lam,_=np.linalg.svd(pi_prev)
-    S = lam.sum()
-    return np.exp(np.sum(-np.log(lam/S)*lam/S))
+    try:
+        _, lam, _=np.linalg.svd(pi_prev)
+        S = lam.sum()
+        res = np.exp(np.sum(-np.log(lam/S)*lam/S))
+    except:
+        print("SVD did not converge")
+        res = np.nan
+    return res
     
     
 def modularity(A, labels):
