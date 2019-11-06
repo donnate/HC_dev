@@ -131,12 +131,10 @@ def hcc_ADMM(K, pi_prev, lambd, alpha=ALPHA, maxit_ADMM=MAXIT_ADMM, rho=RHO,
     while not converged:
         tic1 = time.time()
         X = update_X(X, Z, U, K, rho, indices_x, indices_y, neighbors, neighbors2, maxiter_ux = maxiter_ux)
-        #X = sc.sparse.csc_matrix(X)
         Z = update_Z(X, Z, U, K, rho, indices_x, indices_y, alpha, lambd)
         U = update_U(X, Z, U, K, indices_x, indices_y)
 
         primal_res.append(sc.linalg.norm(X - X_prev, 'fro'))
-        #dual_res.append(0)
         dual_res.append(sc.linalg.norm(Z_prev - Z, 'fro'))
         it += 1
         X_prev = X
