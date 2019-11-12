@@ -19,6 +19,7 @@ from convex_hc_denoising import *
 from convex_hc_ADMM import *
 from projections import *
 from utils import *
+from utils_graphs import *
 
 sys.stdout = sys.__stdout__ 
 random.seed(2018)
@@ -26,10 +27,13 @@ random.seed(2018)
 
 if __name__ == '__main__':
     parser = ArgumentParser("Run evaluation on MNIST dataset.")
-    parser.add_argument("-logger","--loggerfile",help="logger file name",default='final_log_synthetic.log')
-    parser.add_argument("-savefile","--savefile",help="save file name",default='data/final_res_digits.pkl')
-    parser.add_argument("-a","--alpha",help="alpha",default=0.95, type=float)
-    parser.add_argument("-s","--sigma",help="bandwith for kernel",default=200.0, type=float)
+    parser.add_argument("-path2data","--path2data", help="path2data", default='/scratch/users/cdonnat/HC_data')
+    parser.add_argument("-path2data","--path2logs", help="path2logs", default='/scratch/users/cdonnat/convex_clustering/experiments/logs/')
+    parser.add_argument("-logger","--loggerfile", help="logger file name", default='log_digits.log')
+    parser.add_argument("-savefile","--savefile", help="save file name", default='digits_new.pkl')
+    parser.add_argument("-a","--alpha", help="alpha", default=0.95, type=float)
+    parser.add_argument("-a_reg","--alpha_reg", help="regularization for the similarity matrix", default=0.1, type=float)
+    parser.add_argument("-type_lap","--type_lap", help="Which laplacian to use?", default="normalized_laplacian", type=str)    parser.add_argument("-s","--sigma",help="bandwith for kernel",default=200.0, type=float)
     parser.add_argument("-l0","--lambd0",help="lambda 0 ",default=1e-3, type=float)
     parser.add_argument("-tol","--tol",help="tolerance for stopping criterion",default=5*1e-3, type=float)
     parser.add_argument("-nn","--n_neighbors",help="nb nearest_neighbors",default=10, type=int)
@@ -44,12 +48,18 @@ if __name__ == '__main__':
     logger.setLevel(logging.DEBUG) # or any level you want
 
     ALPHA = args.alpha
-    SIGMA = args.sigma
+    ALPHA_REG = args.alpha_reg
     N_NEIGHBORS = args.n_neighbors
     LAMBDA0 = args.lambd0
-    TOL = args.tol
     MAXITERFISTA = args.max_iter_fista
-    SAVEFILE = args.savefile
+    PATH2DATA = args.path2data
+    PATH2LOGS = args.path2logs
+    SAVEFILE = PATH2LOGS + '/alpha_' + str(ALPHA) + args.savefile
+    LOGGER_FILE = PATH2LOGS +  '/alpha_' + str(ALPHA) + args.loggerfile
+    SIGMA = args.sigma
+    TOL = args.tol
+    TYPE_LAP = args.type_lap
+    USE_TRAINING_SET = args.is_train
 
     from sklearn.datasets import load_digits
     digits = load_digits()
@@ -63,10 +73,7 @@ if __name__ == '__main__':
     nn = nn +nn.T
     nn[nn>1.0] = 1.0
     K = D * nn
-    K = K.T.dot(K)
-    sqrtv = np.vectorize(lambda x: 1.0/np.sqrt(x) if x > 1e-10 else 0.0)
-    Deg = np.diagflat(sqrtv(K.diagonal()))
-    K = sc.sparse.csc_matrix(Deg.dot(K.dot(Deg)))
+    K = create_similarity_matrix(K, TYPE_LAP, ALPHA_REG)
     n_nodes = K.shape[0]
     
     np.fill_diagonal(nn, 1)
