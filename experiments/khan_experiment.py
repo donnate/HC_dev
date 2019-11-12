@@ -26,6 +26,8 @@ random.seed(2018)
 
 if __name__ == '__main__':
     parser = ArgumentParser("Run evaluation on KHAN dataset.")
+    parser.add_argument("-path2data","--path2data", help="path2data", default='/scratch/users/cdonnat/HC_data')
+    parser.add_argument("-path2data","--path2logs", help="path2data", default='/scratch/users/cdonnat/convex_clustering/experiments/logs/')
     parser.add_argument("-logger","--loggerfile", help="logger file name", default='log_khan_new.log')
     parser.add_argument("-savefile","--savefile", help="save file name", default='_khan_new.pkl')
     parser.add_argument("-a","--alpha", help="alpha", default=0.95, type=float)
@@ -48,19 +50,14 @@ if __name__ == '__main__':
     USE_TRAINING_SET = args.is_train
     
     if USE_TRAINING_SET == 1:
-<<<<<<< HEAD
-        data = pd.DataFrame.from_csv("data/khan_train.csv")
-        SAVEFILE = 'train_alpha_' + str(ALPHA) +args.savefile
-        LOGGER_FILE = 'train_alpha_' + str(ALPHA) + args.loggerfile
+        data = pd.DataFrame.from_csv(path2data + "/khan_train.csv")
+        SAVEFILE = path2logs + '/train_alpha_' + str(ALPHA) + args.savefile
+        LOGGER_FILE = path2logs +  '/train_alpha_' + str(ALPHA) + args.loggerfile
     else:
-        data = pd.DataFrame.from_csv("data/khan_test.csv")
-        SAVEFILE = 'test_alpha_' + str(ALPHA) + args.savefile
-        LOGGER_FILE = 'test_alpha_' + str(ALPHA) + args.loggerfile
-=======
-        data = pd.DataFrame.from_csv("/scratch/users/cdonnat/HC_data/khan_train.csv")
-    else:
-        data = pd.DataFrame.from_csv("/scratch/users/cdonnat/HC_data/khan_test.csv")
->>>>>>> 9c6b7e2c024efe798f1a8b5341c2458b00b3c954
+        data = pd.DataFrame.from_csv(path2data +  "/khan_test.csv")
+        SAVEFILE = path2logs + '/test_alpha_' + str(ALPHA) + args.savefile
+        LOGGER_FILE = path2logs + '/test_alpha_' + str(ALPHA) + args.loggerfile
+
     MAXITERFISTA2 =50
     
     logger = logging.getLogger('myapp')
