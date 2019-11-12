@@ -151,8 +151,8 @@ def clique(start, nb_nodes,nb_to_remove=0,col_start=0,plot=False):
         to_delete=[edge_list[e] for e in lst]
         G.remove_edges_from(to_delete)
         for e in lst:
-            print edge_list[e][0]
-            print len(colors)
+            print(edge_list[e][0])
+            print(len(colors))
             colors[edge_list[e][0]]+=1
             colors[edge_list[e][1]]+=1
     mapping={k:(k+start) for k in range(nb_nodes)}
@@ -315,13 +315,13 @@ def build_structure(width_basis,basis_type,list_shapes, start=0,add_random_edges
     
     for p in plugins:
         index_shape[p]=1
-    print index_shape
+    print(index_shape)
     col_start=len(np.unique(index_shape))
     for shape in list_shapes:
         shape_type=shape[0]
         col_start=len(np.unique(index_shape)) ## numbers of roles so far
         if shape_type not in seen_shapes:
-            print "whoops"
+            print("whoops")
             seen_shapes.append(shape_type)
             seen_colors_start.append(np.max(index_shape)+1)
             col_start=np.max(index_shape)+1
@@ -345,12 +345,12 @@ def build_structure(width_basis,basis_type,list_shapes, start=0,add_random_edges
         #index_shape+=[2*i]*nx.number_of_nodes(S)
         index_shape[start]=col_start
         start+=nx.number_of_nodes(S)
-    print seen_shapes
+    print(seen_shapes)
     if add_random_edges>0:
         ## add random edges between nodes:
         for p in range(add_random_edges):
             src,dest=np.random.choice(nx.number_of_nodes(Basis),2, replace=False)
-            print src, dest
+            print(src, dest)
             Basis.add_edges_from([(src,dest)])
     if plot==True:
         nx.draw_networkx(Basis,node_color=index_shape,cmap="PuRd")
@@ -398,7 +398,7 @@ def build_regular_structure(width_basis,basis_type, nb_shapes,shape, start=0,add
         ## add random edges between nodes:
         for p in range(add_random_edges):
             src,dest=np.random.choice(nx.number_of_nodes(Basis),2, replace=False)
-            print src, dest
+            print(src, dest)
             Basis.add_edges_from([(src,dest)])
     if plot==True:
         nx.draw_networkx(Basis,pos=nx.layout.fruchterman_reingold_layout(Basis),node_color=colors,cmap="PuRd")

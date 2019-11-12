@@ -199,7 +199,7 @@ def build_fractal_structure(L,graph_type=[],graph_args=[]):
     for i in range(1,L):
         G0,labels=build_new_level(G0,labels,[graph_type[i]],graph_args[i])
         #graph_args.remove(0)\
-    print 'number of connected components: ',nx.number_connected_components(G0)    
+    print('number of connected components:%i'%(nx.number_connected_components(G0) ))  
     return G0,labels
         
         
@@ -236,7 +236,8 @@ def build_new_level(G0,labels=[],graph_type=[],graph_args=[]):
          G.add_edges_from(G1.edges())
     #print(nx.number_connected_components(G0))
     #print('adding links')
-    elist=G.edges.keys()
+    elist=[e for e in G.edges]
+    print(elist)
     for e in Gg.edges():
         ii=np.random.choice(np.where( (np.array(colors)//n0)==(e[0]))[0],1)[0]
         jj=np.random.choice(np.where((np.array(colors)//n0)==(e[1]))[0],1)[0]

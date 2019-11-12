@@ -171,15 +171,17 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=ALPHA, maxiterFISTA=MAXITER_FI
         it += 1
 
         if verbose:
+             try: eff_rank = efficient_rank(x_k)
+             except: eff_rank = np.nan
              if logger is not None: 
-                    logger.info('inner loop %i: efficient rank x_k: %f, delta_x: %f'%(it,efficient_rank(x_k),delta_x[-1])
+                    logger.info('inner loop %i: efficient rank x_k: %f, delta_x: %f'%(it, eff_rank, delta_x[-1])
                                )
              else: 
-                print(it,'efficient rank x_k', efficient_rank(x_k), 'delta', delta_x)
+                print('inner loop %i: efficient rank x_k: %f, delta_x: %f'%(it, eff_rank, delta_x[-1]))
 
     toc0 = time.time()
     if verbose: print("time:",time.time() - tic0)
-    belly = (alpha * p+ (1-alpha) * q).dot(delta_k.T)
+    belly = (alpha * p+ (1.0 - alpha) * q).dot(delta_k.T)
     x_k = project_DS2(B-lambd * belly,  max_it=max_iter_projection, eps = tol_projection)
     val = np.trace(x_k.T.dot(K.todense().dot(x_k)) 
                    - 2*(K.todense() -lambd *(delta_k.dot(alpha* p.T + (1.0 - alpha) * q.T)).dot(x_k)))
@@ -211,7 +213,24 @@ def hcc_FISTA(K, pi_warm_start, lambd0, alpha=ALPHA,
     B = pi_prev
     inc = 0
     inc_rank = 0
-    old_val = 1e18
+    n_nodes = K.shape[0]
+    indices = K.nonzero()
+    mask = []
+    for i in range(K.nnz):
+        mask += [indices[0][i]*n_nodes+indices[1][i]]
+    mask = np.array(mask)
+    delta_k=sc.sparse.lil_matrix((n_nodes, n_nodes**2))
+    for ii in range(n_nodes):
+        ind =K[ii, :].nonzero()[1]
+        delta_k[ii, ii * n_nodes + ind] = K[ii, ind]
+        delta_k[ii, ii + ind * n_nodes] = -K[ii, ind]
+        delta_k[ii, ii + ii * n_nodes] = 0.0
+    delta_k = delta_k[:, mask]
+    delta_k = delta_k.todense()
+    old_val = np.trace(pi_prev.T.dot(K.todense().dot(pi_prev)) 
+              - 2*(K.todense().dot(pi_prev)
+              -lambd * (ALPHA * np.sqrt(np.sum(np.square(delta_k.T.dot(pi_prev)),axis=-1)).sum()
+              +(1-ALPHA) * np.sum(np.abs(delta_k.T.dot(pi_prev))))))
     delta_val= []
     while not converged:
         g_t =  (K.todense().dot(B) - K.todense())
