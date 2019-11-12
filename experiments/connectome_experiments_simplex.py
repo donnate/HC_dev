@@ -24,7 +24,7 @@ from utils import *
 
 sys.stdout = sys.__stdout__ 
 random.seed(2018)
-RHO = 1.0
+
 
 
 
@@ -46,34 +46,40 @@ def mtx_from_utr(utr,complete=True):
 
 if __name__ == '__main__':
     parser = ArgumentParser("Run evaluation on connectome dataset.")
-    parser.add_argument("-logger","--loggerfile", help="logger file name", default='connectome3_')
-    parser.add_argument("-savefile","--savefile", help="save file name", default='01')
-    parser.add_argument("-i","--inputfile", help="input file name in the data folder",
-                        default='data/rsfmri/corrdata.npy')
+    parser.add_argument("-path2data","--path2data", help="path2data", default='/scratch/users/cdonnat/HC_data')
+    parser.add_argument("-path2data","--path2logs", help="path2logs", default='/scratch/users/cdonnat/convex_clustering/experiments/logs/')
+    parser.add_argument("-logger","--loggerfile", help="logger file name", default='log_digits.log')
+    parser.add_argument("-savefile","--savefile", help="save file name", default='digits_new.pkl')
     parser.add_argument("-a","--alpha", help="alpha", default=0.95, type=float)
-    parser.add_argument("-l0","--lambd0", help="lambda 0 ",default=1e-3, type=float)
+    parser.add_argument("-a_reg","--alpha_reg", help="regularization for the similarity matrix", default=0.1, type=float)
+    parser.add_argument("-type_lap","--type_lap", help="Which laplacian to use?", default="normalized_laplacian", type=str)
     parser.add_argument("-tol","--tol", help="tolerance for stopping criterion", default=1e-2, type=float)
     parser.add_argument("-max_iter_fista","--max_iter_fista",help="max_iter_fista", default=30, type=int)
     parser.add_argument("-algo", "--algorithm", default="FISTA")
     parser.add_argument("-w", "--which_session", default=0, type=int)
+    parser.add_argument("-rho", "--rho", default=1.0, type=float)
     args = parser.parse_args()
 
     
-    INPUTFILE = args.inputfile
-    ALGO = args.algorithm
-    WHICH_SESSION = args.which_session
-    SAVEFILE = 'data/results_simplex_' +args.loggerfile + '_' + str(WHICH_SESSION) + '.pkl'
-    LOG_FILE = 'logs/simplex_' + args.loggerfile + '_' + str(WHICH_SESSION) + '.log'
     ALPHA = args.alpha
+    ALPHA_REG = args.alpha_reg
+    N_NEIGHBORS = args.n_neighbors
     LAMBDA0 = args.lambd0
-    TOL = args.tol
     MAXITERFISTA = args.max_iter_fista
+    PATH2DATA = args.path2data
+    PATH2LOGS = args.path2logs
+    SAVEFILE = PATH2LOGS + '/connectome_alpha_' + str(ALPHA) + args.savefile
+    LOGGER_FILE = PATH2LOGS +  '/connectome_alpha_' + str(ALPHA) + args.loggerfile
+    RHO = args.rho
+    SIGMA = args.sigma
+    TOL = args.tol
+    TYPE_LAP = args.type_lap
     
 
     
     
     logger = logging.getLogger('myapp')
-    fh = logging.FileHandler(LOG_FILE)
+    fh = logging.FileHandler(LOGGER_FILE)
     formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
     fh.setFormatter(formatter)
     logger.addHandler(fh) 
@@ -81,11 +87,11 @@ if __name__ == '__main__':
 
 
 
-    corrdata = np.load("data/"+ INPUTFILE)
+    corrdata = np.load(PATH2DATA + "/" + INPUTFILE)
     # load the correlation data. This matrix contains
     # the upper triangle of the correlation matrix between each of the 630
     # regions, across each of the 84 good sessions
-    parceldata = pd.read_csv('data/data/parcel_data.txt',
+    parceldata = pd.read_csv(PATH2DATA + 'parcel_data.txt',
                           header=None,sep='\t')
     parceldata.replace(to_replace='na', value='Subcortical', inplace=True)
     parceldata.replace(to_replace='Zero', value='Unassigned', inplace=True)
@@ -101,8 +107,8 @@ if __name__ == '__main__':
     adjmtx=mtx_from_utr(corrdata[i ,:])
     adjmtx[adjmtx<cutoff]=0
     #adjmtx[adjmtx>0]=1
-    np.fill_diagonal(adjmtx, 1)  ### this has to yield a similarity matrix
-    K = sc.sparse.csr_matrix(adjmtx)
+
+    K = create_similarity_matrix(adjmtx, TYPE_LAP, ALPHA_REG)
 
 
 
@@ -113,7 +119,7 @@ if __name__ == '__main__':
 
     pi_prev = np.eye(n_nodes)
     pi, time, evol_rank = compute_reg_path(K, ALPHA, pi_warm_start=pi_prev, mode= 'simplex', verbose=True,
-                                          logger = logger, savefile=SAVEFILE)
+                                          logger = logger, savefile=SAVEFILE, rho=RHO)
     logger.info("*********************************************************************")
     logger.info("*********************************************************************")
     logger.info("*********************************************************************")
