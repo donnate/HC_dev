@@ -20,6 +20,7 @@ from convex_hc_denoising import *
 from convex_hc_ADMM import *
 from projections import *
 from utils import *
+from utils_graphs import *
 
 sys.stdout = sys.__stdout__ 
 random.seed(2018)
@@ -27,30 +28,35 @@ random.seed(2018)
 
 if __name__ == '__main__':
     parser = ArgumentParser("Run evaluation on protein dataset.")
-    parser.add_argument("-logger","--loggerfile", help="logger file name", default='log_protein.log')
-    parser.add_argument("-savefile","--savefile", help="save file name", default='protein.pkl')
+    parser.add_argument("-path2data","--path2data", help="path2data", default='/scratch/users/cdonnat/HC_data')
+    parser.add_argument("-path2data","--path2logs", help="path2logs", default='/scratch/users/cdonnat/convex_clustering/experiments/logs/')
+    parser.add_argument("-logger","--loggerfile", help="logger file name", default='log_proteins.log')
+    parser.add_argument("-savefile","--savefile", help="save file name", default='proteins.pkl')
     parser.add_argument("-a","--alpha", help="alpha", default=0.95, type=float)
-    parser.add_argument("-s","--sigma", help="bandwith for kernel", default=200.0, type=float)
-    parser.add_argument("-l0","--lambd0", help="lambda 0 ", default=1e-3, type=float)
-    parser.add_argument("-tol","--tol", help="tolerance for stopping criterion", default=5*1e-3, type=float)
-    parser.add_argument("-nn","--n_neighbors", help="nb nearest_neighbors", default=10, type=int)
-    parser.add_argument("-t","--is_train", help="use the training set(1) or test set (0)?", default=1, type=int)
-    parser.add_argument("-max_iter_fista", "--max_iter_fista", help="max_iter_fista", default=150, type=int)
+    parser.add_argument("-a_reg","--alpha_reg", help="regularization for the similarity matrix", default=0.1, type=float)
+    parser.add_argument("-type_lap","--type_lap", help="Which laplacian to use?", default="normalized_laplacian", type=str)    parser.add_argument("-s","--sigma",help="bandwith for kernel",default=200.0, type=float)
+    parser.add_argument("-l0","--lambd0",help="lambda 0 ",default=1e-3, type=float)
+    parser.add_argument("-tol","--tol",help="tolerance for stopping criterion",default=5*1e-3, type=float)
+    parser.add_argument("-nn","--n_neighbors",help="nb nearest_neighbors",default=10, type=int)
+    parser.add_argument("-max_iter_fista","--max_iter_fista",help="max_iter_fista",default=150, type=int)
     args = parser.parse_args()
 
-    SIGMA = args.sigma
+    ALPHA = args.alpha
+    ALPHA_REG = args.alpha_reg
     N_NEIGHBORS = args.n_neighbors
     LAMBDA0 = args.lambd0
-    TOL = args.tol
-    ALPHA = args.alpha
     MAXITERFISTA = args.max_iter_fista
-    NAME_EXPERIMENT = 'protein_experiment_alpha_' + str(ALPHA)
-    SAVEFILE = args.savefile
-    LOG_FILE = args.loggerfile
-    INPUTFILE = '/scratch/users/cdonnat/HC_data/protein_edges.csv'
+    PATH2DATA = args.path2data
+    PATH2LOGS = args.path2logs
+    SAVEFILE = PATH2LOGS + '/proteins_alpha_' + str(ALPHA) + args.savefile
+    LOGGER_FILE = PATH2LOGS +  '/proteins_alpha_' + str(ALPHA) + args.loggerfile
+    SIGMA = args.sigma
+    TOL = args.tol
+    TYPE_LAP = args.type_lap
+    INPUTFILE = PATH2DATA + '/protein_edges.csv'
 
     logger = logging.getLogger('myapp')
-    fh = logging.FileHandler(LOG_FILE)
+    fh = logging.FileHandler(LOGGER_FILE)
     formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
     fh.setFormatter(formatter)
     logger.addHandler(fh)
@@ -62,10 +68,7 @@ if __name__ == '__main__':
     edgelist = pd.DataFrame.from_csv(INPUTFILE)
     G = nx.from_pandas_edgelist(edgelist, source ='source' , target ='target', edge_attr= ['weight'] ).to_undirected()
     K = nx.adjacency_matrix(G)
-    K = K.T.dot(K)
-    sqrtv = np.vectorize(lambda x: 1.0/np.sqrt(x) if x > 1e-10 else 0.0)
-    Deg = np.diagflat(sqrtv(K.diagonal()))
-    K = sc.sparse.csc_matrix(Deg.dot(K.dot(Deg)))
+    K = create_similarity_matrix(K, TYPE_LAP, ALPHA_REG)
     n_nodes = K.shape[0]
 
 
@@ -106,7 +109,7 @@ if __name__ == '__main__':
         while not converged:
             #STOP
             g_t = 2.0 / (L) * (K.todense().dot(B) - K.todense())
-            B=  project_DS2(B - g_t)#+np.abs(B - g_t)) #x_k, toc0-tic0, delta_x, delta_p, delta_q, dual, val
+            B =  project_DS2(B - g_t)#+np.abs(B - g_t)) #x_k, toc0-tic0, delta_x, delta_p, delta_q, dual, val
             Z, time_taken, delta_x, delta_p, delta_q, dual, val = hcc_FISTA_denoise(K, B,
                                                                                pi_prev,
                                                                                lambd,
