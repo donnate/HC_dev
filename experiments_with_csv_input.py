@@ -17,6 +17,7 @@ import time
 
 from convex_hc_denoising import *
 from convex_hc_ADMM import *
+from hierarchical_path import *
 from projections import *
 from utils import *
 
@@ -25,10 +26,10 @@ random.seed(2018)
 RHO = 1.0
 
 if __name__ == '__main__':
-    parser = ArgumentParser("Run evaluation on MNIST dataset.")
+    parser = ArgumentParser("Run evaluation on synthetic dataset.")
     parser.add_argument("-logger","--loggerfile",help="logger file name",default='log_synthetic.log')
     parser.add_argument("-savefile","--savefile",help="save file name",default='01')
-    parser.add_argument("-i","--inputfile",help="input file name in the data folder",default='tests.csv')
+    parser.add_argument("-i","--inputfile",help="input file name in the data folder",default='synthetic.csv')
     parser.add_argument("-a","--alpha",help="alpha",default=0.95, type=float)
     parser.add_argument("-s","--sigma",help="bandwith for kernel",default=200.0, type=float)
     parser.add_argument("-l0","--lambd0",help="lambda 0 ",default=1e-3, type=float)
@@ -53,16 +54,17 @@ if __name__ == '__main__':
     MAXITERFISTA = args.max_iter_fista
     
     INPUTFILE = args.inputfile
-    SAVEFILE = 'data/res_' +INPUTFILE+ args.savefile + '.pkl'
+    SAVEFILE = args.savefile
     ALGO = args.algorithm
 
-    data = pd.DataFrame.from_csv("data/"+ INPUTFILE +".csv")
+    data = pd.DataFrame.from_csv("/scratch/users/cdonnat/convex_clustering/HC_dev/data/"+ INPUTFILE)
     K = sc.sparse.csc_matrix(data.values)
     n_nodes = K.shape[0]
+
     logger.info("*********************************************************************")
     logger.info("*********************************************************************")
     logger.info("*********************************************************************")
-    from hierarchical_path import *
+
     pi_prev = np.eye(n_nodes)
     pi_ADMM, time_ADMM, evol_rank = compute_reg_path(K, ALPHA, pi_warm_start=pi_prev, mode= ALGO, verbose=True,
                                           logger = logger, savefile=SAVEFILE)

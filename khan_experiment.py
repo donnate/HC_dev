@@ -48,6 +48,7 @@ if __name__ == '__main__':
     USE_TRAINING_SET = args.is_train
     
     if USE_TRAINING_SET == 1:
+<<<<<<< HEAD
         data = pd.DataFrame.from_csv("data/khan_train.csv")
         SAVEFILE = 'train_alpha_' + str(ALPHA) +args.savefile
         LOGGER_FILE = 'train_alpha_' + str(ALPHA) + args.loggerfile
@@ -55,6 +56,11 @@ if __name__ == '__main__':
         data = pd.DataFrame.from_csv("data/khan_test.csv")
         SAVEFILE = 'test_alpha_' + str(ALPHA) + args.savefile
         LOGGER_FILE = 'test_alpha_' + str(ALPHA) + args.loggerfile
+=======
+        data = pd.DataFrame.from_csv("/scratch/users/cdonnat/HC_data/khan_train.csv")
+    else:
+        data = pd.DataFrame.from_csv("/scratch/users/cdonnat/HC_data/khan_test.csv")
+>>>>>>> 9c6b7e2c024efe798f1a8b5341c2458b00b3c954
     MAXITERFISTA2 =50
     
     logger = logging.getLogger('myapp')
@@ -95,6 +101,7 @@ if __name__ == '__main__':
     res = {}
     t_k = 1
     conv_p, conv_q, conv_x = {}, {} , {}
+    value_taken = {}
 
     value_taken = {}
     for l in range(20):
@@ -112,7 +119,7 @@ if __name__ == '__main__':
         evol_efficient_rank[lambd0] = []
         m_tm1, nu_tm1 = np.zeros(B.shape),np.zeros(B.shape)
         eta_t = 1.0
-        inc  = 0
+        inc = 0
         inc_rank = 0
         value_taken[lambd0] = [1e10]
         while not converged:

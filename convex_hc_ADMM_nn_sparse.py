@@ -39,88 +39,123 @@ def hcc_ADMM(K, pi_prev, lambd, alpha=ALPHA, maxit_ADMM=MAXIT_ADMM, rho=RHO,
         t            :      time that the procedure took
         ----------------------------------------------------------------------
     '''
-    def update_X(X, Z, U, K, rho, delta, maxiter_ux =100):
+    def update_X(X, Z, U, K, rho, indices_x, indices_y, neighbors, neighbors2, maxiter_ux =100):
         
         n_nodes, _ =K.shape
-        eps = 0.01 / n_nodes
+        eps = 0.01 * n_nodes
         converged = False
-        L = (sc.sparse.linalg.norm(K, 'fro') + 4 * rho * n_nodes)
+        L = np.sqrt(np.sum(K**2) + 4 * rho**2 * n_nodes**3)
         t_k = 1
         X_k , X_km1 = X, X
-        Y_k = sc.sparse.csc_matrix(X)
+        Y_k = np.abs(X - 1.0 / n_nodes * np.diag(np.ones(n_nodes)))
         it = 0
+        
         while not converged:
-            grad = K.dot(Y_k) - K +\
-                   rho * (Y_k.dot(delta_k) + U - Z).dot(delta_k.T)
-            X_k = iteration_proj_DS((Y_k - 1.0 / L *grad).todense())
+            #Y_k2 = Y_k #- 1.0 / n_nodes * np.diag(np.ones(n_nodes)))
+            Y_k2 = iteration_proj_DS(Y_k + 1.0 / n_nodes * np.diag(np.ones(n_nodes)))
+            Y_k2_temp = Y_k2[:, indices_x] - Y_k2[:, indices_y] 
+            print(U.shape, Z.shape, Y_k2_temp.shape)
+            inside = np.vstack([np.einsum('ij->i',(Y_k2_temp  + U - Z)[:, neighbors[i]]) \
+                                - np.einsum('ij->i',(Y_k2_temp  + U -Z)[:, neighbors2[i]])
+                               for i in range(n_nodes)]).T
+            
+            grad = K.dot(Y_k2) - K +\
+                   rho * (inside)
+            X_k = (1.0 - 1.0 / n_nodes) * iteration_proj_DS(Y_k - 1.0 / L *grad)
             t_kp1 = 0.5 * (1 + np.sqrt(1 + 4 * t_k**2))
-            Y_k = sc.sparse.csc_matrix(X_k + (t_k-1) / t_kp1 * (X_k - X_km1))
+            Y_k = X_k + (t_k-1) / t_kp1 * (X_k - X_km1)
             it += 1
+            print(np.linalg.norm(X_k - X_km1,'fro'))
             converged = (it > maxiter_ux) \
                          or np.linalg.norm(X_k - X_km1,'fro') < eps
             X_km1 = X_k
-        return iteration_proj_DS(Y_k.todense())
+        return iteration_proj_DS(Y_k + 1.0 / n_nodes * np.diag(np.ones(n_nodes)))
 
-    def update_Z(X, Z, U, K, rho, delta, alpha, lambd):
+
+    
+    def update_Z(X, Z, U, K, rho, indices_x, indices_y, alpha, lambd):
         # Let's assume that we are dealing with sparse matrices
-        norm_Z = sc.sparse.linalg.norm(X.dot(delta) + U)
-        L = 1.0 + (1.0 - alpha) * lambd / (rho)
-        mask = delta.nonzero
-        Z_temp = 1.0 / L * (X.dot(delta) + U)
-        th = np.min([alpha * lambd / ((rho + (1.0 - alpha) * lambd)*norm_Z), 2])
-        thres = np.vectorize(lambda x: x -th * np.sign(x) if np.abs(x) >  th else 0)
-        Z_temp.data = thres(Z_temp.data)
-        return Z_temp
+        #norm_Z = sc.sparse.linalg.norm(X.dot(delta) + U)
+        
+        Z_prev = copy.deepcopy(Z)
+        n_nodes, _ = K.shape
+        it_max = 20
+        it = 0
+        tol = 0.01 * len(indices_x)
+        invert = np.vectorize(lambda x: 1.0/x if x >0.001 else 0)
+        not_converged = True
+        eta = 0.01
+        norm_Z = invert(np.sqrt(np.sum(np.einsum('ij,ij->ij',Z_prev, Z_prev),0)))
+        L = np.ones(len(norm_Z)) + (1.0 - alpha) * lambd / (rho) * norm_Z
+        th  = np.vstack([alpha * lambd  * invert((rho + (1.0 - alpha) * lambd * norm_Z))]*n_nodes)
+        print( th.shape, U.shape)
+        Z_temp = np.einsum("j,ij->ij",invert(L) , X[:,indices_x]- X[:, indices_y]  + U)
+        sign_Z = np.sign(Z_temp)
+        prune = np.vectorize(lambda x: x if x>0 else 0)
+        Z = np.einsum('ij, ij->ij', sign_Z,(prune(np.abs(Z_temp) - th)))
+        return Z
 
-    def update_U(X, Z, U, delta):
-        return U + (X.dot(delta) - Z)
+    def update_U(X, Z, U, K, indices_x, indices_y):
+        return U + (X[:,indices_x]- X[:, indices_y] - Z)
 
 
     tic = time.time()
     n_nodes, _ = K.shape
     converged = False
     primal_res, dual_res = [], []
-    eps1 = tol / np.sqrt(n_nodes)
-    eps2 = tol
+    eps1 = tol * np.sqrt(n_nodes)
+    eps2 = tol * np.sqrt(n_nodes)
     it = 0
-
-    K_tilde = copy.deepcopy(K)
-    X = sc.sparse.csc_matrix(pi_prev)
-    X_prev = copy.deepcopy(X)
-    binarize = np.vectorize(lambda x: 1 if x > 1e-5 else 0)
-    K_tilde.data = binarize(K_tilde.data)
-    K_tilde = K_tilde.tocsr()
-    delta_k=sc.sparse.lil_matrix((n_nodes, n_nodes**2))
+    
+    indices_x, indices_y  = K.nonzero()
+    neighbors = [None] * n_nodes
+    neighbors2 = [None] * n_nodes
     for ii in range(n_nodes):
-        ind = K_tilde[ii, :].nonzero()[1]
-        delta_k[ii, ii * n_nodes + ind] = 1.0
-        delta_k[ii, ii + ind * n_nodes] = -1.0
-        delta_k[ii, ii + ii * n_nodes] = 0.0
-    delta_k = delta_k.tocsc()
-    Z = sc.sparse.csc_matrix((n_nodes, n_nodes**2))
-    U = sc.sparse.csc_matrix((n_nodes, n_nodes**2))
-    while not converged:
-        X = update_X(X, Z, U, K, rho, delta_k, maxiter_ux = maxiter_ux)
-        X = sc.sparse.csc_matrix(X)
-        Z = update_Z(X, Z, U, K, rho, delta_k, alpha, lambd)
-        U = update_U(X, Z, U, delta_k)
+        ind = np.where(indices_x == ii)[0]
+        neighbors[ii] = ind
+        ind2 = np.where(indices_y == ii)[0]
+        neighbors2[ii] = ind2
+        
+    X = pi_prev
+    X_prev = copy.deepcopy(X)
 
-        primal_res.append(sc.sparse.linalg.norm(X -X_prev, 'fro'))
-        dual_res.append(sc.sparse.linalg.norm(X.dot(delta_k) - Z, 'fro'))
+    Z = np.einsum('j,ij->ij', np.array(K[indices_x, indices_y]).flatten(),
+                  X[:,indices_x]- X[:, indices_y])
+    Z_prev = copy.deepcopy(Z)
+    U = np.zeros((n_nodes, len(indices_x)))
+    #print(U.shape, Z.shape, X.shape)
+    plt.figure()
+    sb.heatmap(X)
+    plt.title("X at iteration %i "%0)
+    plt.show()
+    while not converged:
+        tic1 = time.time()
+        X = update_X(X, Z, U, K, rho, indices_x, indices_y, neighbors, neighbors2, maxiter_ux = maxiter_ux)
+        Z = update_Z(X, Z, U, K, rho, indices_x, indices_y, alpha, lambd)
+        U = update_U(X, Z, U, K, indices_x, indices_y)
+
+        primal_res.append(sc.linalg.norm(X - X_prev, 'fro'))
+        dual_res.append(sc.linalg.norm(Z_prev - Z, 'fro'))
         it += 1
         X_prev = X
+        Z_prev = Z
         converged = (it > maxit_ADMM) or\
                     (primal_res[-1] < eps1 and dual_res[-1] < eps2)
+        toc1 = time.time()
         if verbose: 
             if logger is not None:
-                logger.info("Primal res= %f, Dual_res= %f, at iteration %i"%(primal_res[-1],
+                logger.info("Primal res= %f, Dual_res= %f, at iteration %i  %.3f s"%(primal_res[-1],
                                                                    dual_res[-1],
-                                                                   it))
+                                                                   it, toc1 - tic1))
             else:
-                print("Primal res= %f, Dual_res= %f, at iteration %i"%(primal_res[-1],
+                print("Primal res= %f, Dual_res= %f, at iteration %i in %.3f s"%(primal_res[-1],
                                                                    dual_res[-1],
-                                                                   it)
+                                                                   it, toc1 - tic1)
                      )
+                plt.figure()
+                sb.heatmap(X)
+                plt.title("X at iteration %i "%it)
+                plt.show()
 
     toc = time.time()
-    return X.todense(), toc-tic, Z, U, primal_res, dual_res
+    return X, toc-tic, Z, U, primal_res, dual_res
