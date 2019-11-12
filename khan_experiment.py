@@ -26,8 +26,8 @@ random.seed(2018)
 
 if __name__ == '__main__':
     parser = ArgumentParser("Run evaluation on KHAN dataset.")
-    parser.add_argument("-logger","--loggerfile", help="logger file name", default='log_khan.log')
-    parser.add_argument("-savefile","--savefile", help="save file name", default='test_khan.pkl')
+    parser.add_argument("-logger","--loggerfile", help="logger file name", default='log_khan_new.log')
+    parser.add_argument("-savefile","--savefile", help="save file name", default='_khan_new.pkl')
     parser.add_argument("-a","--alpha", help="alpha", default=0.95, type=float)
     parser.add_argument("-s","--sigma", help="bandwith for kernel", default=200.0, type=float)
     parser.add_argument("-l0","--lambd0", help="lambda 0 ", default=1e-3, type=float)
@@ -37,12 +37,6 @@ if __name__ == '__main__':
     parser.add_argument("-max_iter_fista", "--max_iter_fista", help="max_iter_fista", default=150, type=int)
     args = parser.parse_args()
 
-    logger = logging.getLogger('myapp')
-    fh = logging.FileHandler(args.loggerfile)
-    formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-    fh.setFormatter(formatter)
-    logger.addHandler(fh) 
-    logger.setLevel(logging.DEBUG) # or any level you want
 
     ALPHA = args.alpha
     SIGMA = args.sigma
@@ -55,9 +49,22 @@ if __name__ == '__main__':
     
     if USE_TRAINING_SET == 1:
         data = pd.DataFrame.from_csv("data/khan_train.csv")
+        SAVEFILE = 'train_alpha_' + str(ALPHA) +args.savefile
+        LOGGER_FILE = 'train_alpha_' + str(ALPHA) + args.loggerfile
     else:
         data = pd.DataFrame.from_csv("data/khan_test.csv")
+        SAVEFILE = 'test_alpha_' + str(ALPHA) + args.savefile
+        LOGGER_FILE = 'test_alpha_' + str(ALPHA) + args.loggerfile
     MAXITERFISTA2 =50
+    
+    logger = logging.getLogger('myapp')
+    fh = logging.FileHandler(LOGGER_FILE)
+    formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+    fh.setFormatter(formatter)
+    logger.addHandler(fh) 
+    logger.setLevel(logging.DEBUG) # or any level you want
+    
+    
     D = np.exp(-cdist(data, data)**2/(2*SIGMA))
     nn = np.zeros(D.shape)
     for i in range(D.shape[0]):
@@ -89,6 +96,7 @@ if __name__ == '__main__':
     t_k = 1
     conv_p, conv_q, conv_x = {}, {} , {}
 
+    value_taken = {}
     for l in range(20):
         tic = time.time()
 
@@ -106,6 +114,7 @@ if __name__ == '__main__':
         eta_t = 1.0
         inc  = 0
         inc_rank = 0
+        value_taken[lambd0] = [1e10]
         while not converged:
             #STOP
             g_t = 2.0 / (L) * (K.todense().dot(B) - K.todense())
