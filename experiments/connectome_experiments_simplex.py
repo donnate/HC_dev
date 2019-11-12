@@ -21,6 +21,7 @@ from convex_hc_ADMM import *
 from hierarchical_path import *
 from projections import *
 from utils import *
+from utils_graphs import *
 
 sys.stdout = sys.__stdout__ 
 random.seed(2018)
