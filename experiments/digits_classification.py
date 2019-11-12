@@ -59,7 +59,6 @@ if __name__ == '__main__':
     SIGMA = args.sigma
     TOL = args.tol
     TYPE_LAP = args.type_lap
-    USE_TRAINING_SET = args.is_train
 
     from sklearn.datasets import load_digits
     digits = load_digits()
