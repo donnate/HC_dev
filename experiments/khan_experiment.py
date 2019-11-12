@@ -19,6 +19,7 @@ from convex_hc_denoising import *
 from convex_hc_ADMM import *
 from projections import *
 from utils import *
+from utils_graphs import *
 
 sys.stdout = sys.__stdout__ 
 random.seed(2018)
@@ -27,10 +28,12 @@ random.seed(2018)
 if __name__ == '__main__':
     parser = ArgumentParser("Run evaluation on KHAN dataset.")
     parser.add_argument("-path2data","--path2data", help="path2data", default='/scratch/users/cdonnat/HC_data')
-    parser.add_argument("-path2data","--path2logs", help="path2data", default='/scratch/users/cdonnat/convex_clustering/experiments/logs/')
+    parser.add_argument("-path2data","--path2logs", help="path2logs", default='/scratch/users/cdonnat/convex_clustering/experiments/logs/')
     parser.add_argument("-logger","--loggerfile", help="logger file name", default='log_khan_new.log')
     parser.add_argument("-savefile","--savefile", help="save file name", default='_khan_new.pkl')
     parser.add_argument("-a","--alpha", help="alpha", default=0.95, type=float)
+    parser.add_argument("-a_reg","--alpha_reg", help="regularization for the similarity matrix", default=0.1, type=float)
+    parser.add_argument("-type_lap","--type_lap", help="Which laplacian to use?", default="normlaized_laplacian", type=string)
     parser.add_argument("-s","--sigma", help="bandwith for kernel", default=200.0, type=float)
     parser.add_argument("-l0","--lambd0", help="lambda 0 ", default=1e-3, type=float)
     parser.add_argument("-tol","--tol", help="tolerance for stopping criterion", default=5*1e-3, type=float)
@@ -41,24 +44,28 @@ if __name__ == '__main__':
 
 
     ALPHA = args.alpha
-    SIGMA = args.sigma
+    ALPHA_REG = args.alpha_reg
     N_NEIGHBORS = args.n_neighbors
     LAMBDA0 = args.lambd0
-    TOL = args.tol
     MAXITERFISTA = args.max_iter_fista
+    PATH2DATA = args.path2data
+    PATH2LOGS = args.path2logs
     SAVEFILE = args.savefile
-    USE_TRAINING_SET = args.is_train
+    SIGMA = args.sigma
+    TOL = args.tol
+    TYPE_LAP = args.type_lap
+    USE_TRAINING_SET = args.is_train    
     
     if USE_TRAINING_SET == 1:
-        data = pd.DataFrame.from_csv(path2data + "/khan_train.csv")
-        SAVEFILE = path2logs + '/train_alpha_' + str(ALPHA) + args.savefile
-        LOGGER_FILE = path2logs +  '/train_alpha_' + str(ALPHA) + args.loggerfile
+        data = pd.DataFrame.from_csv(PATH2DATA + "/khan_train.csv")
+        SAVEFILE = PATH2LOGS + '/train_alpha_' + str(ALPHA) + args.savefile
+        LOGGER_FILE = PATH2LOGS +  '/train_alpha_' + str(ALPHA) + args.loggerfile
     else:
-        data = pd.DataFrame.from_csv(path2data +  "/khan_test.csv")
-        SAVEFILE = path2logs + '/test_alpha_' + str(ALPHA) + args.savefile
-        LOGGER_FILE = path2logs + '/test_alpha_' + str(ALPHA) + args.loggerfile
+        data = pd.DataFrame.from_csv(PATH2DATA +  "/khan_test.csv")
+        SAVEFILE = PATH2LOGS + '/test_alpha_' + str(ALPHA) + args.savefile
+        LOGGER_FILE = PATH2LOGS + '/test_alpha_' + str(ALPHA) + args.loggerfile
 
-    MAXITERFISTA2 =50
+    MAXITERFISTA2 = 50
     
     logger = logging.getLogger('myapp')
     fh = logging.FileHandler(LOGGER_FILE)
@@ -68,19 +75,16 @@ if __name__ == '__main__':
     logger.setLevel(logging.DEBUG) # or any level you want
     
     
-    D = np.exp(-cdist(data, data)**2/(2*SIGMA))
+    D = np.exp(-cdist(data, data)**2 / (2 * SIGMA))
     nn = np.zeros(D.shape)
     for i in range(D.shape[0]):
-        nn_n = [u for u in np.argsort(D[i,:])[-(N_NEIGHBORS+1):] if u!=1]
+        nn_n = [u for u in np.argsort(D[i, :])[-(N_NEIGHBORS + 1):] if u!= 1]
         nn[i, nn_n] = 1
-    nn = nn +nn.T
-    nn[nn>1.0] = 1.0
+    nn = nn + nn.T
+    nn[nn > 1.0] = 1.0
     K = D * nn
-    K = K.T.dot(K)
-    sqrtv = np.vectorize(lambda x: 1.0/np.sqrt(x) if x > 1e-10 else 0.0)
-    Deg = np.diagflat(sqrtv(K.diagonal()))
-    K = sc.sparse.csc_matrix(Deg.dot(K.dot(Deg)))
-    n_nodes = K.shape[0]
+    K = create_similarity_matrix(K, TYPE_LAP, ALPHA_REG)
+
 
 
     logger.info("*********************************************************************")
@@ -89,12 +93,11 @@ if __name__ == '__main__':
       
 
     n_nodes = K.shape[0]
-    Y, pi, pi_prev = [np.eye(n_nodes)]*3
+    Y, pi, pi_prev = [np.eye(n_nodes)] * 3
     evol_efficient_rank={}
     L = 2*sc.sparse.linalg.norm(K, 'fro')
     lambd0 = LAMBDA0
-    lambd = 2*lambd0/ L
-    #L = 2*np.max(np.square(K.todense()).sum(1))
+    lambd = 2 * lambd0/ L
     res = {}
     t_k = 1
     conv_p, conv_q, conv_x = {}, {} , {}
@@ -122,7 +125,7 @@ if __name__ == '__main__':
         while not converged:
             #STOP
             g_t = 2.0 / (L) * (K.todense().dot(B) - K.todense())
-            B=  project_DS2(B - g_t)#+np.abs(B - g_t)) #x_k, toc0-tic0, delta_x, delta_p, delta_q, dual, val
+            B=  project_DS2(B - g_t)
             Z, time_taken, delta_x, delta_p, delta_q, dual, val = hcc_FISTA_denoise(K, B,
                                                                                pi_prev,
                                                                                lambd,
