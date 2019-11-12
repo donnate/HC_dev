@@ -33,7 +33,7 @@ if __name__ == '__main__':
     parser.add_argument("-savefile","--savefile", help="save file name", default='_khan_new.pkl')
     parser.add_argument("-a","--alpha", help="alpha", default=0.95, type=float)
     parser.add_argument("-a_reg","--alpha_reg", help="regularization for the similarity matrix", default=0.1, type=float)
-    parser.add_argument("-type_lap","--type_lap", help="Which laplacian to use?", default="normlaized_laplacian", type=string)
+    parser.add_argument("-type_lap","--type_lap", help="Which laplacian to use?", default="normlaized_laplacian", type=str)
     parser.add_argument("-s","--sigma", help="bandwith for kernel", default=200.0, type=float)
     parser.add_argument("-l0","--lambd0", help="lambda 0 ", default=1e-3, type=float)
     parser.add_argument("-tol","--tol", help="tolerance for stopping criterion", default=5*1e-3, type=float)
