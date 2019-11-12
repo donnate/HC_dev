@@ -54,8 +54,8 @@ if __name__ == '__main__':
     MAXITERFISTA = args.max_iter_fista
     PATH2DATA = args.path2data
     PATH2LOGS = args.path2logs
-    SAVEFILE = PATH2LOGS + '/alpha_' + str(ALPHA) + args.savefile
-    LOGGER_FILE = PATH2LOGS +  '/alpha_' + str(ALPHA) + args.loggerfile
+    SAVEFILE = PATH2LOGS + '/digits_alpha_' + str(ALPHA) + args.savefile
+    LOGGER_FILE = PATH2LOGS +  '/digits_alpha_' + str(ALPHA) + args.loggerfile
     SIGMA = args.sigma
     TOL = args.tol
     TYPE_LAP = args.type_lap
@@ -92,7 +92,7 @@ if __name__ == '__main__':
     evol_efficient_rank={}
     L = 2*sc.sparse.linalg.norm(K, 'fro')
     lambd0 = LAMBDA0
-    lambd = 2*lambd0/ L
+    lambd = 2 * lambd0/ L
     maxiterFISTA = 120
     #L = 2*np.max(np.square(K.todense()).sum(1))
     res = {}
