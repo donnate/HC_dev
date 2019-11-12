@@ -17,7 +17,8 @@ LAMBDA_MAX = 1e-3
 N_LAMBDA = 20
 LAMBDA0 = 1e-2
 
-def compute_reg_path(kernel, alpha, pi_warm_start, mode="ADMM", direction='up', tol= TOL,
+def compute_reg_path(kernel, alpha, pi_warm_start, mode="ADMM",
+                     direction='up', tol= TOL,
                      lambdas = [0.00001, 0.001, 0.005, 0.01, 0.05, 0.1 ,0.5, 1.0],
                      verbose= False, savefile =None, logger=None, **kwargs):
     ''' Computes the regularization path for K
@@ -25,8 +26,15 @@ def compute_reg_path(kernel, alpha, pi_warm_start, mode="ADMM", direction='up', 
         INPUT:
         -----------------------------------------------------------
         kernel            :      similarity matrix
+        alpha             :      weight l1 norm vs l21
+        pi_warm_start     :      starting point of the algorith,
+        direction         :      increasing r decreasing lambda sequence
+                                 (if lambdas is not provided)
         
         OUTPUT:
+        pi                :      sequence of results (dict)
+        time              :      total time
+        evol_rank         :      efficient rank of the solution (dict)
         -----------------------------------------------------------
         
     '''
@@ -42,7 +50,7 @@ def compute_reg_path(kernel, alpha, pi_warm_start, mode="ADMM", direction='up', 
             print('Starting lambda = %f'%lambd)
         if mode == 'ADMM':
               x_k, _, _, _ = hcc_ADMM(kernel, x_init, lambd,
-                                            alpha=alpha,
+                                            alpha=alpha, rho=rho,
                                             maxit_ADMM=MAXIT_ADMM,
                                             tol=TOL,verbose=verbose,
                                             maxiter_ux=MAXITER_UX,
@@ -79,7 +87,7 @@ def compute_reg_path(kernel, alpha, pi_warm_start, mode="ADMM", direction='up', 
         if savefile is not None:
             pickle.dump(pi,open(savefile,'wb'))
 
-            
+
     return pi, toc - tic, evol_efficient_rank
 
 
