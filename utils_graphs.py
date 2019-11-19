@@ -12,5 +12,5 @@ def create_similarity_matrix(W, type_lap, alpha):
         Deg =  np.diagflat(sqrtv(K.sum(1)))
         K = - W + sc.sparse.csc_matrix(alpha * np.diag(np.ones(n_nodes)) + np.diag(Deg))
     else:
-	K = W + alpha * sc.sparse.csc_matrix(np.diag(np.ones(n_nodes)))
+        K = W + alpha * sc.sparse.csc_matrix(np.diag(np.ones(n_nodes)))
     return K

@@ -14,4 +14,9 @@
 # load modules
 
 ml python/3.6.1
-python connectome_experiments.py 
+ml py-numpy/1.17.2_py36
+ml py-scikit-learn/0.19.1_py36
+ml py-pandas/0.23.0_py36
+ml py-scipy/1.1.0_py36
+
+python3 connectome_experiments.py 

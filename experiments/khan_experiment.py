@@ -14,9 +14,9 @@ import sklearn as sk
 import sys
 import time
 
-
+sys.path.append("/scratch/users/cdonnat/convex_clustering/HC_dev")
 from convex_hc_denoising import *
-from convex_hc_ADMM import *
+from convex_hc_ADMM_nn_sparse import *
 from projections import *
 from utils import *
 from utils_graphs import *
@@ -24,11 +24,10 @@ from utils_graphs import *
 sys.stdout = sys.__stdout__ 
 random.seed(2018)
 
-
 if __name__ == '__main__':
     parser = ArgumentParser("Run evaluation on KHAN dataset.")
     parser.add_argument("-path2data","--path2data", help="path2data", default='/scratch/users/cdonnat/data/HC_data')
-    parser.add_argument("-path2data","--path2logs", help="path2logs", default='/scratch/users/cdonnat/convex_clustering/experiments/logs/')
+    parser.add_argument("-path2logs","--path2logs", help="path2logs", default='/scratch/users/cdonnat/convex_clustering/HC_dev/experiments/logs/')
     parser.add_argument("-logger","--loggerfile", help="logger file name", default='khan.log')
     parser.add_argument("-savefile","--savefile", help="save file name", default='khan.pkl')
     parser.add_argument("-a","--alpha", help="alpha", default=0.95, type=float)
@@ -48,6 +47,7 @@ if __name__ == '__main__':
     N_NEIGHBORS = args.n_neighbors
     LAMBDA0 = args.lambd0
     MAXITERFISTA = args.max_iter_fista
+    MAXIT = 200
     PATH2DATA = args.path2data
     PATH2LOGS = args.path2logs
     SAVEFILE = args.savefile
@@ -104,7 +104,7 @@ if __name__ == '__main__':
                            0.08, 0.09, 0.1, 0.13, 0.15, 0.17, 0.2,0.22, 0.24, 
                            0.26, 0.28, 0.3, 0.32, 0.34, 0.36, 0.38, 0.4, 0.42, 
                            0.44, 0.46, 0.48, 0.5, 0.52, 0.54, 0.56, 0.6, 0.65, 
-                           0.7, 0.8 1.0, 2.0, 3.0, 3.5, 4, 5, 6, 7, 8, 9, 10,
+                           0.7, 0.8, 1.0, 2.0, 3.0, 3.5, 4, 5, 6, 7, 8, 9, 10,
                            15, 20, 30, 40, 60, 100, 200, 500, 1000, 1e4]):
 
         tic = time.time()
@@ -153,7 +153,7 @@ if __name__ == '__main__':
                 inc += 1
             else:
                 inc = 0
-            converged = (inc >= 5) or (it > n2)
+            converged = (inc >= 5) or (it > MAXIT)
             evol_efficient_rank[lambd0] += [efficient_rank(pi_prev)]
             B = pi_prev + (t_k) / t_kp1 * (Z - pi_prev)\
                 + (t_k - 1) / t_kp1 * (pi_prev - pi_prev_old)
