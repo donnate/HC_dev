@@ -22,4 +22,4 @@ ml py-scipy/1.1.0_py36
 # execute script
 cd $SCRATCH/convex_clustering/HC_dev/experiments
 FILENAME=khan_train$1_lap_$2.pkl
-python3 khan_experiment.py -t $1 -type_lap $2 -savefile ${FILENAME} 
+python3 khan_experiment.py -t $1 -type_lap $2 -a $3 -savefile ${FILENAME} 
