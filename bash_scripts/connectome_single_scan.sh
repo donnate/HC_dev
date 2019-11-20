@@ -22,4 +22,5 @@ ml py-scipy/1.1.0_py36
 # execute script
 cd $SCRATCH/convex_clustering/HC_dev/experiments
 FILENAME=connectome_$1_lap_$2_subj$3_scan$4.pkl
-python3 connectome_HNU1.py -type_lap $1 -a $2 -subj $3 -sess $4 -savefile ${FILENAME} 
+OUTDIR=/scratch/users/cdonnat/convex_clustering/HC_dev/experiments/logs  
+python3 connectome_HNU1.py -type_lap $1 -a $2 -subj $3 -sess $4 -savefile ${FILENAME} -path2logs ${OUTDIR}

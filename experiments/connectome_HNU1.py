@@ -46,26 +46,27 @@ if __name__ == '__main__':
     parser.add_argument("-nn","--n_neighbors", help="nb nearest_neighbors", default=10, type=int)
     parser.add_argument("-max_iter_fista","--max_iter_fista",help="max_iter_fista", default=150, type=int)
     parser.add_argument("-algo", "--algorithm", default="FISTA")
-    parser.add_argument("-w", "--which_session", default=1, type=int)
     parser.add_argument("-subj", "--which_subject", default=25427, type=int)
     parser.add_argument("-sess", "--which_session", default=1, type=int)
     args = parser.parse_args()
 
 
-    INPUTFILE = args.inputfile
     ALGO = args.algorithm
+    ALPHA_REG = args.alpha_reg
+    ALPHA = args.alpha
+    INPUTFILE = args.inputfile
+    LAMBDA0 = args.lambd0
+    MAXITERFISTA = args.max_iter_fista
+    N_NEIGHBORS = args.n_neighbors
+    PATH2DATA = '/scratch/users/cdonnat/data/HNU1/'
+    SIGMA = args.sigma
+    TOL = args.tol
+    TYPE_LAP = args.type_lap
     WHICH_SESSION = args.which_session
     WHICH_SUBJECT = args.which_subject
+
     SAVEFILE = 'final_connectomeHNU1_results_' +args.loggerfile+ str(WHICH_SUBJECT) + '_' + str(WHICH_SESSION) + '.pkl'
     LOG_FILE = 'logs_HNU1_' + args.loggerfile + '_' + str(WHICH_SUBJECT) + '_' + str(WHICH_SESSION) + '.log'
-    ALPHA = args.alpha
-    SIGMA = args.sigma
-    N_NEIGHBORS = args.n_neighbors
-    LAMBDA0 = args.lambd0
-    TOL = args.tol
-    MAXITERFISTA = args.max_iter_fista
-    ALPHA_REG = args.alpha_reg
-    TYPE_LAP = args.type_lap
 
     logger = logging.getLogger('myapp')
     fh = logging.FileHandler(LOG_FILE)
@@ -80,11 +81,9 @@ if __name__ == '__main__':
     key = 'sub_' + str(WHICH_SUBJECT)+'_ses-'+str(WHICH_SESSION)
     print(key)
     try:
-        graphs_dwi = pickle.load(open('/scratch/users/cdonnat/data/HNU1/'+name_file_dwi, 'rb'))
+        graphs_dwi = pickle.load(open(PATH2DATA '/' +name_file_dwi, 'rb'))
     except:
         print("graph not found for", key)
-
-
 
 
 
