@@ -14,9 +14,9 @@ import sklearn as sk
 import sys
 import time
 
-
+sys.path.append("/scratch/users/cdonnat/convex_clustering/HC_dev")
 from convex_hc_denoising import *
-from convex_hc_ADMM import *
+from convex_hc_ADMM_nn_sparse import *
 from hierarchical_path import *
 from projections import *
 from utils import *
@@ -29,6 +29,8 @@ RHO = 1.0
 if __name__ == '__main__':
     parser = ArgumentParser("Run evaluation on synthetic dataset.")
     parser.add_argument("-logger","--loggerfile",help="logger file name",default='log_synthetic.log')
+    parser.add_argument("-path2data","--path2data", help="path2data", default='/scratch/users/cdonnat/data/HC_data')
+    parser.add_argument("-path2logs","--path2logs", help="path2logs", default='/scratch/users/cdonnat/convex_clustering/HC_dev/experiments/logs/')
     parser.add_argument("-savefile","--savefile",help="save file name",default='01')
     parser.add_argument("-i","--inputfile",help="input file name in the data folder",default='synthetic.csv')
     parser.add_argument("-a","--alpha", help="alpha", default=0.95, type=float)
@@ -47,7 +49,7 @@ if __name__ == '__main__':
     ALPHA_REG = args.alpha_reg
     N_NEIGHBORS = args.n_neighbors
     LAMBDA0 = args.lambd0
-    LOGGER_FILE = PATH2LOGS +  '/train_alpha_' + str(ALPHA) + args.loggerfile
+    LOGGER_FILE = args.loggerfile
     MAXITERFISTA = args.max_iter_fista
     PATH2DATA = args.path2data
     PATH2LOGS = args.path2logs
@@ -60,8 +62,10 @@ if __name__ == '__main__':
     SAVEFILE = args.savefile
     ALGO = args.algorithm
 
-    data = pd.DataFrame.from_csv(PATH2DATA + INPUTFILE)
-    K = create_similarity_matrix(sc.sparse.csc_matrix(data.values, TYPE_LAP, ALPHA_REG)
+    data = pd.DataFrame.from_csv(INPUTFILE)
+    print(data.values)
+    print([TYPE_LAP, ALPHA_REG])
+    K = create_similarity_matrix(data.values, TYPE_LAP, ALPHA_REG)
     n_nodes = K.shape[0]
                                  
     logger = logging.getLogger('myapp')

@@ -7,10 +7,14 @@ def create_similarity_matrix(W, type_lap, alpha):
     if type_lap == "normalized_2_hops":
         K = W.T.dot(W)
         Deg = np.diagflat(sqrtv(K.diagonal()))
-        K = sc.sparse.csc_matrix(Deg.dot(K.dot(Deg)) + alpha * np.diag(np.ones(n_nodes)))
+        K = Deg.dot(K.dot(Deg)) + alpha * np.diag(np.ones(n_nodes))
     elif type_lap == "normalized_laplacian":
-        Deg =  np.diagflat(sqrtv(K.sum(1)))
-        K = - W + sc.sparse.csc_matrix(alpha * np.diag(np.ones(n_nodes)) + np.diag(Deg))
+        Deg =  np.diagflat(sqrtv(W.sum(1)))
+        K = np.diag((alpha + 1.0) * np.ones(n_nodes)) - np.diag(Deg).dot(W.dot(np.diag(Deg)))
+    elif type_lap == "laplacian":
+        Deg = np.sum(W, 1)
+        K = np.diag(alpha * np.ones(n_nodes) + Deg) - W
     else:
-        K = W + alpha * sc.sparse.csc_matrix(np.diag(np.ones(n_nodes)))
+        K = W + alpha * np.diag(np.ones(n_nodes))
+    K = sc.sparse.csc_matrix(K)
     return K
