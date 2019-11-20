@@ -2,7 +2,7 @@ import numpy as np
 import scipy as sc
 from projections import *
 from utils import *
-from convex_hc_ADMM import *
+from convex_hc_ADMM_nn_sparse import *
 from convex_hc_denoising import *
 from convex_hc_simplex import *
 import time
