@@ -14,7 +14,7 @@ import sklearn as sk
 import sys
 import time
 
-
+sys.path.append('/scratch/users/cdonnat/convex_clustering/HC_dev')
 from convex_hc_denoising import *
 from convex_hc_ADMM import *
 from projections import *
@@ -27,8 +27,8 @@ random.seed(2018)
 
 if __name__ == '__main__':
     parser = ArgumentParser("Run evaluation on MNIST dataset.")
-    parser.add_argument("-path2data","--path2data", help="path2data", default='/scratch/users/cdonnat/HC_data')
-    parser.add_argument("-path2data","--path2logs", help="path2logs", default='/scratch/users/cdonnat/convex_clustering/experiments/logs/')
+    parser.add_argument("-path2data","--path2data", help="path2data", default='/scratch/users/cdonnat/data/HC_data')
+    parser.add_argument("-path2logs","--path2logs", help="path2logs", default='/scratch/users/cdonnat/convex_clustering/HC_dev/experiments/logs/')
     parser.add_argument("-logger","--loggerfile", help="logger file name", default='log_books.log')
     parser.add_argument("-savefile","--savefile", help="save file name", default='books_new.pkl')
     parser.add_argument("-a","--alpha", help="alpha", default=0.95, type=float)
@@ -39,7 +39,7 @@ if __name__ == '__main__':
     parser.add_argument("-tol","--tol",help="tolerance for stopping criterion",default=5*1e-3, type=float)
     parser.add_argument("-nn","--n_neighbors",help="nb nearest_neighbors",default=10, type=int)
     parser.add_argument("-max_iter_fista","--max_iter_fista",help="max_iter_fista",default=150, type=int)
-    parser.add_argument("-input","--input", help="input file (name)", default='"braycurtis_distances.csv", type=str)  
+    parser.add_argument("-input","--input", help="input file (name)", default="braycurtis_distances.csv", type=str)  
     args = parser.parse_args()
 
     logger = logging.getLogger('myapp')
@@ -121,8 +121,7 @@ if __name__ == '__main__':
         while not converged:
             #STOP
             g_t = 2.0 / (L) * (K.todense().dot(B) - K.todense())
-            B=  project_DS2(B - g_t)#+np.abs(B - g_t))
-            Z, time_taken, delta_x, delta_p, delta_q, dual, val = hcc_FISTA_denoise(K, B,
+            Z, time_taken, delta_x, delta_p, delta_q, dual, val = hcc_FISTA_denoise(K, B - g_t,
                                                                                pi_prev,
                                                                                lambd,
                                                                                alpha=ALPHA, 
