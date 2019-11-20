@@ -20,6 +20,16 @@ ml py-pandas/0.23.0_py36
 ml py-scipy/1.1.0_py36
  
 # execute script
+rdm=$RANDOM
 cd $SCRATCH/convex_clustering/HC_dev/experiments
-FILENAME=protein_$2_lap_$1.pkl
-python3 protein_experiment.py -a $2 -type_lap $1 -savefile ${FILENAME} 
+
+ALG=$3
+NAME=food_experiment_run-lap$1_alpha_alg${ALG}-${ALPHA}_${rdm}
+
+INPUTFILE=/scratch/users/cdonnat/data/HC_data/recipes.csv
+LOGGER=${OUTDIR}/${NAME}.log
+OUTDIR=/scratch/users/cdonnat/convex_clustering/HC_dev/experiments/logs
+RESDIR=/scratch/users/cdonnat/convex_clustering/HC_dev/experiments/logs
+SAVEFILE=${RESDIR}/${NAME}.pkl
+
+python3 experiments_with_csv_input.py -i ${INPUTFILE} -a $2 -type_lap $1 -logger ${LOGGER} -savefile ${SAVEFILE}
