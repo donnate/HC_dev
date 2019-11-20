@@ -76,8 +76,6 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=ALPHA, maxiterFISTA=MAXITER_FI
     delta_k = delta_k.todense()
 
     lmax = np.linalg.norm(delta_k,'fro')**2
-    #lmax = np.max(K.T.dot(K).diagonal())
-    #gamma = 4 * max([alpha**2,(1-alpha)**2])*lmax * lambd**2
     gamma = 16 * max([alpha**2,(1-alpha)**2])*lmax * lambd**2
     if verbose: print("lmax",lmax, "gamma", gamma)
     I = sc.sparse.eye(n_nodes)
@@ -153,13 +151,13 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=ALPHA, maxiterFISTA=MAXITER_FI
                      or (it > maxiterFISTA)
         if verbose: 
             if logger is not None:  logger.info("norm dual= %f"%(math.sqrt((alpha**2 * np.linalg.norm(p-p_old,'fro')**2 
-                                + (1 - alpha)**2 * np.linalg.norm(q-q_old,'fro')**2))
-                     / np.max([0, math.sqrt((alpha**2 * np.linalg.norm(p_old,'fro')**2 
-                                 + (1 - alpha)**2 * np.linalg.norm(q_old,'fro')**2))])))
-            else: print("norm", math.sqrt((alpha**2 * np.linalg.norm(p-p_old,'fro')**2 
-                                + (1 - alpha)**2 * np.linalg.norm(q-q_old,'fro')**2))
-                     / np.max([0, math.sqrt((alpha**2 * np.linalg.norm(p_old,'fro')**2 
-                                 + (1 - alpha)**2 * np.linalg.norm(q_old,'fro')**2))]))
+                                + (1 - alpha)**2 * np.linalg.norm(q - q_old, 'fro')**2))
+                     / np.max([0, math.sqrt((alpha**2 * np.linalg.norm(p_old, 'fro')**2 
+                                 + (1 - alpha)**2 * np.linalg.norm(q_old, 'fro')**2))])))
+            else: print("norm", math.sqrt((alpha**2 * np.linalg.norm(p - p_old, 'fro')**2 
+                                + (1 - alpha)**2 * np.linalg.norm(q - q_old, 'fro')**2))
+                     / np.max([0, math.sqrt((alpha**2 * np.linalg.norm(p_old, 'fro')**2 
+                                 + (1 - alpha)**2 * np.linalg.norm(q_old, 'fro')**2))]))
 
         t_kp1 = 0.5 * (1 + np.sqrt(1 + 4 * t_k**2))
 
@@ -182,9 +180,9 @@ def hcc_FISTA_denoise(K, B, pi_prev, lambd, alpha=ALPHA, maxiterFISTA=MAXITER_FI
     toc0 = time.time()
     if verbose: print("time:",time.time() - tic0)
     belly = (alpha * p+ (1.0 - alpha) * q).dot(delta_k.T)
-    x_k = project_DS2(B-lambd * belly,  max_it=max_iter_projection, eps = tol_projection)
+    x_k = project_DS2(B - lambd * belly, max_it=max_iter_projection, eps = tol_projection)
     val = np.trace(x_k.T.dot(K.todense().dot(x_k)) 
-                   - 2*(K.todense() -lambd *(delta_k.dot(alpha* p.T + (1.0 - alpha) * q.T)).dot(x_k)))
+                   - 2*(K.todense() -lambd *(delta_k.dot(alpha * p.T + (1.0 - alpha) * q.T)).dot(x_k)))
     if logger is not None:
         logger.info('--------------------------------------------------------')
     return x_k, toc0-tic0, delta_x, delta_p, delta_q, dual, val

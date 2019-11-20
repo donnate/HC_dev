@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#SBATCH --job-name=khan.job
+#SBATCH --job-name=recipes.job
 #SBATCH --output=/scratch/users/cdonnat/convex_clustering/HC_dev/experiments/logs/recipes_%A.out
 #SBATCH --error=/scratch/users/cdonnat/convex_clustering/HC_dev/experiments/logs/recipes_%A.err
 #SBATCH --time=48:00:00
