@@ -26,10 +26,10 @@ cd $SCRATCH/convex_clustering/HC_dev/experiments
 ALG=$3
 NAME=food_experiment_run-lap$1_alpha_alg${ALG}-${ALPHA}_${rdm}
 
-INPUTFILE=/scratch/users/cdonnat/data/HC_data/recipes.csv
-LOGGER=${OUTDIR}/${NAME}.log
+INPUTFILE=/scratch/users/cdonnat/data/HC_data/food.csv
 OUTDIR=/scratch/users/cdonnat/convex_clustering/HC_dev/experiments/logs
-RESDIR=/scratch/users/cdonnat/convex_clustering/HC_dev/experiments/logs
+LOGGER=${OUTDIR}/${NAME}.log   
+RESDIR=/scratch/users/cdonnat/convex_clustering/HC_dev/experiments/results
 SAVEFILE=${RESDIR}/${NAME}.pkl
 
 python3 experiments_with_csv_input.py -i ${INPUTFILE} -a $2 -type_lap $1 -logger ${LOGGER} -savefile ${SAVEFILE}
