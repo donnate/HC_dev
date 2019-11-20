@@ -15,7 +15,7 @@ import sklearn as sk
 import sys
 import time
 
-
+sys.path.append("/scratch/users/cdonnat/convex_clustering/HC_dev")
 from convex_hc_denoising import *
 from convex_hc_ADMM import *
 from projections import *
@@ -28,8 +28,8 @@ random.seed(2018)
 
 if __name__ == '__main__':
     parser = ArgumentParser("Run evaluation on protein dataset.")
-    parser.add_argument("-path2data","--path2data", help="path2data", default='/scratch/users/cdonnat/HC_data')
-    parser.add_argument("-path2data","--path2logs", help="path2logs", default='/scratch/users/cdonnat/convex_clustering/experiments/logs/')
+    parser.add_argument("-path2data","--path2data", help="path2data", default='/scratch/users/cdonnat/data/HC_data')
+    parser.add_argument("-path2logs","--path2logs", help="path2logs", default='/scratch/users/cdonnat/convex_clustering/HC_dev/experiments/logs/')
     parser.add_argument("-logger","--loggerfile", help="logger file name", default='log_proteins.log')
     parser.add_argument("-savefile","--savefile", help="save file name", default='proteins.pkl')
     parser.add_argument("-a","--alpha", help="alpha", default=0.95, type=float)
@@ -38,7 +38,7 @@ if __name__ == '__main__':
     parser.add_argument("-l0","--lambd0",help="lambda 0 ",default=1e-3, type=float)
     parser.add_argument("-tol","--tol",help="tolerance for stopping criterion",default=5*1e-3, type=float)
     parser.add_argument("-nn","--n_neighbors",help="nb nearest_neighbors",default=10, type=int)
-    parser.add_argument("-max_iter_fista","--max_iter_fista",help="max_iter_fista",default=150, type=int)
+    parser.add_argument("-max_iter_fista","--max_iter_fista",help="max_iter_fista",default=300, type=int)
     args = parser.parse_args()
 
     ALPHA = args.alpha
@@ -136,12 +136,7 @@ if __name__ == '__main__':
                 inc += 1
             else:
                 inc = 0
-            if it > 0:
-                if np.abs(efficient_rank(Z)-evol_efficient_rank[lambd0][-1])<2:
-                    inc_rank += 1
-                else:
-                    inc_rank = 0
-            converged = (inc >= 5) or (inc_rank > 10 and it > 14) or (it > MAXITERFISTA2)
+            converged = (inc >= 2) or (it > MAXITERFISTA2)
             evol_efficient_rank[lambd0] += [efficient_rank(pi_prev)]
             B = pi_prev + (t_k) / t_kp1 * (Z - pi_prev)\
                 + (t_k - 1) / t_kp1 * (pi_prev - pi_prev_old)

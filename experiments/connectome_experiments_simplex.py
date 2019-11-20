@@ -47,8 +47,8 @@ def mtx_from_utr(utr,complete=True):
 
 if __name__ == '__main__':
     parser = ArgumentParser("Run evaluation on connectome dataset.")
-    parser.add_argument("-path2data","--path2data", help="path2data", default='/scratch/users/cdonnat/HC_data')
-    parser.add_argument("-path2data","--path2logs", help="path2logs", default='/scratch/users/cdonnat/convex_clustering/experiments/logs/')
+    parser.add_argument("-path2data","--path2data", help="path2data", default='/scratch/users/cdonnat/data/HC_data')
+    parser.add_argument("-path2logs","--path2logs", help="path2logs", default='/scratch/users/cdonnat/convex_clustering/experiments/logs/')
     parser.add_argument("-logger","--loggerfile", help="logger file name", default='log_digits.log')
     parser.add_argument("-savefile","--savefile", help="save file name", default='digits_new.pkl')
     parser.add_argument("-a","--alpha", help="alpha", default=0.95, type=float)

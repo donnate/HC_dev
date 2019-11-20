@@ -22,4 +22,4 @@ ml py-scipy/1.1.0_py36
 # execute script
 cd $SCRATCH/convex_clustering/HC_dev/experiments
 FILENAME=digits_$2_lap_$1.pkl
-python3 digits_experiment.py -a $2 -type_lap $1 -savefile ${FILENAME} 
+python3 digits_classification.py -a $2 -type_lap $1 -savefile ${FILENAME} 
