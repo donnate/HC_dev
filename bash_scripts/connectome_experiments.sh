@@ -23,7 +23,7 @@ HOMEDIR=/scratch/users/cdonnat/convex_clustering/HC_dev
 
 cd ${HOMEDIR}
 TYPE_LAP=$1
-ALGO=$2
+ALPHA=$2
 
 for subj in {25427..25456}
 do

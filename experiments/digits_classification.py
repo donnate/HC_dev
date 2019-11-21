@@ -16,7 +16,7 @@ import time
 
 sys.path.append('/scratch/users/cdonnat/convex_clustering/HC_dev')
 from convex_hc_denoising import *
-from convex_hc_ADMM import *
+from convex_hc_ADMM_nn_sparse import *
 from projections import *
 from utils import *
 from utils_graphs import *
