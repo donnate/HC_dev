@@ -33,6 +33,7 @@ RHO = 1.0
 
 if __name__ == '__main__':
     parser = ArgumentParser("Run evaluation on connectome dataset.")
+    parser.add_argument("-path2logs","--path2logs", help="path2logs", default='/scratch/users/cdonnat/convex_clustering/HC_dev/experiments/logs/')
     parser.add_argument("-logger","--loggerfile", help="logger file name", default='final_log_connectome_DS_')
     parser.add_argument("-savefile","--savefile", help="save file name", default='01')
     parser.add_argument("-i","--inputfile", help="input file name in the data folder",
@@ -59,6 +60,7 @@ if __name__ == '__main__':
     MAXITERFISTA = args.max_iter_fista
     N_NEIGHBORS = args.n_neighbors
     PATH2DATA = '/scratch/users/cdonnat/data/HNU1/'
+    PATH2LOGS = args.path2logs
     SIGMA = args.sigma
     TOL = args.tol
     TYPE_LAP = args.type_lap
