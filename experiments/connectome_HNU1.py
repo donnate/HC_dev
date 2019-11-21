@@ -83,7 +83,7 @@ if __name__ == '__main__':
     key = 'sub_' + str(WHICH_SUBJECT)+'_ses-'+str(WHICH_SESSION)
     print(key)
     try:
-        graphs_dwi = pickle.load(open(PATH2DATA '/' +name_file_dwi, 'rb'))
+        graphs_dwi = pickle.load(open(PATH2DATA + '/' +name_file_dwi, 'rb'))
     except:
         print("graph not found for", key)
 
