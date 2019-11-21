@@ -19,7 +19,7 @@ import time
 
 sys.path.append('../')
 from convex_hc_denoising import *
-from convex_hc_ADMM import *
+from convex_hc_ADMM_nn_sparse import *
 from hierarchical_path import *
 from projections import *
 from utils import *
@@ -77,36 +77,25 @@ if __name__ == '__main__':
     logger.addHandler(fh) 
     logger.setLevel(logging.DEBUG) # or any level you want
 
-    name_file = 'sub-00' + str(s) + '_ses-' + str(session)\
-                                                    + '_bold_CPAC200_res-2x2x2_variant-mean_timeseries.npz'
     name_file_dwi = 'sub-00'+str(WHICH_SUBJECT)+'_ses-'+str(WHICH_SESSION)+'_dwi_CPAC200.gpickle'
     key = 'sub_' + str(WHICH_SUBJECT)+'_ses-'+str(WHICH_SESSION)
     print(key)
     try:
         graphs_dwi = pickle.load(open(PATH2DATA + '/' +name_file_dwi, 'rb'))
+        K = create_similarity_matrix(adjmtx, TYPE_LAP, ALPHA_REG)
+	n_nodes = K.shape[0]
+
+	logger.info("*********************************************************************")
+	logger.info("*********************************************************************")
+	logger.info("*********************************************************************")
+
+	pi_prev = np.eye(n_nodes)
+	pi, time, evol_rank = compute_reg_path(K, ALPHA, pi_warm_start=pi_prev, mode=ALGO,
+					   verbose=True,
+					   logger = logger, savefile=SAVEFILE, rho=RHO)
+	logger.info("*********************************************************************")
+	logger.info("*********************************************************************")
+	logger.info("*********************************************************************")
+	logger.info("DONE")
     except:
-        print("graph not found for", key)
-
-
-
-    adjmtx = nx.adjacency_matrix(graphs_dwi).todense()
-
-    #adjmtx[adjmtx>0]=1
-    #np.fill_diagonal(adjmtx, 1)  ### this has to yield a similarity matrix
-    K = create_similarity_matrix(adjmtx, TYPE_LAP, ALPHA_REG)
-    n_nodes = K.shape[0]
-
-
-
-    logger.info("*********************************************************************")
-    logger.info("*********************************************************************")
-    logger.info("*********************************************************************")
-
-    pi_prev = np.eye(n_nodes)
-    pi, time, evol_rank = compute_reg_path(K, ALPHA, pi_warm_start=pi_prev, mode=ALGO,
-                                           verbose=True,
-                                           logger = logger, savefile=SAVEFILE, rho=RHO)
-    logger.info("*********************************************************************")
-    logger.info("*********************************************************************")
-    logger.info("*********************************************************************")
-    logger.info("DONE")
+        print("graph %i,%i not found"%(WHICH_SUBJECT, WHICH_SESSION))
