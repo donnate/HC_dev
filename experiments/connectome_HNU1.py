@@ -23,6 +23,7 @@ from convex_hc_ADMM_nn_sparse import *
 from hierarchical_path import *
 from projections import *
 from utils import *
+from utils_graphs import *  
 
 sys.stdout = sys.__stdout__ 
 random.seed(2018)
@@ -59,7 +60,7 @@ if __name__ == '__main__':
     LAMBDA0 = args.lambd0
     MAXITERFISTA = args.max_iter_fista
     N_NEIGHBORS = args.n_neighbors
-    PATH2DATA = '/scratch/users/cdonnat/data/HNU1/'
+    PATH2DATA = '/scratch/users/cdonnat/data/HNU1'
     PATH2LOGS = args.path2logs
     SIGMA = args.sigma
     TOL = args.tol
@@ -77,13 +78,16 @@ if __name__ == '__main__':
     logger.addHandler(fh) 
     logger.setLevel(logging.DEBUG) # or any level you want
 
-    name_file_dwi = 'sub-00'+str(WHICH_SUBJECT)+'_ses-'+str(WHICH_SESSION)+'_dwi_CPAC200.gpickle'
+    name_file_dwi = 'dwi_graph_sub_'+str(WHICH_SUBJECT)+'_ses_'+str(WHICH_SESSION)+'.csv'
     key = 'sub_' + str(WHICH_SUBJECT)+'_ses-'+str(WHICH_SESSION)
-    print(key)
+    print(key, TYPE_LAP, ALPHA_REG,PATH2DATA + '/' +name_file_dwi,)
     try:
-        graphs_dwi = pickle.load(open(PATH2DATA + '/' +name_file_dwi, 'rb'))
-        K = create_similarity_matrix(adjmtx, TYPE_LAP, ALPHA_REG)
+        adjmtx = pd.DataFrame.from_csv(PATH2DATA + '/' +name_file_dwi)
+        print(adjmtx.values)
+        K = create_similarity_matrix(adjmtx.values, TYPE_LAP, ALPHA_REG)
+        
         n_nodes = K.shape[0]
+        print(n_nodes)
 
         logger.info("*********************************************************************")
         logger.info("*********************************************************************")
@@ -99,3 +103,4 @@ if __name__ == '__main__':
         logger.info("DONE")
     except:
         print("graph %i,%i not found"%(WHICH_SUBJECT, WHICH_SESSION))
+
