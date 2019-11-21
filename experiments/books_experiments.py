@@ -16,7 +16,7 @@ import time
 
 sys.path.append('/scratch/users/cdonnat/convex_clustering/HC_dev')
 from convex_hc_denoising import *
-from convex_hc_ADMM import *
+from convex_hc_ADMM_nn_sparse import *
 from projections import *
 from utils import *
 from utils_graphs import *
@@ -39,7 +39,7 @@ if __name__ == '__main__':
     parser.add_argument("-tol","--tol",help="tolerance for stopping criterion",default=5*1e-3, type=float)
     parser.add_argument("-nn","--n_neighbors",help="nb nearest_neighbors",default=10, type=int)
     parser.add_argument("-max_iter_fista","--max_iter_fista",help="max_iter_fista",default=150, type=int)
-    parser.add_argument("-input","--input", help="input file (name)", default="braycurtis_distances.csv", type=str)  
+    parser.add_argument("-input","--input", help="input file (name)", default="freq_dictionary_books.csv", type=str)  
     args = parser.parse_args()
 
     logger = logging.getLogger('myapp')
@@ -63,10 +63,13 @@ if __name__ == '__main__':
     TOL = args.tol
     TYPE_LAP = args.type_lap
 
+    import scipy as sc
+    from scipy.spatial.distance import cdist
+    import numpy as np
 
-    data = pd.DataFrame.from_csv(PATH2DATA + '/' + INPUTFILE)
-    data = 1 - data
-    D = data.values
+    freq = pd.DataFrame.from_csv(PATH2DATA + '/' + INPUTFILE)
+    pairwise=cdist(freq.T.values, freq.T.values, 'braycurtis')
+    D = 1 - pairwise
     nn = np.zeros(D.shape)
     for i in range(D.shape[0]):
         nn_n = [u for u in np.argsort(D[i,:])[-(N_NEIGHBORS+1):] if u!=i]
