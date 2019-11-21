@@ -83,19 +83,19 @@ if __name__ == '__main__':
     try:
         graphs_dwi = pickle.load(open(PATH2DATA + '/' +name_file_dwi, 'rb'))
         K = create_similarity_matrix(adjmtx, TYPE_LAP, ALPHA_REG)
-	n_nodes = K.shape[0]
+        n_nodes = K.shape[0]
 
-	logger.info("*********************************************************************")
-	logger.info("*********************************************************************")
-	logger.info("*********************************************************************")
+        logger.info("*********************************************************************")
+        logger.info("*********************************************************************")
+        logger.info("*********************************************************************")
 
-	pi_prev = np.eye(n_nodes)
-	pi, time, evol_rank = compute_reg_path(K, ALPHA, pi_warm_start=pi_prev, mode=ALGO,
-					   verbose=True,
-					   logger = logger, savefile=SAVEFILE, rho=RHO)
-	logger.info("*********************************************************************")
-	logger.info("*********************************************************************")
-	logger.info("*********************************************************************")
-	logger.info("DONE")
+        pi_prev = np.eye(n_nodes)
+        pi, time, evol_rank = compute_reg_path(K, ALPHA, pi_warm_start=pi_prev, mode=ALGO,
+                       verbose=True,
+                       logger = logger, savefile=SAVEFILE, rho=RHO)
+        logger.info("*********************************************************************")
+        logger.info("*********************************************************************")
+        logger.info("*********************************************************************")
+        logger.info("DONE")
     except:
         print("graph %i,%i not found"%(WHICH_SUBJECT, WHICH_SESSION))
